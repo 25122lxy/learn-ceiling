@@ -1,4 +1,4 @@
 npx hexo init
 至于npm与npx有什么区别，简单说就是npx可以调用仓库去帮你寻找本地没有的文件
 
-修改文件_config.yml
+修改文件_config.yml 
