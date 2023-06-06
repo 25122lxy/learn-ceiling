@@ -15,5 +15,8 @@ git commit -m 'deploy'
  
 # 如果发布到 https://<USERNAME>.github.io/<REPO>
 git push -f git@github.com:25122lxy/learn-ceiling.git master:gh-pages
+#git push -u origin main
  
 cd -
+#cd ..
+# rmdir /Q /S dist

@@ -1,8 +1,11 @@
 module.exports = {
-	base: '/learn-ceiling/',
+	//publicPath: './', 
+	//base: 'E:/Work/YiTongBao/Code/learn-ceiling/docs/.vuepress/dist/',
 	title: 'TypeScript4 文档',
 	description: 'TypeScript4 最新官方文档翻译',
 	theme: 'reco',//切换主题
+	base: '/learn-ceiling/',
+	//base: '/',
 	locales: {
 		'/': {
 			lang: 'zh-CN'//时间中文格式
@@ -42,6 +45,6 @@ module.exports = {
             }
           ]
 		  
-    }
+    },
 	
 }
