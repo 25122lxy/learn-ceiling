@@ -20,7 +20,7 @@ module.exports = {
                 text: 'lxy25122-blog', 
                 items: [
                     { text: 'Github', link: 'https://github.com/lxy25122' },
-                    { text: 'Gitee', link: 'https://gitee.com/tjlxy' }
+                    { text: '掘金', link: 'https://juejin.cn/user/712139234359182/posts' }
 						]
 				}
 			],
