@@ -12,6 +12,7 @@ module.exports = {
 			}
 	},
     themeConfig: {
+		 sidebarDepth: 3,
 		// 子侧边栏
 		subSidebar: true,
         nav: [
@@ -95,6 +96,7 @@ module.exports = {
           }
         }
       }
-	 ]
+	 ],
+	['cursor-effects']
 	]
 }
