@@ -18,14 +18,7 @@ module.exports = {
         nav: [
 				{ text: 'Index', link: '/' },
 				{ text: 'Learn', link: '/handbook/01-Java基础' },
-				{
-					text: 'Interview',
-					items: [
-						{text: 'Java', link: '/handbook/Interview/01-Java基础'},
-						{text: 'Redis', link: '/handbook/Interview/02-Redis'},
-						{text: 'MySQL', link: '/handbook/Interview/03-MySQL'}
-					]
-				},
+				{ text: 'Interview', link: '/Interview' },
 				{ text: 'Project', link: '/Project' },
 				{ 
 				text: 'lxy25122-blog', 
@@ -45,17 +38,16 @@ module.exports = {
                     { title: "学前必读", path: "/" }
                 ]
             },
-			{
-                title: "Interview",
-                path: '/handbook/01-Java基础',
-                collapsable: false, // 不折叠
-                children: [
-                    {title: "Java基础", path: "/handbook/Interview/01-Java基础"},
-                    {title: "Redis", path: "/handbook/Interview/02-Redis"},
-                    {title: "MySQL", path: "/handbook/Interview/03-MySQL"}
-                ],
+            {
+              title: "查漏补缺",
+              path: '/handbook/01-Java基础',
+              collapsable: false, // 不折叠
+              children: [
+                { title: "Java基础", path: "/handbook/01-Java基础" },
+                { title: "Redis", path: "/handbook/02-Redis" },
+				{ title: "MySQL", path: "/handbook/03-MySQL" }
+              ],
             }
-            
           ],
 		  
 	/* vuepress-theme-yilia-plus 配置 */
