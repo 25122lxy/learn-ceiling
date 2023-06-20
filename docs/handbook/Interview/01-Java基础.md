@@ -624,7 +624,7 @@ int b = i;     //自动拆箱
 - Throw （抛出异常）只能抛出一个具体的异常，将异常显示在当段代码
 - Throws（声明异常） 可以抛出多个异常，抛给调用者，用来声明一个方法可能抛出的所有异常信息
 
-### 75. NoClassDefFoundError 和 ClassNotFoundException 区别？  
+### 75. NoClassDefFoundError 和 ClassNotFoundException 区别？  ✔
 
 - `NoClassDefFoundError`error类型异常
 - `ClassNotFoundException`exception类异常中的受检查异常（非运行时异常）
