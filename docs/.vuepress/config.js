@@ -50,7 +50,8 @@ module.exports = {
                     {text: 'Java基础', link: '/handbook/Interview/01-Java基础'},
                     {text: 'Redis', link: '/handbook/Interview/02-Redis'},
                     {text: 'MySQL', link: '/handbook/Interview/03-MySQL'},
-					{text: 'Java框架', link: '/handbook/Interview/04-Java框架'}
+					{text: 'Java框架', link: '/handbook/Interview/04-Java框架'},
+					{text: '微服务', link: '/handbook/Interview/05-微服务'}
                 ]
             },
             {text: 'Project', link: '/Project'},
@@ -80,7 +81,8 @@ module.exports = {
                     {title: "Java基础", collapsable: true,path: "/handbook/Interview/01-Java基础"},
                     {title: 'Redis', path: "/handbook/Interview/02-Redis"},
                     {title: "MySQL", path: "/handbook/Interview/03-MySQL"},
-					{title: "Java框架", path: "/handbook/Interview/04-Java框架"}
+					{title: "Java框架", path: "/handbook/Interview/04-Java框架"},
+					{title: "微服务", path: "/handbook/Interview/05-微服务"}
                 ],
             },
             {
