@@ -32,7 +32,7 @@ module.exports = {
                 items: [
                     {
                         text: '社区精品汇',
-                        link: '/handbook/Project/社区精品汇/01-项目概述'
+                        link: '/handbook/Learn/RabbitMQ/1.RabbitMQ-简介及安装'
                     }
                 ]
             },
@@ -101,7 +101,7 @@ module.exports = {
                         title: '社区精品汇',//添加一层子标题
                         collapsable: true, // 折叠
                         children: [
-                            {title: '项目概述', path: '/handbook/Project/社区精品汇/01-项目概述'},
+                            {title: '项目概述', path: '/handbook/Learn/RabbitMQ/1.RabbitMQ-简介及安装'},
                             // {title: '生产者和消费者', path: '/handbook/Learn/RabbitMQ/2.RabbitMQ-生产者和消费者'},
                             // {title: '抽取工具类', path: '/handbook/Learn/RabbitMQ/3.RabbitMQ-抽取工具类'},
                             // {title: '轮询分发消息', path: '/handbook/Learn/RabbitMQ/4.RabbitMQ-轮询分发消息'},
