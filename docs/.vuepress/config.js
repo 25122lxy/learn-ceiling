@@ -24,37 +24,30 @@ module.exports = {
                     {
                         text: 'RabbitMQ',
                         link: '/handbook/Learn/RabbitMQ/1.RabbitMQ-简介及安装'
-                        // collapsible: true, // 添加可折叠属性
-                        // items: [
-                        //     {text: '简介及安装', link: '/handbook/Learn/RabbitMQ/1.RabbitMQ-简介及安装'},
-                        //     {text: '生产者和消费者', link: '/handbook/Learn/RabbitMQ/2.RabbitMQ-生产者和消费者'},
-                        //     {text: '抽取工具类', link: '/handbook/Learn/RabbitMQ/3.RabbitMQ-抽取工具类'},
-                        //     {text: '轮询分发消息', link: '/handbook/Learn/RabbitMQ/4.RabbitMQ-轮询分发消息'},
-                        //     {text: '消息应答', link: '/handbook/Learn/RabbitMQ/5.RabbitMQ-消息应答'},
-                        //     {text: '持久化', link: '/handbook/Learn/RabbitMQ/6.RabbitMQ-持久化'},
-                        //     {text: '不公平分发&预取值', link: '/handbook/Learn/RabbitMQ/7.RabbitMQ-不公平分发&预取值'},
-                        //     {text: '发布确认', link: '/handbook/Learn/RabbitMQ/8.RabbitMQ-发布确认'},
-                        //     {text: '交换机', link: '/handbook/Learn/RabbitMQ/9.RabbitMQ-交换机'},
-                        //     {text: '死信队列', link: '/handbook/Learn/RabbitMQ/10.RabbitMQ-死信队列'},
-                        //     {text: '延迟队列', link: '/handbook/Learn/RabbitMQ/11.RabbitMQ-延迟队列'}
-                        //
-                        // ],
-
                     },
                 ]
             },
-
+            {
+                text: 'Project',
+                items: [
+                    {
+                        text: '社区精品汇',
+                        link: '/handbook/Project/社区精品汇/01-项目概述'
+                    }
+                ]
+            },
             {
                 text: 'Interview',
                 items: [
                     {text: 'Java基础', link: '/handbook/Interview/01-Java基础'},
                     {text: 'Redis', link: '/handbook/Interview/02-Redis'},
                     {text: 'MySQL', link: '/handbook/Interview/03-MySQL'},
-					{text: 'Java框架', link: '/handbook/Interview/04-Java框架'},
-					{text: '微服务', link: '/handbook/Interview/05-微服务'}
+                    {text: 'Java框架', link: '/handbook/Interview/04-Java框架'},
+                    {text: '微服务', link: '/handbook/Interview/05-微服务'},
+                    {text: '消息中间件', link: '/handbook/Interview/06-消息中间件'},
+					{text: 'Java集合', link: '/handbook/Interview/07-Java集合'}
                 ]
             },
-            {text: 'Project', link: '/Project'},
             {
                 text: 'lxy25122-blog',
                 items: [
@@ -74,21 +67,10 @@ module.exports = {
                 // ]
             },
             {
-                title: "Interview",
-                // path: '/handbook/Interview/01-Java基础',
-                // collapsable: false, // 不折叠
-                children: [
-                    {title: "Java基础", collapsable: true,path: "/handbook/Interview/01-Java基础"},
-                    {title: 'Redis', path: "/handbook/Interview/02-Redis"},
-                    {title: "MySQL", path: "/handbook/Interview/03-MySQL"},
-					{title: "Java框架", path: "/handbook/Interview/04-Java框架"},
-					{title: "微服务", path: "/handbook/Interview/05-微服务"}
-                ],
-            },
-            {
                 title: "Learn",
                 // path: '/handbook/Learn/RabbitMQ/1.RabbitMQ-简介及安装',
                 // collapsable: false, // 不折叠
+                collapsable: true, // 折叠
                 children: [
                     {
                         title: 'RabbitMQ',//添加一层子标题
@@ -109,7 +91,48 @@ module.exports = {
                         ]
                     },
                 ],
-            }
+            },
+            {
+                title: "Project",
+                // path: '/handbook/Learn/RabbitMQ/1.RabbitMQ-简介及安装',
+                // collapsable: false, // 不折叠
+                children: [
+                    {
+                        title: '社区精品汇',//添加一层子标题
+                        collapsable: true, // 折叠
+                        children: [
+                            {title: '项目概述', path: '/handbook/Project/社区精品汇/01-项目概述'},
+                            // {title: '生产者和消费者', path: '/handbook/Learn/RabbitMQ/2.RabbitMQ-生产者和消费者'},
+                            // {title: '抽取工具类', path: '/handbook/Learn/RabbitMQ/3.RabbitMQ-抽取工具类'},
+                            // {title: '轮询分发消息', path: '/handbook/Learn/RabbitMQ/4.RabbitMQ-轮询分发消息'},
+                            // {title: '消息应答', path: '/handbook/Learn/RabbitMQ/5.RabbitMQ-消息应答'},
+                            // {title: '持久化', path: '/handbook/Learn/RabbitMQ/6.RabbitMQ-持久化'},
+                            // {title: '不公平分发&预取值', path: '/handbook/Learn/RabbitMQ/7.RabbitMQ-不公平分发&预取值'},
+                            // {title: '发布确认', path: '/handbook/Learn/RabbitMQ/8.RabbitMQ-发布确认'},
+                            // {title: '交换机', path: '/handbook/Learn/RabbitMQ/9.RabbitMQ-交换机'},
+                            // {title: '死信队列', path: '/handbook/Learn/RabbitMQ/10.RabbitMQ-死信队列'},
+                            // {title: '延迟队列', path: '/handbook/Learn/RabbitMQ/11.RabbitMQ-延迟队列'}
+
+                        ]
+                    },
+                ],
+            },
+
+            {
+                title: "Interview",
+                // path: '/handbook/Interview/01-Java基础',
+                // collapsable: false, // 不折叠
+                children: [
+                    {title: "Java基础", collapsable: true,path: "/handbook/Interview/01-Java基础"},
+                    {title: 'Redis', path: "/handbook/Interview/02-Redis"},
+                    {title: "MySQL", path: "/handbook/Interview/03-MySQL"},
+					{title: "Java框架", path: "/handbook/Interview/04-Java框架"},
+					{title: "微服务", path: "/handbook/Interview/05-微服务"},
+					{title: "消息中间件", path: "/handbook/Interview/06-消息中间件"},
+					{title: "Java集合", path: "/handbook/Interview/07-Java集合"}
+                ],
+            },
+
 
         ],
 
