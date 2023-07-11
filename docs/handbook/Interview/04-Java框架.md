@@ -13,9 +13,9 @@
 
 Spring容器使用依赖注入来管理组成应用程序的组件。
 
-- 控制对象的创建，控制对象内属性的赋值
+- 控制对象的创建，控制对象内属性的赋值（控制）
 - 我们不需要手动创建对象，仅仅需要定义类和相关属性即可，加上注解，交给Spring帮我们创建对象及赋值（反转）
-- 总结：IOC表示控制反转，表示如果用Spring，那么Spring会负责来创建对象，以及给对象内的属性赋值，也就是如果用Spring，那么对象的控制权会交给Spring
+- 总结：IOC表示**控制反转**，表示如果用Spring，那么Spring会负责来创建对象，以及给对象内的属性赋值，也就是如果用Spring，那么对象的控制权会交给Spring
 
 ### 3.什么是依赖注入？可以通过多少种方式完成注入？
 
@@ -27,16 +27,15 @@ Spring容器使用依赖注入来管理组成应用程序的组件。
 ApplicationContext是BeanFactory的子接口  
 
 - `BeanFactory`
-
-- - 使用懒加载、不支持国际化、不支持依赖注解、（使用语法显式提供资源对象）
+  - 使用懒加载、不支持国际化、不支持依赖注解、（使用语法显式提供资源对象）
   - 优点：启动时资源占用少
   - 缺点：运行速度相对较慢，可能存在空指针异常
 
 - `ApplicationContext`
-
-- - 即使加载、( 继承MessageSource)支持国际化、支持依赖注解、（自己创建和管理资源对象）
+  - 即使加载、( 继承MessageSource)支持国际化、支持依赖注解、（自己创建和管理资源对象）
   - 优点：所有bean在启动时就进行了加载，系统运行的速度快；在启动时，可以发现系统中的配置问题
   - 缺点：所有对象进行了预加载，内存占用较大
+
 
 ### 5.区分构造函数注入和setter注入
 
@@ -92,29 +91,37 @@ ApplicationContext是BeanFactory的子接口
 
 ### 11.Spring中的bean生命周期？✔
 
-- 创建
-- - 选择构造方法
-  - 实例化bean，得到对象
-  - 设置bean属性（依赖注入）
-  - 实现Aware接口，设置依赖信息
-  - 初始化前，处理`@PostConstructor`注解
-  - 初始化，处理InitializingBean接口
-- 销毁
-- - 可以调用destroy方法进行销毁，或自定义销毁方法
+- 创建前准备
 
-> 首先会通过一个非常重要的类，叫做BeanDefinition获取bean的定义信息， 这里面就封装了bean的所有信息，比如，类的全路径，是否是延迟加载，是 否是单例等等这些信息 
->
-> 在创建bean的时候，第一步是调用构造函数实例化bean 
->
-> 第二步是bean的依赖注入，比如一些set方法注入，像平时开发用的 @Autowire都是这一步完成 
->
-> 第三步是处理Aware接口(BeanNameAware、BeanFactoryAware、ApplicationContextAware)，如果某一个bean实现了Aware接口就会重写方法 执行 
->
-> 第四步是bean的后置处理器BeanPostProcessor，这个是前置处理器 
->
-> 第五步是初始化方法，比如实现了接口InitializingBean或者自定义了方法 init-method标签或@PostContruct 
->
-> 第六步是执行了bean的后置处理器BeanPostProcessor，主要是对bean进行 增强，有可能在这里产生代理对象 最后一步是销毁bean
+  在加载之前要从上下文和一些配置中解析并通过`BeanDefinition`类**查找Bean的定义信息**，比如，类的全路径，是否是延迟加载，是 否是单例等等这些信息 
+
+- <font color=blue>创建实例化</font>
+
+  调用**构造函数实例化bean**，得到对象
+
+- <font color=blue>依赖注入（设置bean属性）</font>
+
+  如果实例化的Bean存在依赖其他Bean对象的一些情况，则需要对这些依赖的Bean进行对象注入，比如一些set方法注入，像平时开发用的 @Autowire都是这一步完成 
+
+- 实现Aware接口，设置依赖信息
+
+  (BeanNameAware、BeanFactoryAware、ApplicationContextAware)，如果某一个bean实现了Aware接口就会重写方法执行 
+
+- 初始化前，处理`@PostConstructor`注解，回调
+
+  bean的后置处理器BeanPostProcessor，这个是前置处理器 
+
+- <font color=blue>初始化，处理InitializingBean接口</font>
+
+  初始化方法，比如实现了接口InitializingBean或者自定义了方法 init-method标签或@PostContruct 
+
+- 容器缓存
+
+  执行了bean的后置处理器BeanPostProcessor，主要是对bean进行增强，有可能在这里产生代理对象
+
+- <font color=blue>销毁实例</font>
+
+  可以调用destroy方法进行销毁，或自定义销毁方法
 
 ### 12.什么是Spring的内部bean？
 
@@ -250,29 +257,37 @@ ApplicationContext是BeanFactory的子接口
 
 
 
-### 25.SpringMVC工作原理了解吗？✔
+### 25.SpringMVC工作原理了解吗✔
 
-1、用户发送出请求到前端控制器DispatcherServlet，这是一个调度中心 
+1. **请求到达前端控制器（DispatcherServlet）**：前端控制器是Spring MVC的核心组件。它是一个Servlet，负责拦截所有进入应用程序的请求。
+2. **处理器映射器（Handler Mapping）**：前端控制器通过处理器映射器（Handler Mapping）确定请求对应的处理器（Handler）。
+3. **处理器适配器（Handler Adapter）**：处理器适配器（Handler Adapter）负责将请求发送给处理器（Handler）并执行处理器中的业务逻辑。
+4. **处理器执行业务逻辑**：在这一阶段，处理器（Handler）执行请求的业务逻辑，如处理表单提交、访问数据库等。
+5. **模型和视图解析器（Model and View Resolver）**：处理器（Handler）通过模型（Model）存储处理结果的数据，并选择适当的视图（View）进行渲染。
+6. **视图渲染**：视图（View）使用模型（Model）中的数据生成最终的响应内容，可以是HTML、JSON、XML等。
+7. **响应返回给客户端**：前端控制器将生成的响应返回给客户端。
 
-2、DispatcherServlet收到请求调用HandlerMapping（处理器映射器）。 
+1、用户发送出请求到前端控制器（DispatcherServlet），这是一个调度中心 
 
-3、HandlerMapping找到具体的处理器(可查找xml配置或注解配置)，生成处 理器对象及处理器拦截器(如果有)，再一起返回给DispatcherServlet。 
+2、前端控制器（DispatcherServlet）收到请求调用处理器映射器（Handler Mapping）。 
 
-4、DispatcherServlet调用HandlerAdapter（处理器适配器）。 
+3、处理器映射器（Handler Mapping）找到具体的处理器（Handler）(可查找xml配置或注解配置)，生成处理器对象及处理器拦截器(如果有)，再一起返回给前端控制器（DispatcherServlet）。 
 
-5、HandlerAdapter经过适配调用具体的处理器（Handler/Controller）。 
+4、前端控制器（DispatcherServlet）调用处理器适配器（Handler Adapter）。 
+
+5、处理器适配器（Handler Adapter）经过适配调用具体的处理器（Handler/Controller）。 
 
 6、Controller执行完成返回ModelAndView对象。 
 
-7、HandlerAdapter将Controller执行结果ModelAndView返回给 DispatcherServlet。 
+7、处理器适配器（Handler Adapter）将Controller执行结果ModelAndView返回给 前端控制器（DispatcherServlet）。 
 
-8、DispatcherServlet将ModelAndView传给ViewReslover（视图解析器）。
+8、前端控制器（DispatcherServlet）将ModelAndView传给视图解析器（ViewReslover）。
 
-9、ViewReslover解析后返回具体View（视图）。 
+9、视图解析器（ViewReslover）解析后返回具体视图（View）。 
 
-10、DispatcherServlet根据View进行渲染视图（即将模型数据填充至视图 中）。 
+10、前端控制器（DispatcherServlet）根据View进行渲染视图（即将模型数据填充至视图 中）。 
 
-11、DispatcherServlet响应用户。 
+11、前端控制器（DispatcherServlet）响应用户。 
 
 当然现在的开发，基本都是前后端分离的开发的，并没有视图这些，一般都 是handler中使用Response直接结果返回
 
@@ -373,6 +388,22 @@ ApplicationContext是BeanFactory的子接口
 - **内嵌Tomcat服务器，独立运行**
 - 无须准备各种独立的JAR文件，引入相关依赖即可
 - 集成Spring框架，方便与其他框架整合，Spring Boot 应用为这些第三方库提供了几乎可以零配置的开箱即用的能力。
+
+### SpringBoot中约定优于配置的理解
+
+- 约定优于配置是一种软件设计范式。
+
+  **核心思想是减少开发人员对于配置项的维护，从而让开发人员更加聚集在业务逻辑上**
+
+- SpringBoot就是约定优于配置这一理念下的产物，类似于Spring框架中的一个脚手架，通过SpringBoot可以**快速开发基于Spring生态下的应用程序** 
+
+- 基于传统的Spring框架开发web应用，需要做很多和业务开发无关的并且只做一次的配置
+
+  比如：**管理jar包依赖、web.xml维护、Dispatch-servlet.xml配置项的维护、应用部署到web容器、第三方Ioc容器中的配置项维护**
+
+  在SpringBoot中不需要再次做这些繁琐的配置，SpringBoot已经完成
+
+- 默认加载配置文件Application.yml等等
 
 ### 40.SpringBoot中如何对不同环境的属性配置文件的支持？
 
