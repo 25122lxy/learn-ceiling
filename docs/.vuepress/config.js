@@ -46,7 +46,9 @@ module.exports = {
                     {text: '微服务', link: '/handbook/Interview/05-微服务'},
                     {text: '消息中间件', link: '/handbook/Interview/06-消息中间件'},
 					{text: 'Java集合', link: '/handbook/Interview/07-Java集合'},
-					{text: 'Java并发', link: '/handbook/Interview/08-Java并发'}
+					{text: 'Java并发', link: '/handbook/Interview/08-Java并发'},
+					{text: 'JVM', link: '/handbook/Interview/09-JVM'}
+
                 ]
             },
             {
@@ -131,7 +133,8 @@ module.exports = {
 					{title: "微服务", path: "/handbook/Interview/05-微服务"},
 					{title: "消息中间件", path: "/handbook/Interview/06-消息中间件"},
 					{title: "Java集合", path: "/handbook/Interview/07-Java集合"},
-					{title: "Java并发", path: "/handbook/Interview/08-Java并发"}
+					{title: "Java并发", path: "/handbook/Interview/08-Java并发"},
+					{title: "JVM", path: "/handbook/Interview/09-JVM"}
                 ],
             },
 

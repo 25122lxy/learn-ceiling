@@ -465,7 +465,26 @@ ApplicationContext是BeanFactory的子接口
 
 一般条件判断会有像 @ConditionalOnClass 这样的注解，判断是否有对应的 class文件，如果有则加载该类，把这个配置类的所有的Bean放入spring容器 中使用。
 
-### 补充
+### SpringBoot如何解决跨域问题✔
+
+跨域指的是浏览器在执行网页中的JavaScript代码的时候，由于浏览器的同源策略的一个限制，只能访问同源的资源
+
+http://192.168.137.60:8080
+
+协议、域名、端口号，只要有一项不同，就能够造成跨域问题
+
+解决跨域就是在不破坏同源策略的情况下，能够安全地实现数据共享和交互
+
+在 Spring  Boot 中跨域问题有很多种解决方案，Cors是在服务器后端解决跨域的方案
+
+1、使用`@CrossOrigin`注解实现跨域，可以用在类和方法上面
+
+```java
+@CrossOrigin(origins = "http://localhost:8090")
+//origins指运行那些origins允许跨域，也可直接@CrossOrigin
+```
+
+2、通过配置文件，实现`WebMvcConfigurer `接口，重写`addCorsMappings`方法，配置允许跨域的请求源
 
 ### 如何实现一个IOC容器  
 
@@ -513,6 +532,22 @@ ApplicationContext是BeanFactory的子接口
 - 系统属性
 - 系统环境变量
 - 配置文件
+
+### @Component和@Bean区别✔
+
+@Component注解是一个通用注解，可以用在任何类上，包括普通的Java类、业务逻辑组件、持续化对象等，通过Component注解，**Spring会自动去创建该类的实例注入到SpringIOC容器中**
+
+@Bean注解是用于配置类中声明一个Bean的，通常用在配置类的方法上面，表示把这个方法的返回对象注册到SpringIOC容器中，通过Bean注解，**可以自定义Bean的创建和初始化过程，包括指定Bean的名称、作用域、依赖关系等**，
+
+- 用途不同
+  - @Component注解的用于标识一个普通的类
+  - @Bean注解是在配置类中声明和配置Bean对象
+- 使用方式不同
+  - @Component注解是一个类级别的注解，Spring通过@ComponetsScan注解扫描并注册为Bean（SpringIOC容器中）
+  - @Bean注解是修饰在方法层面，在配置类中手动声明一个Bean的定义
+- 控制权不同
+  - @Component注解修饰的类是由Spring框架来创建和初始化的
+  - @Bean注解运行开发人员手动控制Bean 的创建和配置过程（更加灵活）
 
 ### Spring 的常见注解有哪些✔
 

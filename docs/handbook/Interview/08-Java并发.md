@@ -204,37 +204,46 @@ ConcurrentHashMap 是一种线程安全的高效Map集合
 
 ### 7. sleep() 方法和 wait() 方法区别和共同点✔
 
-共同点
+**<font color=blue>共同点</font>**
 
-* wait() ，wait(long) 和 sleep(long) 的效果都是让当前线程暂时放弃 CPU 的使用权，进入阻塞状态
+- wait()和slee()这两个方法在并发编程中使用比较多，这两个方法都是让线程阻塞等待，但是等待的场景不一样
+- wait() ，wait(long) 和 sleep(long) 的效果都是让当前线程暂时放弃 CPU 的使用权，进入阻塞状态
 
-不同点
+wait()方法通常与sychronized关键字一起使用，用于线程的同步和协作
 
-**方法归属不同**
+sleep()方法通常用于线程的等待，以便控制执行的时间间隔或实现简单的定时任务
 
+**<font color=blue>不同点</font>**
+
+1、**方法归属不同**
+
+* wait()，wait(long) 都是 Object 的成员方法，每个对象都有
 * sleep(long) 是 Thread 的静态方法
-* 而 wait()，wait(long) 都是 Object 的成员方法，每个对象都有
 
-**醒来时机不同**
+2、**用途不同**
 
-* 执行 sleep(long) 和 wait(long) 的线程都会在等待相应毫秒后醒来
-* wait(long) 和 wait() 还可以被 notify 唤醒，wait() 如果不唤醒就一直等下去
-* 它们都可以被打断唤醒
+- wait()方法用于多个线程之间的协作通信
+- sleep()方法用于线程的休眠
 
-锁特性不同（重点）
+3、**使用不同**
+
+- wait()方法必须在synchronized同步块中调用
+- sleep()方法没有使用限制
+
+4、**醒来时机不同**
+
+- wait()方法会释放对象锁，使得当前线程进入等待状态，直到其他线程调用**notify()或notifyAll()方法唤醒**，如果不唤醒就一直等下去
+- sleep()方法使当前线程暂停执行一段时间，不会释放对象锁
+
+执行 sleep(long) 和 wait(long) 的线程都会在等待相应毫秒后醒来
+
+它们都可以被打断唤醒
+
+5、**锁特性不同（重点）**
 
 * wait 方法的调用必须先获取 wait 对象的锁，而 sleep 则无此限制
 * wait 方法执行后会释放对象锁，允许其它线程获得该对象锁（我放弃 cpu，但你们还可以用）
 * 而 sleep 如果在 synchronized 代码块中执行，并不会释放对象锁（我放弃 cpu，你们也用不了）
-
-简
-
-- `sleep（）`
-  - 不会释放锁
-  - 线程会自动苏醒
-- `wait（）`
-  - 会释放锁
-  - 线程不会自动苏醒
 
 **wait方法必须和synchronized配合使用**
 
