@@ -779,6 +779,22 @@ ThreadLocal 主要功能有两个，第一个是可以实现资源对象的线�
 >
 >在使用ThreadLocal 时都把它作为静态变量（即强引用），因此无法被动依靠 GC 回收，建议主动的remove 释放 key，这样就能避免内存溢出。
 
+### ThreadLocal有哪些使用场景✔
+
+ThreadLocal是可以基于副本的隔离机制来**保证共享变量的安全性**，以下是几种常见的使用场景
+
+1. 线程的上下文传递
+
+   在跨线程调用的场景中，可以使用ThreadLocal在不修改方法签名的情况下传递线程上下文信息，比如框架和中间件里面，把请求的相关信息，比如用户信息、请求id信息等等，存储在ThreadLocal里面，在后续的请求处理链路中，都可以方便的去访问这些信息
+
+2. 数据库的连接管理
+
+   在使用数据库连接池的情况下，可以把数据库的连接存储在ThreadLocal里面，这样每个线程可以独立管理自己的数据库连接，避免了线程之间的竞争和冲突，比如Mybatis中的SqlSession对象，使用了ThrashLocal来存储当前线程的数据库会话信息
+
+3. 事务管理
+
+   在一些需要手动管理事务的场景中，可以使用ThreadLocal来存储事务上下文，每个线程可以独立的控制自己的事务，保证事务的隔离性，Spring中的TransactionSynchronizeManager类，就使用了ThreadLocal来存储事务相关的上下文信息，不过在使用ThreadLocal的时候，需要注意使用规范，避免出现内存泄露的问题
+
 ### 32. 了解ReentrantLock吗✔
 
 ReentrantLock翻译过来是可重入锁，相对于synchronized它具备以下特点：
