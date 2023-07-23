@@ -7,7 +7,7 @@
 - 轻量、控制反转、面向切面编程（AOP）、容器（IOC）、**MVC框架**、事务管理、异常处理
 
 > - 控制反转(IoC=InversionofControl)IoC，用白话来讲，就是由容器控制程序之间的（依赖）关系，而非传统实现中，由程序代码直接操控。这也就是所谓“控制反转”的概念所在：(依赖)控制权由应用代码中转到了外部容器，控制权的转移，是所谓反转。
-> - IoC还有一个另外的名字：“依赖注入(DI=DependencyInjection)”，即由容器动态的将某种依赖关系注入到组件之
+> - IoC还有一个另外的名字：“依赖注入(DI=DependencyInjection)”，即由容器动态的将某种依赖关系注入到组件之中
 
 ### 2.什么是SpringIOC容器？✔
 
@@ -17,7 +17,7 @@ Spring容器使用依赖注入来管理组成应用程序的组件。
 - 我们不需要手动创建对象，仅仅需要定义类和相关属性即可，加上注解，交给Spring帮我们创建对象及赋值（反转）
 - 总结：IOC表示**控制反转**，表示如果用Spring，那么Spring会负责来创建对象，以及给对象内的属性赋值，也就是如果用Spring，那么对象的控制权会交给Spring
 
-### 3.什么是依赖注入？可以通过多少种方式完成注入？
+### 3.什么是依赖注入？可以通过多少种方式完成注入✔
 
 - 在程序运行过程中，需要对象协助时，无需在代码中创建对象，通过ioc容器将他们装配在一起
 - 构造函数注入、setter注入、（接口）
@@ -50,14 +50,14 @@ ApplicationContext是BeanFactory的子接口
 
 - 基于xml配置
 - 基于注解配置
-- 基于	JavaAPI配置`@Bean 和 @Configuration`
+- 基于JavaAPI配置`@Bean 和 @Configuration`
 
 ### 7.Spring中的bean的作用域有哪些？✔
 
-- `singleton`Spring中bean默认都是单例的，每个容器只有一个bean的实例
+- `singleton`唯一bean实例，Spring中bean默认都是单例的，每个容器只有一个bean的实例
 - `prototype`每次注入时都会创建一个新的对象
-- `request`
-- `session`
+- `request`每一次HTTP请求都会产生一个新的bean，该bean仅在当前HTTP request内有效。
+- `session`在一个HTTP Session中，一个Bean定义对应一个实例。该作用域仅在基于web的Spring ApplicationContext情形下有效。
 - `global-session`全局session作用域
 
  仅当用户使用支持 Web 的 ApplicationContext 时，最后三个才可用。  
@@ -65,21 +65,20 @@ ApplicationContext是BeanFactory的子接口
 ### 8.如何理解IOC和DI？
 
 - “控制反转”
-
-- - 不用自己创建实例对象，交给Spring的bean工厂帮我们创建管理
+  - 不用自己创建实例对象，交给Spring的bean工厂帮我们创建管理
 
 - “依赖注入”
+  - 通过配置，由容器动态的将某个依赖关系注入到组件之中
 
-- - 通过配置，由容器动态的将某个依赖关系注入到组件之中
 
 ### 9.将一个类声明为Spring的bean的注解有哪些？
 
-- `@Autowired`注解自动装配bean
+一般使用 @Autowired 注解自动装配 bean，要想把类标识成可用于 @Autowired 注解自动装配的 bean 的类,采用以下注解可实现：
 
-- - `@Compoent`标志为Spring组件
-  - `@Repository`持久层
-  - `@Service`业务层
-  - `@Controller`SpringMVC控制层
+- `@Compoent`标志为Spring组件，可标注任意类为 Spring 组件。如果一个Bean不知道属于哪个层，可以使用@Component 注解标注。
+- `@Repository`持久层，主要用于数据库相关操作。
+- `@Service`业务层，主要涉及一些复杂的逻辑，需要用到 Dao层
+- `@Controller`SpringMVC控制层，主要用户接受用户请求并调用 Service 层返回数据给前端页面
 
 ### 10.Spring支持几种beanscope？
 
@@ -89,7 +88,7 @@ ApplicationContext是BeanFactory的子接口
 - `session`
 - `global-session`
 
-### 11.Spring中的bean生命周期？✔
+### 11.Spring中的bean生命周期✔
 
 - 创建前准备
 
@@ -127,7 +126,7 @@ ApplicationContext是BeanFactory的子接口
 
 - 将`bean`用做另一个`bean`的属性
 
-### 13.什么是Spring装配？✔
+### 13.什么是Spring装配✔
 
 - 当`bean`在`Spring`容器中组合在一起时，它被称为装配或`bean`装配（ autowire  ）
 
@@ -151,9 +150,9 @@ ApplicationContext是BeanFactory的子接口
 
 ### Spring中的循环引用✔
 
-循环依赖：循环依赖其实就是循环引用,也就是两个或两个以上的bean互相持 有对方,最终形成闭环。比如A依赖于B,B依赖于A 
+循环依赖：循环依赖其实就是循环引用,也就是两个或两个以上的bean互相持有对方,最终形成闭环。比如A依赖于B,B依赖于A 
 
-循环依赖在spring中是允许存在，spring框架依据三级缓存已经解决了大部 分的循环依赖
+循环依赖在spring中是允许存在，spring框架依据三级缓存已经解决了大部分的循环依赖
 
 ①一级缓存：单例池，缓存已经经历了完整的生命周期，已经初始化完成的 bean对象 
 
@@ -161,7 +160,7 @@ ApplicationContext是BeanFactory的子接口
 
 ③三级缓存：缓存的是ObjectFactory，表示对象工厂，用来创建某个对象的
 
-### 具体解决流程✔
+### 循环依赖具体解决流程✔
 
 第一，先实例A对象，同时会创建ObjectFactory对象存入三级缓存 singletonFactories  
 
@@ -169,9 +168,9 @@ ApplicationContext是BeanFactory的子接口
 
 第三，B实例化完成，也会创建ObjectFactory对象存入三级缓存 singletonFactories  
 
-第四，B需要注入A，通过三级缓存中获取ObjectFactory来生成一个A的对象 同时存入二级缓存，这个是有两种情况，一个是可能是A的普通对象，另外 一个是A的代理对象，都可以让ObjectFactory来生产对应的对象，这也是三 级缓存的关键 
+第四，B需要注入A，通过三级缓存中获取ObjectFactory来生成一个A的对象同时存入二级缓存，这个是有两种情况，一个是可能是A的普通对象，另外一个是A的代理对象，都可以让ObjectFactory来生产对应的对象，这也是三级缓存的关键 
 
-第五，B通过从通过二级缓存earlySingletonObjects 获得到A的对象后可以正 常注入，B创建成功，存入一级缓存singletonObjects  
+第五，B通过从通过二级缓存earlySingletonObjects 获得到A的对象后可以正常注入，B创建成功，存入一级缓存singletonObjects  
 
 第六，回到A对象初始化，因为B对象已经创建完成，则可以直接注入B，A 创建成功存入一次缓存singletonObjects 
 
@@ -179,7 +178,7 @@ ApplicationContext是BeanFactory的子接口
 
 ### 构造方法出现了循环依赖怎么解决？✔
 
-由于bean的生命周期中构造函数是第一个执行的，spring框架并不能解决构 造函数的的依赖注入，可以使用@Lazy懒加载，什么时候需要对象再进行 bean对象的创建
+由于bean的生命周期中构造函数是第一个执行的，spring框架并不能解决构造函数的的依赖注入，可以使用@Lazy懒加载，什么时候需要对象再进行bean对象的创建
 
 ### 17.Spring中的单例bean的线程安全问题？✔
 
@@ -193,13 +192,13 @@ ApplicationContext是BeanFactory的子接口
 
 > 不是线程安全的，是这样的 
 >
-> 当多用户同时请求一个服务时，容器会给每一个请求分配一个线程，这是多 个线程会并发执行该请求对应的业务逻辑（成员方法），如果该处理逻辑中 有对该单列状态的修改（体现为该单例的成员属性），则必须考虑线程同步 问题。 
+> 当多用户同时请求一个服务时，容器会给每一个请求分配一个线程，这是多个线程会并发执行该请求对应的业务逻辑（成员方法），如果该处理逻辑中有对该单列状态的修改（体现为该单例的成员属性），则必须考虑线程同步问题。 
 >
-> Spring框架并没有对单例bean进行任何多线程的封装处理。关于单例bean的 线程安全和并发问题需要开发者自行去搞定。
+> Spring框架并没有对单例bean进行任何多线程的封装处理。关于单例bean的线程安全和并发问题需要开发者自行去搞定。
 >
 > 比如：我们通常在项目中使用的Spring bean都是不可可变的状态(比如 Service类和DAO类)，所以在某种程度上说Spring的单例bean是线程安全的。 
 >
-> 如果你的bean有多种状态的话（比如 View Model对象），就需要自行保证线 程安全。最浅显的解决办法就是将多态bean的作用由“singleton”变更为 “prototype”。
+> 如果你的bean有多种状态的话（比如 View Model对象），就需要自行保证线程安全。最浅显的解决办法就是将多态bean的作用由“singleton”变更为 “prototype”。
 
 ### 18.什么是AOP？✔
 
@@ -208,21 +207,20 @@ ApplicationContext是BeanFactory的子接口
 - 将程序中的交叉业务逻辑封装成一个切面，然后注入到目标对象中，AOP可以对某个对象或某些对象的功能进行增强，比如对象中的方法需要扩扩展业务，可以在执行某个方法之前额外的做一些事情，在某个方法执行之后额外的做一些事情
 - 将新的业务功能添加到已有的对象中，不影响原有业务
 
-> aop是面向切面编程，在spring中用于将那些与业务无关，但却对多个对象产 生影响的公共行为和逻辑，抽取公共模块复用，降低耦合，一般比如可以做 为公共日志保存，事务处理等
+> aop是面向切面编程，在spring中用于将那些与业务无关，但却对多个对象产生影响的公共行为和逻辑，抽取公共模块复用，降低耦合，一般比如可以做为公共日志保存，事务处理等
 
 ### 你们项目中有没有使用到AOP
 
-> 我们当时在后台管理系统中，就是使用aop来记录了系统的操作日志 主要思路是这样的，使用aop中的环绕通知+切点表达式，这个表达式就是要 找到要记录日志的方法，然后通过环绕通知的参数获取请求方法的参数，比 如类信息、方法信息、注解、请求方式等，获取到这些参数以后，保存到数 据库
+> 我们当时在后台管理系统中，就是使用aop来记录了系统的操作日志主要思路是这样的，使用aop中的环绕通知+切点表达式，这个表达式就是要找到要记录日志的方法，然后通过环绕通知的参数获取请求方法的参数，比 如类信息、方法信息、注解、请求方式等，获取到这些参数以后，保存到数 据库
 
 ### 19.Aop有哪些实现方式？
 
 - 静态代理
-
-- -  在编译阶段就可生成 AOP 代理类  
+  - 在编译阶段就可生成 AOP 代理类  
 
 - 动态代理
+  - 在运行时在内存中“临时”生成 AOP 动态代理类  
 
-- -  在运行时在内存中“临时”生成 AOP 动态代理类  
 
 ### 20.Spring Aop and AspectJ Aop有什么区别？
 
@@ -261,7 +259,13 @@ ApplicationContext是BeanFactory的子接口
 
 ### 24.Spring事务定义的传播规则  ✔
 
-
+- PROPAGATION_REQUIRED: 支持当前事务，如果当前没有事务，就新建一个事务。这是最常见的选择。
+- PROPAGATION_SUPPORTS: 支持当前事务，如果当前没有事务，就以非事务方式执行。
+- PROPAGATION_MANDATORY: 支持当前事务，如果当前没有事务，就抛出异常。
+- PROPAGATION_REQUIRES_NEW: 新建事务，如果当前存在事务，把当前事务挂起。
+- PROPAGATION_NOT_SUPPORTED: 以非事务方式执行操作，如果当前存在事务，就把当前事务挂起。
+- PROPAGATION_NEVER: 以非事务方式执行，如果当前存在事务，则抛出异常。
+- PROPAGATION_NESTED:如果当前存在事务，则在嵌套事务内执行。如果当前没有事务，则进行与PROPAGATION_REQUIRED类似的操作。
 
 ### 25.SpringMVC工作原理了解吗✔
 
@@ -285,13 +289,13 @@ ApplicationContext是BeanFactory的子接口
 
 6、Controller执行完成返回ModelAndView对象。 
 
-7、处理器适配器（Handler Adapter）将Controller执行结果ModelAndView返回给 前端控制器（DispatcherServlet）。 
+7、处理器适配器（Handler Adapter）将Controller执行结果ModelAndView返回给前端控制器（DispatcherServlet）。 
 
 8、前端控制器（DispatcherServlet）将ModelAndView传给视图解析器（ViewReslover）。
 
 9、视图解析器（ViewReslover）解析后返回具体视图（View）。 
 
-10、前端控制器（DispatcherServlet）根据View进行渲染视图（即将模型数据填充至视图 中）。 
+10、前端控制器（DispatcherServlet）根据View进行渲染视图（即将模型数据填充至视图中）。 
 
 11、前端控制器（DispatcherServlet）响应用户。 
 
@@ -313,12 +317,13 @@ ApplicationContext是BeanFactory的子接口
 
 ### 26.简单介绍SpringMVC的核心组件✔
 
-- - ` DispatcherServlet `SpringMvc核心组件，是请求的入口，负责协调各个组件工作
-  - ` Handler  `处理器
-  - ` HandlerMapping  `处理器映射器
-  - ` HandlerAdapter  ` 处理器的适配器  
+- ` DispatcherServlet `SpringMvc核心组件，是请求的入口，负责协调各个组件工作
+- ` Handler  `处理器
+- ` HandlerMapping  `处理器映射器
+- ` HandlerAdapter  ` 处理器的适配器  
+- `ViewResolver`视图解析器
 
-### 27.`@Controller`注解有什么用？
+### 27.`@Controller`注解有什么用
 
 - 标记一个类为Spring Web MVC 控制器 Controller
 
@@ -338,7 +343,7 @@ ApplicationContext是BeanFactory的子接口
 
 ### 31.`@RequestParam`和`@PathVariable`两个注解的区别
 
-- `@RequestParam `参数从请求携带的 参数中获取
+- `@RequestParam `参数从请求携带的参数中获取
 - `@PathVariable`从请求的url中获取
 
 ### 32.返回 JSON 格式使用什么注解？
@@ -357,13 +362,11 @@ ApplicationContext是BeanFactory的子接口
 ### 34.SpringMVC和Structs2的异同？
 
 - 入口不同
-
-- - Servlet控制器
+  - Servlet控制器
   - Filter过滤器
 
 - 配置映射不同
-
-- - 基于方法
+  - 基于方法
   - 基于类
 
 - 视图不同
@@ -371,8 +374,8 @@ ApplicationContext是BeanFactory的子接口
 ### 35. REST 代表着什么?  
 
 - 抽象转移
+  - 根据http协议从客户端发送协议到服务端
 
-- - 根据http协议从客户端发送协议到服务端
 
 ### 36. 什么是安全的 REST 操作?  
 
@@ -386,7 +389,7 @@ ApplicationContext是BeanFactory的子接口
 
 - 通常不安全，需要开发任务自己实现安全机制
 
-### 39.为什么要用SpringBoot？✔
+### 39.为什么要用SpringBoot✔
 
 - 自动装配，零配置。无冗余代码生成和XML 强制配置，遵循“约定大于配置” 。
 - 创建项目时，可以选择需要的依赖关系
@@ -418,12 +421,11 @@ ApplicationContext是BeanFactory的子接口
 ### 41.Spring Boot 的核心注解是那个？它主要由那几个注解组成的？✔
 
 - `@SpringBootApplication`这个注解标识了一个SpringBoot工程，实际上也是另外三个注解的组合
-
-- - `@SpringBootConfiguration`配置文件（实际就是一个`@Configuration`，表示启动类也是一个配置类）
+  - `@SpringBootConfiguration`配置文件（实际就是一个`@Configuration`，表示启动类也是一个配置类）
   - `@EnableAutoConfiguration`打开自动配置
   - `@ComponentScan`spring组件扫描
 
-- `@Bean`注解：定义Bean，通过执行方法得到你bean对象
+- `@Bean`注解：定义Bean，通过执行方法得到你的bean对象
 - `@Controller`，`@Service`，`@ResponseBody`，`@Autowired`等
 
 ### 42.你如何理解SpringBoot中的Starters？✔
@@ -432,9 +434,9 @@ ApplicationContext是BeanFactory的子接口
 
 ### 43.SpringBoot Starter的工作原理是什么？
 
-- - 读取配置信息
-  - 对资源进行初始化
-  - 直接注入对应的bean资源
+- 读取配置信息
+- 对资源进行初始化
+- 直接注入对应的bean资源
 
 ### 44.保护SpringBoot应用有哪些方法？
 
@@ -445,13 +447,11 @@ ApplicationContext是BeanFactory的子接口
 ### 45.Spring、SpringBoot和SpringCloud的关系？
 
 - Spring古老框架，可以解决企业开发中大部分问题
-
-- - IOC容器，管理bean，使用依赖注入实现控制反转
+  - IOC容器，管理bean，使用依赖注入实现控制反转
   - 补充：SpringMVC是Spring对web框架的一个解决方案
 
 - SpringBoot是为了简化Spring的开发
-
-- - 快速开发应用，简化配置
+  - 快速开发应用，简化配置
 
 - SpringCloud是简化了分布式系统的开发，基于Springboot开发的，解决微服务治理的框架
 
@@ -465,9 +465,9 @@ ApplicationContext是BeanFactory的子接口
 
 其中 @EnableAutoConfiguration 是实现自动化配置的核心注解。 
 
-该注解通过 @Import 注解导入对应的配置选择器。关键的是内部就是读取了 该项目和该项目引用的Jar包的的classpath路径下METAINF/spring.factories文件中的所配置的类的全类名
+该注解通过 @Import 注解导入对应的配置选择器。关键的是内部就是读取了该项目和该项目引用的Jar包的的classpath路径下METAINF/spring.factories文件中的所配置的类的全类名
 
-在这些配置类中所定义的Bean会根据条件注解所指定的条件来决定是否需要 将其导入到Spring容器中。
+在这些配置类中所定义的Bean会根据条件注解所指定的条件来决定是否需要将其导入到Spring容器中。
 
 一般条件判断会有像 @ConditionalOnClass 这样的注解，判断是否有对应的 class文件，如果有则加载该类，把这个配置类的所有的Bean放入spring容器 中使用。
 
@@ -533,10 +533,10 @@ http://192.168.137.60:8080
 
 ### Spring是什么？ 
 
-轻量级的开源的J2EE框架。它是⼀个容器框架，⽤来装javabean（java对象），中间层框架（万能胶） 可以起⼀个连接作⽤，⽐如说把Struts和hibernate粘合在⼀起运⽤，可以让我们的企业开发更快、更简 洁，Spring是⼀个轻量级的控制反转（IoC)和⾯向切⾯（AOP）的容器框架： 
+轻量级的开源的J2EE框架。它是⼀个容器框架，⽤来装javabean（java对象），中间层框架（万能胶） 可以起⼀个连接作⽤，⽐如说把Struts和hibernate粘合在⼀起运⽤，可以让我们的企业开发更快、更简洁，Spring是⼀个轻量级的控制反转（IoC)和⾯向切⾯（AOP）的容器框架： 
 
 - 从⼤⼩与开销两⽅⾯⽽⾔Spring都是轻量级的。 
-- 通过控制反转(IoC)的技术达到松耦合的⽬的 提供了⾯向切⾯编程的丰富⽀持，允许通过分离应⽤的业务逻辑与系统级服务进⾏内聚性的开发 
+- 通过控制反转(IoC)的技术达到松耦合的⽬的提供了⾯向切⾯编程的丰富⽀持，允许通过分离应⽤的业务逻辑与系统级服务进⾏内聚性的开发 
 - 包含并管理应⽤对象(Bean)的配置和⽣命周期，这个意义上是⼀个容器。 
 - 将简单的组件配置、组合成为复杂的应⽤，这个意义上是⼀个框架。  
 
@@ -581,11 +581,11 @@ http://192.168.137.60:8080
 
 @RequestMapping：用于映射请求路径； 
 
-@RequestBody：注解实现接收http请求的json数据，将json转换为java对 象； 
+@RequestBody：注解实现接收http请求的json数据，将json转换为java对象； 
 
 @RequestParam：指定请求参数的名称； 
 
-@PathViriable：从请求路径下中获取请求参数(/user/{id})，传递给方法的 形式参数；
+@PathViriable：从请求路径下中获取请求参数(/user/{id})，传递给方法的形式参数；
 
 @ResponseBody：注解实现将controller方法返回对象转化为json 对象响应给客户端。
 
@@ -597,7 +597,7 @@ http://192.168.137.60:8080
 
 Spring Boot的核心注解是@SpringBootApplication , 他由几个注解组成 : 
 
-- @SpringBootConfiguration： 组合了- @Configuration注解，实现配置文件的功 能； 
+- @SpringBootConfiguration： 组合了- @Configuration注解，实现配置文件的功能； 
 - @EnableAutoConfiguration：打开自动配置的功能，也可以关闭某个自动配置的选 项 
 - @ComponentScan：Spring组件扫描
 
@@ -610,8 +610,7 @@ Spring Boot的核心注解是@SpringBootApplication , 他由几个注解组成 :
 ### 2.Mybatis的优缺点✔
 
 - 优点
-
-- - 基于SQL语句编程，灵活
+  - 基于SQL语句编程，灵活
   - 解除SQL与代码的耦合，统一管理
   - 相比jdbc，减少50%以上的代码量
   - **与各种数据库兼容**
@@ -619,9 +618,9 @@ Spring Boot的核心注解是@SpringBootApplication , 他由几个注解组成 :
   - **提供映射标签（实体类对象与数据库中的字段）**
 
 - 缺点
-
-- - SQL编写工作量大（配置ORM字段映射等）
+  - SQL编写工作量大（配置ORM字段映射等）
   - SQL语句依赖于数据库，可移植性差
+
 
 ### 3.为什么说Mybatis是半自动ORM映射工具？它与全自动的区别在哪里？
 
@@ -631,10 +630,10 @@ Spring Boot的核心注解是@SpringBootApplication , 他由几个注解组成 :
 
 - 相同点：都是对jdbc的封装，持久层的框架，dao层的开发
 - 不同点
-
-- - 映射关系
+  - 映射关系
   - **SQL优化**
   - 开发难易程度和学习成本
+
 
 MyBatis 是一个小巧、方便、高效、简单、直接、半自动化的持久层框架， 
 
@@ -643,20 +642,17 @@ Hibernate 是一个强大、方便、高效、复杂、间接、全自动化的�
 ### 5.JDBC编程有哪些不足之处，Mybatis是如何解决这些问题的？
 
 - 配置数据连接池，创建、释放造成资源浪费，影响系统性能
-
-- - 在sqlMapConfig中配置数据连接池，方便管理
+  - 在sqlMapConfig中配置数据连接池，方便管理
 
 - SQL语句在代码中，不易维护，SQL变动需要改变java代码
-
-- - 将SQL与java代码分离，卸载xml文件中
+  - 将SQL与java代码分离，卸载xml文件中
 
 - **SQL传参麻烦，需要占位符一一对应**
-
-- - mybatis自动将java对象映射到SQL语句
+  - mybatis自动将java对象映射到SQL语句
 
 - **数据库与java对象映射麻烦，解析需要遍历**
+  - Mybatis自动将SQL执行结果映射至java对象
 
-- - Mybatis自动将SQL执行结果映射至java对象
 
 ### 6.Mybatis编程步骤是什么样的？
 
@@ -689,12 +685,11 @@ Hibernate 是一个强大、方便、高效、复杂、间接、全自动化的�
 ### 10.#{}和${}的区别？✔
 
 - `#{}`预编译处理，是占位符，预编译处理？？？
-
-- - 将SQL中的`#{}`替换为`?`，调用PrepareStatement来赋值
+  - 将SQL中的`#{}`替换为`?`，调用PrepareStatement来赋值
 
 - `${}`拼接符，字符串替换，没有预编译处理
+  - 替换为变量的值，调用Statement来赋值
 
-- - 替换为变量的值，调用Statement来赋值
 
 ### 11.通常一个XML映射文件，都会写一个Dao接口与之对应，那么这个Dao接口的工作原理是什么？Dao接口里的方法、参数不同时，方法能重载吗？
 
@@ -718,12 +713,11 @@ Hibernate 是一个强大、方便、高效、复杂、间接、全自动化的�
 ### 15.Mybatis实现一对一有几种方式？具体是怎么操作的？
 
 - 联合查询
-
-- - 多张表联合查询
+  - 多张表联合查询
 
 - 嵌套查询
+  - 先查一个表。在根据外键查另一个表
 
-- - 先查一个表。在根据外键查另一个表
 
 ### 16.Mybatis的一级、二级缓存✔
 
@@ -769,7 +763,7 @@ Hibernate 是一个强大、方便、高效、复杂、间接、全自动化的�
 
 ### Mybatis是否支持延迟加载✔
 
-延迟加载的意思是：就是在需要用到数据时才进行加载，不需要用到数据时 就不加载数据。 
+延迟加载的意思是：就是在需要用到数据时才进行加载，不需要用到数据时就不加载数据。 
 
 Mybatis支持一对一关联对象和一对多关联集合对象的延迟加载 
 

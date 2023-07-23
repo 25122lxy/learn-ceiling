@@ -149,7 +149,7 @@ module.exports = {
             },
             footer: {
                 // 网站成立年份(若填入年份小于当前年份，则显示为 2018-2019 类似的格式)
-                since: 20,
+                since: 2023,
                 // 网站作者(关闭请设置为false)
                 author: '<a href="https://github.com/25122lxy/" target="_blank">lxy25122</a>',
                 // 访问量统计功能(不蒜子)

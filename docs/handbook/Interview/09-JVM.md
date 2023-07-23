@@ -108,8 +108,118 @@ Java Virtual machine Stacks (java 虚拟机栈)
 3. 方法内的局部变量是否线程安全？
 
    - 如果方法内局部变量没有逃离方法的作用范围，它是线程安全的
+- 如果是局部变量引用了对象，并逃离方法的作用范围，需要考虑线程安全
 
-   - 如果是局部变量引用了对象，并逃离方法的作用范围，需要考虑线程安全
+### 解释一下方法区
+
+- 方法区(Method Area)是各个线程共享的内存区域
+- 主要存储类的信息、运行时常量池
+- 虚拟机启动的时候创建，关闭虚拟机时释放
+- 如果方法区域中的内存无法满足分配请求，则会抛出OutOfMemoryError: Metaspace
+
+**常量池**
+
+可以看作是一张表，虚拟机指令根据这张常量表找到要执行的类名、方法名、参数类型、字面量等信息
+
+查看字节码结构（类的基本信息、常量池、方法定义）`javap -v xx.class`
+
+比如下面是一个Application类的main方法执行，源码如下：
+
+```java
+public class Application {
+    public static void main(String[] args) {
+        System.out.println("hello world");
+    }
+}
+```
+
+找到类对应的class文件存放目录，执行命令：`javap -v Application.class`   查看字节码结构
+
+```java
+D:\code\jvm-demo\target\classes\com\heima\jvm>javap -v Application.class
+Classfile /D:/code/jvm-demo/target/classes/com/heima/jvm/Application.class
+  Last modified 2023-05-07; size 564 bytes    //最后修改的时间
+  MD5 checksum c1b64ed6491b9a16c2baab5061c64f88   //签名
+  Compiled from "Application.java"   //从哪个源码编译
+public class com.heima.jvm.Application   //包名，类名
+  minor version: 0
+  major version: 52     //jdk版本
+  flags: ACC_PUBLIC, ACC_SUPER  //修饰符
+Constant pool:   //常量池
+   #1 = Methodref          #6.#20         // java/lang/Object."<init>":()V
+   #2 = Fieldref           #21.#22        // java/lang/System.out:Ljava/io/PrintStream;
+   #3 = String             #23            // hello world
+   #4 = Methodref          #24.#25        // java/io/PrintStream.println:(Ljava/lang/String;)V
+   #5 = Class              #26            // com/heima/jvm/Application
+   #6 = Class              #27            // java/lang/Object
+   #7 = Utf8               <init>
+   #8 = Utf8               ()V
+   #9 = Utf8               Code
+  #10 = Utf8               LineNumberTable
+  #11 = Utf8               LocalVariableTable
+  #12 = Utf8               this
+  #13 = Utf8               Lcom/heima/jvm/Application;
+  #14 = Utf8               main
+  #15 = Utf8               ([Ljava/lang/String;)V
+  #16 = Utf8               args
+  #17 = Utf8               [Ljava/lang/String;
+  #18 = Utf8               SourceFile
+  #19 = Utf8               Application.java
+  #20 = NameAndType        #7:#8          // "<init>":()V
+  #21 = Class              #28            // java/lang/System
+  #22 = NameAndType        #29:#30        // out:Ljava/io/PrintStream;
+  #23 = Utf8               hello world
+  #24 = Class              #31            // java/io/PrintStream
+  #25 = NameAndType        #32:#33        // println:(Ljava/lang/String;)V
+  #26 = Utf8               com/heima/jvm/Application
+  #27 = Utf8               java/lang/Object
+  #28 = Utf8               java/lang/System
+  #29 = Utf8               out
+  #30 = Utf8               Ljava/io/PrintStream;
+  #31 = Utf8               java/io/PrintStream
+  #32 = Utf8               println
+  #33 = Utf8               (Ljava/lang/String;)V
+{
+  public com.heima.jvm.Application();  //构造方法
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+         4: return
+      LineNumberTable:
+        line 3: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lcom/heima/jvm/Application;
+
+  public static void main(java.lang.String[]);  //main方法
+    descriptor: ([Ljava/lang/String;)V
+    flags: ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=2, locals=1, args_size=1
+         0: getstatic     #2                  // Field java/lang/System.out:Ljava/io/PrintStream;
+         3: ldc           #3                  // String hello world
+         5: invokevirtual #4                  // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+         8: return
+      LineNumberTable:
+        line 7: 0
+        line 8: 8
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       9     0  args   [Ljava/lang/String;
+}
+SourceFile: "Application.java"
+```
+
+下图，左侧是main方法的指令信息，右侧constant pool  是常量池
+
+main方法按照指令执行的时候，需要到常量池中查表翻译找到具体的类和方法地址去执行
+
+**运行时常量池**
+
+常量池是 *.class 文件中的，当该类被加载，它的常量池信息就会放入运行时常量池，并把里面的符号地址变为真实地址
 
 ### 2. 什么是JVM内存模型？  
 
