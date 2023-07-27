@@ -489,7 +489,7 @@ JVM只会运行二进制文件，而类加载器（ClassLoader）的主要作用
 
 如果一个类加载器在接到加载类的请求时，它首先不会自己尝试去加载这个类，而是把这个请求任务委托给父类加载器去完成，依次递归，如果父类加载器可以完成类加载任务，就返回成功；只有父类加载器无法完成此加载任务时，才由下一级去加载
 
-- JVM在加载一个类时，会调用**应用类加载器(AppClassLoader)**的loadClass方法加载这个类，不过会先使**扩展类加载器(ExtClassLoader的loadClass)**方法加载类，同样ExtClassLoader的loadClass会先使用**启动类加载器(BootstrapClassLoader)**加载类，如果启动类加载器(BootstrapClassLoader)加载到了就直接成功，如果没有加载到，扩展类加载器(ExtClassLoader的loadClass)尝试加载该类，如果没有加载到由应用类加载器(AppClassLoader)加载
+- JVM在加载一个类时，会调用**应用类加载器**(AppClassLoader)的loadClass方法加载这个类，不过会先使**扩展类加载器**(ExtClassLoader的loadClass)方法加载类，同样ExtClassLoader的loadClass会先使用**启动类加载器**(BootstrapClassLoader)加载类，如果启动类加载器(BootstrapClassLoader)加载到了就直接成功，如果没有加载到，扩展类加载器(ExtClassLoader的loadClass)尝试加载该类，如果没有加载到由应用类加载器(AppClassLoader)加载
 - JVM在加载类时，会委派给Ext和Bootstrap进行加载，如果没加载到才有自己进行加载
 
 ### 为什么需要双亲委派模型✔
