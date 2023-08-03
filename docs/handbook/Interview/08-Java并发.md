@@ -326,6 +326,12 @@ public class WaitSleepCase {
 
 
 
+### Thread.sleep(0)有意义吗✔
+
+Thread.sleep() 方法是Java线程调度的一部分，它让当前运行的线程暂停执行，并进入到阻塞状态，让出CPU的执行权，这个方法的底层是调用操作系统的sleep或者nanosleep系统调用，操作系统会把这个线程挂起，让出CPU的执行权给到其他线程或者进程，同时操作系统会设置一个定时器，当定时器到了以后，操作系统会再次唤醒这个线程，**Thread.sleep(0) 这个调用虽然没有传递睡眠时长**，**但实际上还是会触发线程调度的切换**，也就是说，**当前线程会从运行状态变为就绪状态**，然后操作系统调度器再根据优先级来选择一个线程执行，如果有优先级更高的线程正在等待CPU的时间片，那么这个线程就会得到执行，如果没有，那么可能就会立即再次选择刚刚进入就绪状态的这个线程来执行，具体的调度策略取决于操作系统层面的调度算法
+
+
+
 ### 线程的 run()和 start()有什么区别
 
 start(): 用来启动线程，通过该线程调用run方法执行run方法中所定义的逻辑代码。start方法只能被调用一次。 
@@ -554,6 +560,46 @@ public class MyInterrupt3 {
     }
 }
 ```
+
+
+
+### 如何知道线程池中的任务已经执行完成
+
+在java中，有多种方法去判断线程池中的任务是否已经执行完成
+
+1. 使用`Future`对象，线程池有一个叫`submit()`方法，它会返回一个`Future`对象，我们可以通过`Future`的`isDone()`方法，来判断任务是否已经完成
+
+   ```java
+   Executorservice executor = Executors.newFixedThreadPoo1(1); 
+   Future future = executor.submit(new Runnable(){
+       @override
+       pubic void run {
+           //任务内容
+       }
+   });
+   boolean done = future.isDone();
+   ```
+
+2. 使用`CountDownLatch`，`CountDownLatch`是一个同步工具类，可以在开始的时候，设置一个初始值，每个任务执行完成以后，调用`CountDownLatch`方法，把计数器减1，然后在主线程中调用`await()`方法，等待计数器归零，当计数器归零的时候，表示所有的任务已经完成了
+
+   ```java
+   int taskcount = 10;
+   CountDownLatch latch = new CountDownLatch(taskcount);
+   Executorservice executor = Executors.newFixedThreadPoo1(10);
+   for (int i = 0;i < taskcount; i++){
+       executor.submit(new Runnable() {
+           @override
+           public void run() {
+               //任务内容
+               1atch. countDown();
+           }
+       });
+   }
+   1atch .await();//等待所有任务完成
+   
+   ```
+
+3. 使用线程池中的`ThreadPoolExecutor`的`isTerminated()`方法，当调用了线程池中的`shutdonw()`方法或者`shutdownNow()`方法以后，并且所有任务都已经执行完成以后，`isTerminated()`方法，会返回`true`
 
 
 
@@ -840,6 +886,8 @@ Java内存模型(Java Memory Model)描述了Java程序中各种变量(线程共�
 
 2. 每一个线程还存在自己的工作内存，线程的工作内存，保留了被线程使用的变量的工作副本。
 3. 线程对变量的所有的操作(读，写)都必须在工作内存中完成，而不能直接读写主内存中的变量，不同线程之间也不能直接访问对方工作内存中的变量，线程间变量的值的传递需要通过主内存完成。
+
+
 
 ## 线程池
 
