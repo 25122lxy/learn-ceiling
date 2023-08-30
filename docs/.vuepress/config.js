@@ -25,6 +25,10 @@ module.exports = {
                         text: 'RabbitMQ',
                         link: '/handbook/Learn/RabbitMQ/1.RabbitMQ-简介及安装'
                     },
+					{
+                        text: 'SQL',
+                        link: '/handbook/Learn/SQL/SQL案例'
+                    },
                 ]
             },
             {
@@ -39,6 +43,7 @@ module.exports = {
             {
                 text: 'Interview',
                 items: [
+                    {text: 'personnel', link: '/handbook/Interview/00-personnel'},
                     {text: 'Java基础', link: '/handbook/Interview/01-Java基础'},
                     {text: 'Redis', link: '/handbook/Interview/02-Redis'},
                     {text: 'MySQL', link: '/handbook/Interview/03-MySQL'},
@@ -93,6 +98,15 @@ module.exports = {
 
                         ]
                     },
+                    {
+                        title: 'SQL',//添加一层子标题
+                        collapsable: true, // 折叠
+                        children: [
+                            {title: 'SQL练习', path: '/handbook/Learn/SQL/SQL案例'}
+
+
+                        ]
+                    },
                 ],
             },
             {
@@ -126,6 +140,7 @@ module.exports = {
                 // path: '/handbook/Interview/01-Java基础',
                 // collapsable: false, // 不折叠
                 children: [
+                    {title: "personnel", collapsable: true,path: "/handbook/Interview/00-personnel"},
                     {title: "Java基础", collapsable: true,path: "/handbook/Interview/01-Java基础"},
                     {title: 'Redis', path: "/handbook/Interview/02-Redis"},
                     {title: "MySQL", path: "/handbook/Interview/03-MySQL"},

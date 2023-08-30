@@ -158,30 +158,30 @@ void print(int n) {
 
 ##  面试题
 
-### 1.常见的集合有哪些？✔
+### 1.常见的集合有哪些✔
 
 - `Collection`接口
   - `List`
-    - `ArrayList`
-    - `Linkedlist`
-    - `Vector`
+    - `ArrayList`数组
+    - `Linkedlist`双向链表
+    - `Vector`数组
   - `Set`
     - `HashSet`哈希表
     - `LinkedHashSet`哈希表+链表
     - `TreeSet`红黑树
 - `Map`接口
-  - `HashMap`
-  - `LinkedHashMap`
-  - `TreeMap`
+  - `HashMap`链表+数组+（红黑树）
+  - `LinkedHashMap`哈希表+双向链表
+  - `TreeMap`红黑树
 
 > 在java中提供了大量的集合框架，主要分为两类： 
 >
 > 第一个是Collection 属于单列集合，第二个是Map 属于双列集合 
 >
 > - 在Collection中有两个子接口List和Set。在我们平常开发的过程中用的比较多像list 接口中的实现类ArrarList和LinkedList。 在Set接口中有实现类HashSet和 TreeSet。 
-> - 在map接口中有很多的实现类，平时比较常见的是HashMap、TreeMap，还有一个 线程安全的map:ConcurrentHashMap
+> - 在map接口中有很多的实现类，平时比较常见的是HashMap、TreeMap，还有一个线程安全的map:ConcurrentHashMap
 
-### 2.线程安全的集合有哪些？线程不安全的呢？
+### 2.线程安全的集合有哪些？线程不安全的呢
 
 - 线程安全的
   - Hashtable
@@ -198,7 +198,7 @@ void print(int n) {
 
 > 它们两个主要是底层使用的数据结构不一样，ArrayList 是动态数组， LinkedList 是双向链表，这也导致了它们很多不同的特点。
 >
-> 1，从操作数据效率来说
+> 1、从操作数据效率来说
 >
 > ArrayList按照下标查询的时间复杂度O(1)【内存是连续的，根据寻址公式】， LinkedList不支持下标查询
 >
@@ -209,26 +209,26 @@ void print(int n) {
 > - ArrayList尾部插入和删除，时间复杂度是O(1)；其他部分增删需要挪动数组，时间复杂度是O(n) 
 > - LinkedList由于只需要调整节点的链接关系，插入和删除操作的效率较高，无论在任何位置进行插入和删除，时间复杂度都为O(1)。
 >
-> 2，从内存空间占用来说
+> 2、**从内存空间占用来说**
 >
 > ArrayList底层是数组，内存连续，节省内存 
 >
 > LinkedList 是双向链表需要存储数据，和两个指针，更占用内存
 >
-> 3，从线程安全来说，ArrayList和LinkedList都不是线程安全的
+> 3、从线程安全来说，ArrayList和LinkedList都不是线程安全的
 
 根据具体的需求，选择合适的集合类可以提高代码的效率和可读性。如果需要频繁随机访问元素或在末尾进行插入和删除操作，可以选择ArrayList。如果需要频繁在任意位置进行插入和删除操作，可以选择LinkedList。
 
-### 4.ArratList与Vector区别？
+### 4.ArratList与Vector区别
 
 - 线程安全问题
 - 扩容问题`0.5 -> 1`（ArrayList有利于节省内存空间）
 
-### 5.说一说ArrayList的扩容机制？
+### 5.说一说ArrayList的扩容机制
 
 - 将原有数组内容复制到新数组中去
 
-### 6.Array和ArrayList有什么区别？什么时候该用Array而不是ArrayList呢？
+### 6.Array和ArrayList有什么区别？什么时候该用Array而不是ArrayList呢
 
 - 类型
   - 基本数据类型+对象类型
@@ -248,18 +248,32 @@ void print(int n) {
 - 1.7中链表插入使用头插法，哈希算法比较复杂，1.8新增红黑树，简化哈希算法，节省CPU资源
 - 1.8中加红黑树的目的是提高HashMap插入和查询整体效率
 
-### 8.解决Hash冲突的办法有那些？HashMap用的那种？
+### 8.解决Hash冲突的办法有那些？HashMap用的那种
 
 - 开放定址法
 - 再哈希法
 - 链地址法
 - 建立公共溢出区
 
-### 9.为什么在解决hash冲突的时候，不直接用红黑树？而选择先用链表，再转红黑树？
+> 1. 链地址法（Chaining）：
+>    - 在哈希表的每个槽（bucket）中维护一个链表或其他数据结构（如红黑树）。
+>    - 当发生哈希冲突时，将新的键值对插入到链表（或其他数据结构）中。
+>    - 不同的键通过哈希函数计算得到相同的索引位置时，并不会覆盖原有的键值对。
+> 2. 开放地址法（Open Addressing）：
+>    - 在哈希表中，使用线性探测、二次探测、双重哈希等方法来寻找下一个可用的空槽。
+>    - 当发生哈希冲突时，通过一定的步长探测下一个空槽，并将键值对插入其中。
+>    - 不同的键通过哈希函数计算得到相同的索引位置时，会尝试寻找下一个可用的空槽。
+> 3. 再哈希法（Rehashing）：
+>    - 当哈希表的负载因子达到一定阈值时，可以扩展哈希表的容量，并重新计算所有键的哈希值。
+>    - 通过增加桶的数量，降低哈希冲突的概率。
+>
+> HashMap使用的哈希冲突解决方法是链地址法（Chaining）。当发生哈希冲突时，新的键值对会通过链表（或红黑树）的方式插入到相应的桶中，在同一个桶中的键值对通过链表的形式进行存储。当链表长度超过一定阈值时（默认为8），链表会转换为红黑树，以提高查找效率。这种解决冲突的方法在实际应用中性能较好，并且能够保持较低的插入成本和查找成本。
+
+### 9.为什么在解决hash冲突的时候，不直接用红黑树？而选择先用链表，再转红黑树
 
 - 元素个数小于8的时候，链表查询性能大于红黑树
 
-### 10.HashMap默认加载因子是多少？为什么是0.75，不是0.6或者0.8？
+### 10.HashMap默认加载因子是多少？为什么是0.75，不是0.6或者0.8
 
 ### 11. HashMap 中 key 的存储索引是怎么计算的？  
 
@@ -267,22 +281,22 @@ void print(int n) {
 - 然后根据hashcode计算出hash值，
 - 最后通过hash&（length-1）计算得到存储的位置
 
-### 12. HashMap 的put方法流程？ ✔ 
+### 12. HashMap 的put方法流程 ✔ 
 
 - 是否为空、是否出现hash冲突、key是否存在、数据结构是否为红黑树、链表长度是否大于8、数据容量是否小于64
 
 ![image-20230625090954671](https://gitee.com/tjlxy/img/raw/master/image-20230625090954671.png)
 
-> 1. 判断键值对数组table是否为空或为null，否则执行resize()进行扩容（初始化） 
-> 2. 根据键值key计算hash值得到数组索引 
-> 3. 判断table[i]==null，条件成立，直接新建节点添加 
+> 1. 判断键值对数组table是否为空或为null，如果是则需要执行resize()进行扩容（初始化） 
+> 2. 根据键值key计算hash值得到数组索引 （通过哈希函数将键转换为哈希值，并计算索引位置）
+> 3. 判断table[i]==null或空，条件成立，直接新建节点添加 
 > 4. 如果table[i]==null ,不成立 
 >    1. 判断table[i]的首个元素是否和key一样，如果相同直接覆盖value 
 >    2. 判断table[i] 是否为treeNode，即table[i] 是否是红黑树，如果是红黑树，则直接在树中插入键值对 
->    3. 遍历table[i]，链表的尾部插入数据，然后判断链表长度是否大于8，大 于8的话把链表转换为红黑树，在红黑树中执行插入操作，遍历过程中若发现key已经存在直接覆盖value 
-> 5. 插入成功后，判断实际存在的键值对数量size是否超多了最大容量threshold（数组 长度*0.75），如果超过，进行扩容。
+>    3. 遍历table[i]，如果是链表，则链表的尾部插入数据，然后判断链表长度是否大于8，大于8的话把链表转换为红黑树，在红黑树中执行插入操作，遍历过程中若发现key已经存在直接覆盖value 
+> 5. 插入成功后，判断实际存在的键值对数量size是大于等于最大容量threshold（数组 长度*0.75），如果大于等于，进行扩容。
 
-### 13. HashMap 的扩容方式？  ✔
+### 13. HashMap 的扩容方式✔
 
 - HashMap在容量超过负载因子所定义的容量之后，就会扩容。（扩大为原来数组的两倍）
 
@@ -295,7 +309,7 @@ void print(int n) {
 > - 如果是红黑树，走红黑树的添加 
 > - 如果是链表，则需要遍历链表，可能需要拆分链表，判断(e.hash & oldCap)是否为 0，该元素的位置要么停留在原始位置，要么移动到原始位置+增加的数组大小这个位置上
 
-### 通过hash计算后找到数组的下标，是如何找到的 呢，你了解hashMap的寻址算法吗
+### 通过hash计算后找到数组的下标，是如何找到的呢，你了解hashMap的寻址算法吗
 
 这个哈希方法首先计算出key的hashCode值，然后通过这个hash值右移16位后的二进制进行按位异或运算得到最后的hash值。 
 
@@ -331,13 +345,13 @@ jdk7的的数据结构是：数组+链表
 
 当然，JDK 8 将扩容算法做了调整，不再将元素加入链表头（而是保持与扩 容前一样的顺序），尾插法，就避免了jdk7中死循环的问题。
 
-### 14. 一般用什么作为HashMap的key?  
+### 14. 一般用什么作为HashMap的key
 
 - String
   - 不可变， 所以在它创建的时候 hashcode 就被缓存了，不需要重新计算  
   - 获取对象时要用到 equals() 和 hashCode() 方法，String已经重写过了
 
-### 15. HashMap为什么线程不安全？  
+### 15. HashMap为什么线程不安全
 
 - 多线程下扩容循环
   - 1.7采用头插法，容易导致环形链表
@@ -348,14 +362,14 @@ jdk7的的数据结构是：数组+链表
 
 我们可以采用ConcurrentHashMap进行使用，它是一个线程安全的 HashMap
 
-### 16. ConcurrentHashMap 的实现原理是什么？  
+### 16. ConcurrentHashMap 的实现原理是什么
 
 - JDK1.7
   - segment数组+HashEntry数组
 - JDK1.8
   - 数组+链表+红黑树
 
-### 17. ConcurrentHashMap 的 put 方法执行逻辑是什么？  
+### 17. ConcurrentHashMap 的 put 方法执行逻辑是什么
 
 - JDK1.7
   - 计算hashcode值定位到hash entry
@@ -364,34 +378,38 @@ jdk7的的数据结构是：数组+链表
   - 计算hash值
   - 。。。
 
-### 18. ConcurrentHashMap 的 get 方法是否要加锁，为什么？  
+### 18. ConcurrentHashMap 的 get 方法是否要加锁，为什么
 
 。。。
 
 - `volatile`修饰
 
-### 19. get方法不需要加锁与volatile修饰的哈希桶有关吗？  
+### 19. get方法不需要加锁与volatile修饰的哈希桶有关吗
 
-### 20. ConcurrentHashMap 不支持 key 或者 value 为 null 的原因？ 
+### 20. ConcurrentHashMap 不支持 key 或者 value 为 null 的原因
 
 - key
   - 源码就是这样编写的
 - value（二义性）
   - 无法判断映射的`value`是空值，还是没有找到对应的`key`而为null
 
-### 21. ConcurrentHashMap 的并发度是多少？  
+### 21. ConcurrentHashMap 的并发度是多少
 
 默认16
 
-### 22. ConcurrentHashMap 迭代器是强一致性还是弱一致性？  
+### 22. ConcurrentHashMap 迭代器是强一致性还是弱一致性
 
 - 弱一致性
   -  在遍历过程中，内部元素可能会发生变化，如果变化发生在已遍历过的部分，迭代器就不会反映出来，而如果变化发生在未遍历过的部分，迭代器就会发现并反映出来，这就是弱一致性。 
 
-### 23. JDK1.7与JDK1.8 中ConcurrentHashMap 的区别？  
+### 23. JDK1.7与JDK1.8 中ConcurrentHashMap 的区别
 
-- 数据结构
-- 保证线程安全机制
+- 数据结构：
+  - 取消了Segment分段锁的数据结构，取而代之的是数组+链表+红黑树的结构。	
+
+- 保证线程安全机制：
+  - JDK1.7采用Segment的分段锁机制实现线程安全，其中segment继承自 ReentrantLock。JDK1.8 采用CAS+Synchronized保证线程安全。
+
 - 锁的粒度
   - 对需要进行数据操作的Segment加锁
   - 对每个数组元素加锁
@@ -401,27 +419,41 @@ jdk7的的数据结构是：数组+链表
       - O(n)
       - O(logN)
 
-### 24. ConcurrentHashMap 和Hashtable的效率哪个更高？为什么？  
+### 24. ConcurrentHashMap 和Hashtable的效率哪个更高？为什么
 
 - ConcurrentHashMap的效率要高于Hashtable
 - ConcurrentHashMap的锁粒度更低
 
-### 25. 说一下Hashtable的锁机制 ?  
+### 25. 说一下Hashtable的锁机制 
 
 - 给整个哈希表加了一把大锁
 - 多线程环境下。。。
 
-### 26. 多线程下安全的操作 map还有其他方法吗？  
+### 26. 多线程下安全的操作 map还有其他方法吗
 
 - 使用`Collections.synchronizedmap`方法，对方法加同步锁
 
-### 27. HashSet 和 HashMap 区别 ✔
+### 27. HashMap 和 HashSet 区别 ✔
 
 - 上层实现接口
-- 存储内容
-- 添加元素方法
-- 。。
+  - Map接口
+  - Set接口
 
+- 存储内容
+  - 存储键值对
+  - 存储对象
+
+- 添加元素方法
+  - put()
+  - add()
+
+- 速度
+  - HashMap相对于HashSet较快，因为它使用唯一的键获取对象
+  - HashSet较HashMap来说比较慢
+
+
+> ### HashMap和HashTable有何不同
+>
 > 第一，数据结构不一样，hashtable是数组+链表，hashmap在1.8之后改为了 数组+链表+红黑树 
 >
 > 第二，hashtable存储数据的时候都不能为null，而hashmap是可以的 
@@ -432,7 +464,7 @@ jdk7的的数据结构是：数组+链表
 >
 > 第五，hashtable是线程安全的，操作数据的时候加了锁synchronized， hashmap不是线程安全的，效率更高一些 在实际开中不建议使用HashTable，在多线程环境下可以使用 ConcurrentHashMap类
 
-### 28. Collection框架中实现比较要怎么做？  
+### 28. Collection框架中实现比较要怎么做
 
 - 内部比较器
   - 实现`compare(T t)`
@@ -448,6 +480,80 @@ jdk7的的数据结构是：数组+链表
 - 添加元素
   - Iterator无法向集合中添加元素
 - 获取索引
+
+遍历List数组
+
+```java
+List<String> list = Arrays.asList("Apple", "Banana", "Orange");
+
+// 使用for循环遍历List
+for (int i = 0; i < list.size(); i++) {
+    String item = list.get(i);
+    System.out.println(item);
+}
+
+// 使用增强型for循环遍历List
+for (String item : list) {
+    System.out.println(item);
+}
+
+//使用Iterator遍历List
+List<String> list = Arrays.asList("Apple", "Banana", "Orange");
+
+Iterator<String> iterator = list.iterator();
+while (iterator.hasNext()) {
+    String item = iterator.next();
+    System.out.println(item);
+}
+
+//使用ListIterator遍历List
+List<String> list = new ArrayList<>();
+list.add("Apple");
+list.add("Banana");
+list.add("Orange");
+
+ListIterator<String> listIterator = list.listIterator();
+while (listIterator.hasNext()) {
+    String item = listIterator.next();
+    System.out.println(item);
+}
+
+// 反向遍历List
+while (listIterator.hasPrevious()) {
+    String item = listIterator.previous();
+    System.out.println(item);
+}
+//忽略集合名
+```
+
+遍历Map数组
+
+```java
+Map<Integer, String> map = new HashMap<>();
+map.put(1, "Apple");
+map.put(2, "Banana");
+map.put(3, "Orange");
+
+// 遍历Map的键值对
+for (Map.Entry<Integer, String> entry : map.entrySet()) {
+    Integer key = entry.getKey();
+    String value = entry.getValue();
+    System.out.println("Key: " + key + ", Value: " + value);
+}
+
+// 遍历Map的键
+for (Integer key : map.keySet()) {
+    System.out.println("Key: " + key);
+}
+
+// 遍历Map的值
+for (String value : map.values()) {
+    System.out.println("Value: " + value);
+}
+
+```
+
+
 
 ### 30. 讲一讲快速失败(fail-fast)和安全失败(fail-safe)  
 
@@ -465,7 +571,7 @@ jdk7的的数据结构是：数组+链表
   - 如果某个线程put时，发现没有正在进行扩容，则将key-value添加到ConcurrentHashMap中，然后判断是否超过阈值，超过了则进行扩容
   - ConcurrentHashMap是支持多个线程扩容的
   - 扩容之前也先生成一个新的数组
-  - 在转移元素时，先将 原数组分组，将每组分给不同的线程来进行元素的转移，每个线程负责一组或多组的元素转移工作
+  - 在转移元素时，先将原数组分组，将每组分给不同的线程来进行元素的转移，每个线程负责一组或多组的元素转移工作
 
 ### CopyOnWriteArrayList的底层原理是怎样的
 
@@ -541,4 +647,123 @@ LinkedList 换成ConcurrentLinkedQueue来使用
 3. 获取数据通过key的hash计算数组下标获取元素
 
 
+
+## 常见算法
+
+### 基本查找/顺序查找
+
+```java
+package com.lxy25122.search;
+
+/**
+ * @user 25122
+ * @date 2023/8/27
+ * @time 20:52
+ * @description 基本查找/顺序查找
+ * 核心：从第0个索引开始挨个往后查找
+ */
+public class A01_BasicSearchDemo1 {
+
+    /**
+     * 需求：定义一个方法利用基本查找，查询某个元素是否存在
+     * 数据如下：{132,12,43,64,3,75,3,1}
+     */
+    public static void main(String[] args) {
+        int [] arr = {132,12,43,64,3,75,3,1};
+        int number = 132;
+        boolean result = basicSearch(arr, number);
+        System.out.println(result);
+    } 
+
+    /**
+     *
+     * @param arr 数组
+     * @param number 要查找的元素
+     * @return 元素是否存在
+     */
+    public static boolean basicSearch(int[] arr, int number){
+        //利用基本查找来查找number在arr数组中是否存在
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == number) return true;
+        }
+        return false;
+    }
+
+}
+```
+
+
+
+### 二分查找/折半查找
+
+```java
+package com.lxy25122.search;
+
+/**
+ * @user 25122
+ * @date 2023/8/28
+ * @time 20:20
+ * @description 二分查找/折半查找
+ * 核心：每次排除一半的查找范围
+ * 1、数据必须是有序的（前提）
+ * 2、查找过程：
+ *  min和max表示当前要查找的范围
+ *  mid在min和max中间的
+ *  如果要查找的元素在mid的左边，在缩小范围的时候，min不变，max等于mid减1
+ *  如果要查找的元素在mid的右边，在缩小范围的时候，max不变，min等于mid加1
+ * <br></br>
+ * 二分查找：mid每次都是指向范围的中间位置
+ * 插值查找：mid尽可能的靠近要查找的数据，但是要求数据尽可能分别均匀
+ * 斐波那契查找：根据黄金分割点来计算mid指向的位置
+ */
+public class A02_BinarySearchDemo1 {
+
+    /**
+     * 需求：定义一个方法利用二分查找，查询某个元素在数组中的索引
+     * 数据如下：{2,7,9,13,25,26,47,58,70,99,121}
+     * min      mid     max
+     */
+    public static void main(String[] args) {
+        int[] arr = {2,7,9,13,25,26,47,58,70,99,121};
+        int index = binarySearch(arr, 13);
+        System.out.println(index);
+    }
+
+    /**
+     * 二分查找/折半查找
+     * @param arr 数组
+     * @param number 要查找的元素
+     * @return 索引位置
+     */
+    public static int binarySearch(int[] arr, int number){
+        //1、定义两个变量，记录要查找的范围
+        int min = 0;
+        int max =arr.length - 1;
+        //2、利用循环不断的去找要查找的数据
+        while (true){
+            if (min > max){
+                return -1;
+            }
+            //3、找到min和max的中间位置 mid
+            int mid = (min + max)/2;
+            //4、拿着mid指向的元素跟要查找的元素进行比较
+            if (number < arr[mid]){
+                //4.1、number在mid的左边
+                // min不变，max=mid-1
+                max = mid - 1;
+            }else if (number > arr[mid]){
+                //4.2、number在mid的右边
+                //min = mid + 1，max不变
+                min = mid + 1;
+            }else {
+                //4.3、number跟mid指向的元素一样
+                //mid = number
+                return mid;
+            }
+        }
+    }
+
+}
+
+```
 
