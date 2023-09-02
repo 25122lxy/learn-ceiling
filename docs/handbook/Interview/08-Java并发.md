@@ -1182,5 +1182,45 @@ es数据批量导入
 
 
 
+## Other
 
+### 编写一个基于线程安全的懒加载单例模式
+
+关键点：
+
+1. 多线程访问
+2. 防止直接new对象
+3. 使用锁
+4. 内部类加载实现、cas实现等
+
+
+
+```java
+public class Test03 {
+
+    private Test03(){}
+
+
+    private static Test03 instance = null;
+
+    public  static  Test03 getInstance(){
+
+        // 有可能在多线程访问的时候，重复new 了对象
+        if (instance == null){
+
+            // 可能会有多个线程 进入抢锁等待状态
+            synchronized (Test03.class){
+                if(instance == null){
+                    instance = new Test03();
+                }else{
+                    return instance;
+                }
+            }
+        }
+
+        return instance;
+
+    }
+}
+```
 

@@ -297,6 +297,29 @@ public class Test{
 
 在Java中，其实是通过值传递实现的参数传递，只不过对于Java对象的传递，传递的内容是对象的引用
 
+```java
+//判断输出结果
+//1. 引用传递
+//2. 堆栈内存分析
+public static void main(String args[]) {
+    StringBuffer a = new StringBuffer("A");
+    StringBuffer b = new StringBuffer("B");
+    operater(a,b);
+
+    System.out.println(a+" "+b);
+
+}
+
+public static void operater(StringBuffer x, StringBuffer y) {
+
+    x.append(y);
+    y = x;
+}
+//结果：AB A
+```
+
+
+
 ### 29.能否创建一个包含可变对象的不可变对象
 
 - `final Person[] persons = new Persion[]{}`
@@ -743,6 +766,72 @@ objectList = stringList; //compilation error incompatible types
 ### 79. JVM 是如何处理异常的
 
 - 抛出异常：创建异常对象，并转交给JVM的过程
+
+ ### 异常代码分析
+
+**代码一**：
+
+关键点：
+
+1. 异常会阻断正常代码运行
+2. finally 一定会执行
+
+```java
+public static void main(String[] args) {
+
+    try {
+        int i = 100 / 0;
+        System.out.print(i);
+    } catch (Exception e) {
+
+        System.out.println(1);
+        throw new RuntimeException();
+    } finally {
+        System.out.println(2);
+    }
+    System.out.println(3);
+}
+```
+
+答： 1 2 异常
+
+**代码二**：
+
+关键点：
+
+1. 在finally中return 后不再执行后续代码
+2. catch中return 不影响finally的执行
+3. try catch 后的finally一定会执行
+
+```java
+public static String output = " ";
+
+public static void foo(int i) {
+    try {
+        if (i == 1) {
+            throw new Exception();
+        }
+    } catch (Exception e) {
+        output += "2";
+        return;
+    } finally {
+        output += "3";
+        return;
+    }
+
+    //output += "4"; //不注释无法运行，看关键点1
+}
+
+public static void main(String[] args) {
+    foo(0);
+    foo(1);
+    System.out.println(output);
+}
+```
+
+答：323
+
+
 
 ## IO
 

@@ -650,7 +650,7 @@ LinkedList 换成ConcurrentLinkedQueue来使用
 
 ## 常见算法
 
-### 基本查找/顺序查找
+### 1. 基本查找/顺序查找
 
 ```java
 package com.lxy25122.search;
@@ -692,9 +692,66 @@ public class A01_BasicSearchDemo1 {
 }
 ```
 
+**扩展**
+
+```java
+package com.lxy25122.search;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * @user 25122
+ * @date 2023/8/27
+ * @time 20:52
+ * @description 基本查找/顺序查找
+ * 核心：从第0个索引开始挨个往后查找
+ */
+public class A01_BasicSearchDemo2 {
+
+    /**
+     * Exe1
+     * 需求：定义一个方法利用基本查找，查询某个元素在数组中的索引
+     * 要求：不需要考虑数组中元素是否重复
+     * <p>
+     * Exe2：
+     * 需求：定义一个方法利用基本查找，查询某个元素在数组中的索引
+     * 要求：需要考虑数组中元素有重复的可能性
+     * {132,12,43,64,3,75,3,1,12}
+     * 需要查找12，想要返回的是所有索引 1 8
+     * 如果要返回多个数据的话，可以把这些数据放到数组或者集合中
+     */
+    public static void main(String[] args) {
+        int[] arr = {132, 12, 43, 64, 3, 75, 3, 1, 12};
+        int number = 2;
+        int index = exe1(arr, number);
+        System.out.println(index);
+        System.out.println("---------------------");
+        List<Integer> integers = exe2(arr, 12);
+        System.out.println(integers);
+    }
 
 
-### 二分查找/折半查找
+    public static int exe1(int[] arr, int number) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == number) return i;
+        }
+        return -1;
+    }
+
+    public static List<Integer> exe2(int[] arr, int number) {
+        ArrayList<Integer> arrayList = new ArrayList<Integer>();
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == number) arrayList.add(i);
+        }
+        return arrayList;
+    }
+
+
+}
+```
+
+### 2. 二分查找/折半查找
 
 ```java
 package com.lxy25122.search;
@@ -767,3 +824,289 @@ public class A02_BinarySearchDemo1 {
 
 ```
 
+
+
+### 3. 分块查找
+
+```java
+package com.lxy25122.search;
+
+/**
+ * @user 25122
+ * @date 2023/8/28
+ * @time 21:35
+ * @description 分块查找
+ * 核心思想：块内无序，块间有序
+ * 实现步骤：
+ *  1、创建数组BlockArr存放每一块对象的信息
+ *  2、先查找blockArr确定要查找的数据属于那一块
+ *  3、再单独遍历这一块数据即可
+ */
+public class A03_BlockSearchDemo1 {
+
+    public static void main(String[] args) {
+
+        int[] arr = {
+                16, 5, 9, 12, 21, 18,
+                32, 23, 37, 26, 45, 34,
+                50, 48, 61, 52, 73, 66
+        };
+        //1. 要把数据进行分块
+        //  要分为几块：arr.length=18 开根号 4.24块
+        //  18/4 = 4.5块
+
+        //创建三个块的对象
+        Block block1 = new Block(21,0,5);
+        Block block2 = new Block(45,6,11);
+        Block block3 = new Block(66,12,17);
+
+        //定义数组用来管理三个块的对象（索引表）
+        Block[] blockArr = {block1,block2,block3};
+
+        //定义一个变量用来记录要查找的元素
+        int number = 37;
+
+        //调用方法，传递、索引表，数组，要查找的元素
+        int index = getIndex(blockArr,arr,number);
+        System.out.println(index);
+
+    }
+
+    /**
+     * 利用分块查找的原理，查询number的索引 ✔
+     * @param blockArr
+     * @param arr
+     * @param number
+     * @return
+     */
+    private static int getIndex(Block[] blockArr, int[] arr, int number) {
+        //1.确定number在那一块当中
+        int indexBlock = findIndexBlock(blockArr, number);
+        if (indexBlock == -1){
+            //表示number不在数组当中
+            return -1;
+        }
+        //2. 获取这一块的起始索引和结束索引
+        //获取当前块的对象
+        Block block = blockArr[indexBlock];
+        int startIndex = block.getStartIndex();
+        int endIndex = block.getEndIndex();
+        //3. 遍历原始数组
+        for (int i = startIndex; i <= endIndex; i++){
+            if (arr[i] == number){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 确定number在索引表的位置
+     * @return
+     */
+    public static int findIndexBlock(Block[] blockArr, int number){
+//        Block block1 = new Block(21,0,5);     ---0
+//        Block block2 = new Block(45,6,11);    ---1
+//        Block block3 = new Block(66,12,17);   ---2
+        //从0索引开始遍历blockArr，如果number小于max，那么就表示number是在这一块当中的
+        for (int i = 0; i < blockArr.length; i++) {
+            if (number <= blockArr[i].getMax()){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+
+}
+
+class Block{
+
+    private int max;//最大值
+    private int startIndex;//起始索引
+    private int endIndex;//结束索引
+
+    public Block() {
+    }
+
+    public Block(int max, int startIndex, int endIndex) {
+        this.max = max;
+        this.startIndex = startIndex;
+        this.endIndex = endIndex;
+    }
+
+    public int getMax() {
+        return max;
+    }
+
+    public void setMax(int max) {
+        this.max = max;
+    }
+
+    public int getStartIndex() {
+        return startIndex;
+    }
+
+    public void setStartIndex(int startIndex) {
+        this.startIndex = startIndex;
+    }
+
+    public int getEndIndex() {
+        return endIndex;
+    }
+
+    public void setEndIndex(int endIndex) {
+        this.endIndex = endIndex;
+    }
+}
+
+```
+
+**扩展**
+
+```java
+package com.lxy25122.search;
+
+/**
+ * @user 25122
+ * @date 2023/8/28
+ * @time 21:35
+ * @description 【扩展的分块查找，块内无序，块外无序】
+ * 核心思想：块内无序，块间有序
+ * 实现步骤：
+ *  1、创建数组BlockArr存放每一块对象的信息
+ *  2、先查找blockArr确定要查找的数据属于那一块
+ *  3、再单独遍历这一块数据即可
+ */
+public class A03_BlockSearchDemo2 {
+
+    public static void main(String[] args) {
+
+        int[] arr = {
+                27, 22, 30, 40, 36,
+                13, 19, 16, 20,
+                7, 10,
+                43, 50, 48
+        };
+        //1. 要把数据进行分块
+        //  要分为几块：arr.length=18 开根号 4.24块
+        //  18/4 = 4.5块
+
+        //创建四个块的对象
+        Block2 block1 = new Block2(40,22,0,4);
+        Block2 block2 = new Block2(20,13,5,8);
+        Block2 block3 = new Block2(10,7,9,10);
+        Block2 block4 = new Block2(50,43,11,13);
+
+        //定义数组用来管理三个块的对象（索引表）
+        Block2[] blockArr = {block1,block2,block3,block4};
+
+        //定义一个变量用来记录要查找的元素
+        int number = 7;
+
+        //调用方法，传递、索引表，数组，要查找的元素
+        int index = getIndex(blockArr,arr,number);
+        System.out.println(index);
+
+    }
+
+    /**
+     * 利用分块查找的原理，查询number的索引 ✔
+     * @param blockArr
+     * @param arr
+     * @param number
+     * @return
+     */
+    private static int getIndex(Block2[] blockArr, int[] arr, int number) {
+        //1.确定number在那一块当中
+        int indexBlock = findIndexBlock(blockArr, number);
+        if (indexBlock == -1){
+            //表示number不在数组当中
+            return -1;
+        }
+        //2. 获取这一块的起始索引和结束索引
+        //获取当前块的对象
+        Block2 block = blockArr[indexBlock];
+        int startIndex = block.getStartIndex();
+        int endIndex = block.getEndIndex();
+        //3. 遍历原始数组
+        for (int i = startIndex; i <= endIndex; i++){
+            if (arr[i] == number){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 确定number在索引表的位置
+     * @return
+     */
+    public static int findIndexBlock(Block2[] blockArr, int number){
+//        Block2 block1 = new Block2(40,22,0,4);        --0
+//        Block2 block2 = new Block2(20,13,5,8);        --1
+//        Block2 block3 = new Block2(10,7,9,10);        --2
+//        Block2 block4 = new Block2(50,43,11,13);      --3
+        //从0索引开始遍历blockArr，如果number小于max，那么就表示number是在这一块当中的
+        for (int i = 0; i < blockArr.length; i++) {
+            if (number <= blockArr[i].getMax() && blockArr[i].getMin() <= number){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+
+}
+
+class Block2{
+
+    private int max;//最大值
+    private int min;//最小值
+    private int startIndex;//起始索引
+    private int endIndex;//结束索引
+
+    public Block2() {
+    }
+
+    public Block2(int max, int min, int startIndex, int endIndex) {
+        this.max = max;
+        this.min = min;
+        this.startIndex = startIndex;
+        this.endIndex = endIndex;
+    }
+
+    public int getMax() {
+        return max;
+    }
+
+    public void setMax(int max) {
+        this.max = max;
+    }
+
+    public int getMin() {
+        return min;
+    }
+
+    public void setMin(int min) {
+        this.min = min;
+    }
+
+    public int getStartIndex() {
+        return startIndex;
+    }
+
+    public void setStartIndex(int startIndex) {
+        this.startIndex = startIndex;
+    }
+
+    public int getEndIndex() {
+        return endIndex;
+    }
+
+    public void setEndIndex(int endIndex) {
+        this.endIndex = endIndex;
+    }
+
+}
+```

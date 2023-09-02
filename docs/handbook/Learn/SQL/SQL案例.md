@@ -125,7 +125,7 @@ limit
   1, 3;
 ```
 
-### 13、基础语法-条件分支✔
+### 13.基础语法-条件分支✔
 
 条件分支 `case when` 是 SQL 中用于根据条件进行分支处理的语法。它类似于其他编程语言中的 if else 条件判断语句，允许我们根据不同的条件选择不同的结果返回。
 
@@ -331,4 +331,133 @@ group by
 > 另一方面，COUNT(*)是对所有列的统计，将计算所有行的数量，无论它们是否包含NULL值。换句话说，如果表中的某一行有一个NULL值，那么该行也会被计算在内。
 >
 > 总结来说，COUNT(id)和COUNT(*)的主要区别在于COUNT(id)不会将NULL值计入统计，而COUNT(*)会将NULL值计入统计。
+
+### 19.分组聚合 - having 子句
+
+HAVING 子句与条件查询 WHERE 子句的区别在于，WHERE 子句用于在 **分组之前** 进行过滤，而 HAVING 子句用于在 **分组之后** 进行过滤。（使用聚合函数需要having子句）
+
+eg：假设有一个学生表 `student`，包含以下字段：`id`（学号）、`name`（姓名）、`class_id`（班级编号）、`score`（成绩）。请你编写一个 SQL 查询，统计学生表中班级的总成绩超过 150 分的班级编号（class_id）和总成绩（total_score）。
+
+```sql
+select
+  class_id,
+  sum(score) total_score
+from
+  student
+group by
+  class_id
+having
+  sum(score) > 150;
+```
+
+### 20.查询进阶 - 关联查询 - cross join✔
+
+其中，`CROSS JOIN` 是一种简单的关联查询，不需要任何条件来匹配行，它直接将左表的 **每一行** 与右表的 **每一行** 进行组合，返回的结果是两个表的笛卡尔积。
+
+eg：假设有一个学生表 `student` ，包含以下字段：id（学号）、name（姓名）、age（年龄）、class_id（班级编号）；还有一个班级表 `class` ，包含以下字段：id（班级编号）、name（班级名称）。
+
+请你编写一个 SQL 查询，将学生表和班级表的所有行组合在一起，并返回学生姓名（student_name）、学生年龄（student_age）、班级编号（class_id）以及班级名称（class_name）。
+
+```sql
+select
+  s.name student_name,
+  s.age student_age,
+  s.class_id class_id,
+  c.name class_name
+from
+  student s
+  cross join class c;
+```
+
+### 21.查询进阶-关联查询-inner join
+
+注意，INNER JOIN 只返回两个表中满足关联条件的交集部分，即在两个表中都存在的匹配行。（JOIN 默认 指 INNER JOIN）
+
+eg：假设有一个学生表 `student`，包含以下字段：`id`（学号）、`name`（姓名）、`age`（年龄）、`class_id`（班级编号）。还有一个班级表 `class`，包含以下字段：`id`（班级编号）、`name`（班级名称）、`level`（班级级别）。
+
+请你编写一个 SQL 查询，根据学生表和班级表之间的班级编号进行匹配，返回学生姓名（`student_name`）、学生年龄（`student_age`）、班级编号（`class_id`）、班级名称（`class_name`）、班级级别（`class_level`）。
+
+```sql
+select
+  s.name student_name,
+  s.age student_age,
+  s.class_id class_id,
+  c.name class_name,
+  c.level class_level
+from
+  student s
+  inner join class c on s.class_id = c.id;
+```
+
+### 22.查询进阶 - 关联查询 - outer join✔
+
+在 SQL 中，OUTER JOIN 是一种关联查询方式，它根据指定的关联条件，将两个表中满足条件的行组合在一起，并 **包含没有匹配的行** 。
+
+在 OUTER JOIN 中，包括 LEFT OUTER JOIN 和 RIGHT OUTER JOIN 两种类型，它们分别表示查询左表和右表的所有行（即使没有被匹配），再加上满足条件的交集部分。
+
+eg：假设有一个学生表 `student`，包含以下字段：`id`（学号）、`name`（姓名）、`age`（年龄）、`class_id`（班级编号）。还有一个班级表 `class`，包含以下字段：`id`（班级编号）、`name`（班级名称）、`level`（班级级别）。
+
+请你编写一个 SQL 查询，根据学生表和班级表之间的班级编号进行匹配，返回学生姓名（`student_name`）、学生年龄（`student_age`）、班级编号（`class_id`）、班级名称（`class_name`）、班级级别（`class_level`），要求必须返回所有学生的信息（即使对应的班级编号不存在）。
+
+```sql
+select
+  s.name student_name,
+  s.age student_age,
+  s.class_id class_id,
+  c.name class_name,
+  c.level class_level
+from
+  student s
+  left join class c on s.class_id = c.id;
+```
+
+### 23、查询进阶 - 子查询✔
+
+子查询是指在一个查询语句内部 **嵌套** 另一个完整的查询语句，内层查询被称为子查询。子查询可以用于获取更复杂的查询结果或者用于过滤数据。
+
+eg：假设有一个学生表 `student`，包含以下字段：`id`（学号）、`name`（姓名）、`age`（年龄）、`score`（分数）、`class_id`（班级编号）。还有一个班级表 `class`，包含以下字段：`id`（班级编号）、`name`（班级名称）。
+
+请你编写一个 SQL 查询，使用子查询的方式来获取存在对应班级的学生的所有数据，返回学生姓名（`name`）、分数（`score`）、班级编号（`class_id`）字段。
+
+```sql
+select
+  name,
+  score,
+  class_id
+from
+  student
+where
+  class_id in (
+    select
+      id
+    from
+      class
+  );
+```
+
+### 24、查询进阶 - 子查询 - exists ✔
+
+其中，子查询中的一种特殊类型是 "exists" 子查询，用于检查主查询的结果集是否存在满足条件的记录，它返回布尔值（True 或 False），而不返回实际的数据。
+
+eg：假设有一个学生表 `student`，包含以下字段：`id`（学号）、`name`（姓名）、`age`（年龄）、`score`（分数）、`class_id`（班级编号）。还有一个班级表 `class`，包含以下字段：`id`（班级编号）、`name`（班级名称）。
+
+请你编写一个 SQL 查询，使用 exists 子查询的方式来获取 **不存在对应班级的** 学生的所有数据，返回学生姓名（`name`）、年龄（`age`）、班级编号（`class_id`）字段。
+
+```sql
+select
+  name,
+  age,
+  class_id
+from
+  student
+where
+  not exists (
+    select
+      class_id
+    from
+      class
+    where
+      class.id = student.class_id
+  );
+```
 
