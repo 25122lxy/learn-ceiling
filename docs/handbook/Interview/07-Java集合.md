@@ -650,7 +650,9 @@ LinkedList 换成ConcurrentLinkedQueue来使用
 
 ## 常见算法
 
-### 1. 基本查找/顺序查找
+### 查找算法
+
+#### 1. 基本查找/顺序查找
 
 ```java
 package com.lxy25122.search;
@@ -751,7 +753,7 @@ public class A01_BasicSearchDemo2 {
 }
 ```
 
-### 2. 二分查找/折半查找
+#### 2. 二分查找/折半查找
 
 ```java
 package com.lxy25122.search;
@@ -824,9 +826,44 @@ public class A02_BinarySearchDemo1 {
 
 ```
 
+#### 3. 插值查找
 
+```java
+public class InterpolationSearch {  
+    public static int interpolationSearch(int[] arr, int x) {  
+        int low = 0;  
+        int high = arr.length - 1;  
+  
+        while (low <= high && x >= arr[low] && x <= arr[high]) {  
+            if (low == high) {  
+                if (arr[low] == x) return low;  
+                return -1;  
+            }  
+  
+            int pos = low + ((x - arr[low]) * (high - low)) / (arr[high] - arr[low]);  
+  
+            if (arr[pos] == x) return pos;  
+  
+            if (arr[pos] < x) low = pos + 1;  
+            else high = pos - 1;  
+        }  
+  
+        return -1;  
+    }  
+  
+    public static void main(String[] args) {  
+        int[] arr = {1, 3, 5, 7, 9, 11, 13, 15};  
+        int x = 7;  
+        int index = interpolationSearch(arr, x);  
+        if (index != -1) System.out.println("Element found at index: " + index);  
+        else System.out.println("Element not found in the array");  
+    }  
+}
+```
 
-### 3. 分块查找
+在这个程序中，我们首先设定一个低位(low)和高位(high)。然后，我们使用目标值(x)与数组的低端和高端的差值，来计算出一个位置(pos)。这个位置是根据插值公式计算出来的，这个公式就是 `pos = low + ((x - arr[low]) * (high - low)) / (arr[high] - arr[low])`。然后我们检查这个位置的值是否等于目标值。如果等于，我们就返回这个位置。如果这个位置的值小于目标值，我们就把低位移动到这个位置的右边一位。否则，我们就把高端移动到这个位置的左边一位。然后我们重复这个过程，直到低位大于高端，或者我们找到目标值。
+
+#### 4. 分块查找
 
 ```java
 package com.lxy25122.search;
@@ -1110,3 +1147,154 @@ class Block2{
 
 }
 ```
+
+### 排序算法
+
+#### 1.冒泡排序
+
+相邻的数据两两比较，小的放前面，大的放后面。
+
+```java
+package com.lxy25122.mysort;
+
+/**
+ * @user 25122
+ * @date 2023/9/3
+ * @time 10:43
+ * @description 冒泡排序
+ * 核心思想
+ * 1、相邻的元素两两比较，大的放右边，小的放左边。
+ * 2、第一轮比较完毕之后，最大值就已经确定，第二轮可以少循环一次，后面以此类推。
+ * 3、如果数组中有n个数据，总共我们只要执行n-1轮的代码就可以。
+ *
+ */
+public class A01_BubbleDemo1 {
+
+    public static void main(String[] args) {
+
+        //1.定义数组
+        int[] arr = {2, 4, 5, 3, 1};
+        //2.利用冒泡排序将数组中的数据变成 1 2 3 4 5
+        //第一轮：结束之后，最大值在数组的最右边。。。。5
+//        for (int i = 0; i < arr.length - 1; i++) {
+//            //i 依次表示数组中的每一个索引： 0 1 2 3 4
+//            if (arr[i] > arr[i + 1]){
+//                int temp = arr[i];
+//                arr[i] = arr[i + 1];
+//                arr[i + 1] = temp;
+//            }
+//        }
+//        printArr(arr);
+//        //第二轮：
+//        for (int i = 0; i < arr.length - 1 - 1; i++) {
+//            //i 依次表示数组中的每一个索引： 0 1 2 3 4
+//            if (arr[i] > arr[i + 1]){
+//                int temp = arr[i];
+//                arr[i] = arr[i + 1];
+//                arr[i + 1] = temp;
+//            }
+//        }
+//        printArr(arr);
+        //最终代码：
+        //外循环：表示我要执行多少轮，如果有n个数据，那么执行n-1轮
+        for (int i = 0; i < arr.length - 1; i++) { // 0 1 2 3
+            //内循环：每一轮中我如何比较数据并找到当前的最大值
+            //-1：为了防止索引越界
+            //-i：提高效率，每一轮执行的次数应该比上一轮少一次
+            for (int j = 0; j < arr.length - 1 - i; j++){
+                //i 依次表示数组中的每一个索引： 0 1 2 3 4
+                if (arr[j] > arr[j + 1]){
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
+            printArr(arr);
+        }
+
+    }
+
+    public static void printArr(int[] arr){
+        //3.遍历数组
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i] + "、");
+        }
+        System.out.println();
+    }
+
+}
+```
+
+
+
+#### 2.选择排序
+
+从0索引开始，拿着每一个索引上的元素跟后面的元素依次比较，小的放前面，大的放后面，依次类推
+
+```java
+package com.lxy25122.mysort;
+
+/**
+ * @user 25122
+ * @date 2023/9/4
+ * @time 21:27
+ * @description 选择排序
+ * 1、从 0 索引开始，跟后面的元素一一比较。
+ * 2、小的放前面，大的放后面。
+ * 3、第一次循环结束后，最小的数据已经确定。
+ * 4、第二次循环从 1 索引开始以此类推。
+ */
+public class A02_SelectionDemo1 {
+
+    public static void main(String[] args) {
+        //1.定义数组
+        int[] arr = {2, 4, 5, 3, 1};
+        //2.利用选择排序让数组变成 1 2 3 4 5
+        //第一轮：从 0 索引开始，跟后面元素一一比较
+//        for (int i = 0 + 1; i < arr.length; i++) {
+//            //拿着 0 索引跟后面的数据进行比较
+//            if (arr[0] > arr[i]){
+//                int temp = arr[0];
+//                arr[0] = arr[i];
+//                arr[i] = temp;
+//            }
+//        }
+        //最终代码：
+        //外循环：i 表示这一轮中，拿着哪个索引上的数据跟后面的数据进行比较并交换
+        for (int i = 0; i < arr.length - 1; i++) {
+            //内循环：拿着 i 跟 i 后面的数据进行比较交换
+            for (int j = i + 1; j < arr.length; j++) {
+                if (arr[i] > arr[j]){
+                    int temp = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = temp;
+                }
+            }
+        }
+
+        printArr(arr);
+    }
+
+
+    public static void printArr(int[] arr){
+        //3.遍历数组
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i] + "、");
+        }
+        System.out.println();
+    }
+
+}
+
+```
+
+
+
+
+
+#### 3.插入排序
+
+
+
+#### 4.快速排序
+

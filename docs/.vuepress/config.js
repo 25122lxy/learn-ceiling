@@ -52,7 +52,9 @@ module.exports = {
                     {text: '消息中间件', link: '/handbook/Interview/06-消息中间件'},
 					{text: 'Java集合', link: '/handbook/Interview/07-Java集合'},
 					{text: 'Java并发', link: '/handbook/Interview/08-Java并发'},
-					{text: 'JVM', link: '/handbook/Interview/09-JVM'}
+					{text: 'JVM', link: '/handbook/Interview/09-JVM'},
+					{text: 'Linux', link: '/handbook/Interview/10-Linux'},
+					{text: 'Hadoop', link: '/handbook/Interview/11-Hadoop.md'}
 
                 ]
             },
@@ -149,7 +151,9 @@ module.exports = {
 					{title: "消息中间件", path: "/handbook/Interview/06-消息中间件"},
 					{title: "Java集合", path: "/handbook/Interview/07-Java集合"},
 					{title: "Java并发", path: "/handbook/Interview/08-Java并发"},
-					{title: "JVM", path: "/handbook/Interview/09-JVM"}
+					{title: "JVM", path: "/handbook/Interview/09-JVM"},
+					{title: "Linux", path: "/handbook/Interview/10-Linux"},
+					{title: "Hadoop", path: "/handbook/Interview/11-Hadoop"}
                 ],
             },
 

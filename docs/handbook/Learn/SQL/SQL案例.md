@@ -4,7 +4,7 @@
 
 **SELECT ... FROM ... WHERE ... GROUP BY ... HAVING ... ORDER BY ... LIMIT...**
 
-### 1、基础语法 - 查询 - 全表查询
+### 1.基础语法 - 查询 - 全表查询
 
 ```sql
 select * from student;
@@ -411,7 +411,7 @@ from
   left join class c on s.class_id = c.id;
 ```
 
-### 23、查询进阶 - 子查询✔
+### 23.查询进阶 - 子查询✔
 
 子查询是指在一个查询语句内部 **嵌套** 另一个完整的查询语句，内层查询被称为子查询。子查询可以用于获取更复杂的查询结果或者用于过滤数据。
 
@@ -435,7 +435,7 @@ where
   );
 ```
 
-### 24、查询进阶 - 子查询 - exists ✔
+### 24.查询进阶 - 子查询 - exists ✔
 
 其中，子查询中的一种特殊类型是 "exists" 子查询，用于检查主查询的结果集是否存在满足条件的记录，它返回布尔值（True 或 False），而不返回实际的数据。
 
@@ -453,11 +453,146 @@ from
 where
   not exists (
     select
-      class_id
+      class_id #无所谓
     from
       class
     where
-      class.id = student.class_id
+      class.id = student.class_id #关键
   );
+```
+
+### 25.查询进阶 - 组合查询✔
+
+包括两种常见的组合查询操作：UNION 和 UNION ALL。
+
+1. UNION 操作：它用于将两个或多个查询的结果集合并， **并去除重复的行** 。即如果两个查询的结果有相同的行，则只保留一行。
+2. UNION ALL 操作：它也用于将两个或多个查询的结果集合并， **但不去除重复的行** 。即如果两个查询的结果有相同的行，则全部保留。
+
+eg：假设有一个学生表 `student`，包含以下字段：`id`（学号）、`name`（姓名）、`age`（年龄）、`score`（分数）、`class_id`（班级编号）。还有一个新学生表 `student_new`，包含的字段和学生表完全一致。
+
+请编写一条 SQL 语句，获取所有学生表和新学生表的学生姓名（`name`）、年龄（`age`）、分数（`score`）、班级编号（`class_id`）字段，要求保留重复的学生记录。
+
+```sql
+select
+  name,
+  age,
+  score,
+  class_id
+from
+  student
+union all
+select
+  name,
+  age,
+  score,
+  class_id
+from
+  student_new;
+```
+
+### 26.查询进阶 - 开窗函数 - sum over✔
+
+在 SQL 中，开窗函数是一种强大的查询工具，它允许我们在查询中进行对分组数据进行计算、 **同时保留原始行的详细信息** 。
+
+开窗函数可以与聚合函数（如 SUM、AVG、COUNT 等）结合使用，但与普通聚合函数不同，开窗函数不会导致结果集的行数减少。
+
+该函数用法为：
+
+```sql
+SUM(计算字段名) OVER (PARTITION BY 分组字段名)
+```
+
+eg：假设有一个学生表 `student`，包含以下字段：`id`（学号）、`name`（姓名）、`age`（年龄）、`score`（分数）、`class_id`（班级编号）。
+
+请你编写一个 SQL 查询，返回**每个学生的详细信息**（字段顺序和原始表的字段顺序一致），并计算每个班级的学生平均分（class_avg_score）。
+
+```sql
+select
+  id,
+  name,
+  age,
+  score,
+  class_id,
+  avg(score) over (
+    partition by
+      class_id
+  ) class_avg_score
+from
+  student;
+ 
+#每个班
+#select 
+#id,name,age,score,class_id,avg(score) class_avg(score)
+#from student
+#group by class_id;
+```
+
+
+
+### 27.查询进阶 - 开窗函数 - sum over order by✔
+
+sum over order by，可以实现同组内数据的 **累加求和** 。示例用法如下：
+
+```sql
+SUM(计算字段名) OVER (PARTITION BY 分组字段名 ORDER BY 排序字段 排序规则)
+```
+
+举一个应用场景：老师在每个班级里依次点名，每点到一个学生，老师都会记录当前已点到的学生们的分数总和。
+
+eg：假设有一个学生表 `student`，包含以下字段：`id`（学号）、`name`（姓名）、`age`（年龄）、`score`（分数）、`class_id`（班级编号）。
+
+请你编写一个 SQL 查询，返回每个学生的详细信息（字段顺序和原始表的字段顺序一致），并且按照分数升序的方式**累加计算**每个班级的学生总分（class_sum_score）。
+
+```sql
+select
+  id,
+  name,
+  age,
+  score,
+  class_id,
+  sum(score) over ( #注意字段
+    partition by
+      class_id
+    order by
+      score asc  #注意字段
+  ) class_sum_score
+from
+  student;
+```
+
+### 28.查询进阶 - 开窗函数 - rank✔
+
+Rank 开窗函数的常见用法是在查询结果中查找前几名（Top N）或排名最高的行。
+
+Rank 开窗函数的语法如下：
+
+```sql
+RANK() OVER (
+  PARTITION BY 列名1, 列名2, ... -- 可选，用于指定分组列
+  ORDER BY 列名3 [ASC|DESC], 列名4 [ASC|DESC], ... -- 用于指定排序列及排序方式
+) AS rank_column
+```
+
+其中，`PARTITION BY` 子句可选，用于指定分组列，将结果集按照指定列进行分组；`ORDER BY` 子句用于指定排序列及排序方式，决定了计算 Rank 时的排序规则。`AS rank_column` 用于指定生成的 Rank 排名列的别名。
+
+eg：假设有一个学生表 `student`，包含以下字段：`id`（学号）、`name`（姓名）、`age`（年龄）、`score`（分数）、`class_id`（班级编号）。
+
+请你编写一个 SQL 查询，返回每个学生的详细信息（字段顺序和原始表的字段顺序一致），并且按照分数降序的方式计算每个班级内的学生的分数排名（ranking）。
+
+```sql
+select
+  id,
+  name,
+  age,
+  score,
+  class_id,
+  rank() over (
+    partition by
+      class_id
+    order by
+      score desc
+  ) ranking
+from
+  student;
 ```
 
