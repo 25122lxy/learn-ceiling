@@ -1294,6 +1294,70 @@ public class A02_SelectionDemo1 {
 
 #### 3.插入排序
 
+```java
+package com.lxy25122.mysort;
+
+/**
+ * @user 25122
+ * @date 2023/9/6
+ * @time 10:39
+ * @description 插入排序
+ * 将 0 索引的元素到 N 索引的元素看做是有序的，把 N+1 索引的元素到最后一个当做是无序的，
+ * 遍历无序的数据，将遍历的元素插入有序序列中适当位置，如遇到相同数据，插在后面，
+ * N 的范围：0到最大索引
+ */
+public class A03_InsertDemo1 {
+
+    public static void main(String[] args) {
+        int[] arr = {3, 44, 38, 5, 47, 15, 36, 26, 27, 2, 46, 4, 19, 50, 48};
+        //1.找到无序的那一组数据是从哪个索引开始的。index-2
+        int startIndex = -1;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] > arr[i + 1]){
+                System.out.println(i);//表示有序的那一组数据到 1 索引就结束了
+                startIndex = i + 1;
+                break;
+            }
+        }
+        System.out.println("------------------");
+        //2.遍历从startIndex 开始到最后一个元素，依次得到无序的那一组数据中的每一个元素
+//        int[] arr = {3, 44, 38, 5, 47, 15, 36, 26, 27, 2, 46, 4, 19, 50, 48};
+
+        for (int i = startIndex; i < arr.length; i++) {
+//            System.out.println(arr[i]);
+            //开始向有序的数据中插入
+            //记录当前要插入数据的索引
+            int j = i;
+            while (j > 0 && arr[j] < arr[j - 1]){
+                //交换位置
+                int temp = arr[j];
+                arr[j] = arr[j - 1];
+                arr[j - 1] = temp;
+                j--;
+            }
+
+            //修改这个索引
+
+        }
+
+        printArr(arr);
+
+    }
+
+    public static void printArr(int[] arr){
+        //3.遍历数组
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i] + "、");
+        }
+        System.out.println();
+    }
+
+}
+
+```
+
+
+
 
 
 #### 4.快速排序

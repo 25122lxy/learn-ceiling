@@ -4,7 +4,14 @@ module.exports = {
     theme: 'vuepress-theme-yilia-plus',//切换主题
     base: '/learn-ceiling/',
     head: [
-        ['link', {rel: 'icon', href: '/hand.jpg'}]
+			[
+				"meta",
+				{
+					name:"referrer",
+					content:"no-referrer"
+				}
+			],
+			['link', {rel: 'icon', href: '/hand.jpg'}]
     ],
     //base: '/',
     locales: {

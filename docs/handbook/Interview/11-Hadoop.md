@@ -93,6 +93,98 @@
 7. **read方法是并行的读取block信息，不是一块一块的读取**；NameNode只是返回 Client请求包含块的DataNode地址，并不是返回请求块的数据
 8. **最终读取来所有的 block 会合并成一个完整的最终文件**
 
+### 8.HDFS在读取文件的时候，如果其中一个块突然损坏了怎么办
+
+- 客户端读取完DataNode上的块之后会进行checksum验证，也就是吧客户端读取到本地的块与HDFS上的原始快进行校验，如果发行校验结果不一致，客户端会通知NameNode，然后在从下一个拥有该block副本的DataNode继续读
+
+### 9.HDFS在上传文件的时候，如果其中一个DataNode突然挂掉了怎么办
+
+- 在文件上传时，会进行反方向ack验证，如果DataNode挂掉，客户端就接收不到这个DataNode发送的ack确认，客户端就会通知NameNode，NameNode检查该块的副本与规定的不符，NameNode会通知DataNode去复制副本，并将挂掉的DataNode下线处理，不在让他参与文件的上传与下载。
+
+### 10.NameNode在启动的时候会做哪些操作✔
+
+- 格式化文件系统，生成FSimage文件
+- 启动NameNode
+
+- - 读取Fsimage文件，将文件内容加载到内存
+  - 等待DataNode发起注册与发送blockreport
+
+- 启动DataNode
+
+- - 向NameNode注册
+  - 发送blockreport
+  - 检查Fsimage中记录的块的数量与block中块的数量是否一致
+
+- 进行操作（创建、删除文件）
+- 第二次启动
+
+- - 读取Fsimage和Editlog文件
+  - 将Fsimage和Editlog文件合并成新的Fsimage文件
+  - 创建新的Editlog文件，内容开始为空
+  - 启动DataNode
+
+### 11.SecondaryNameNode了解吗，它的工作机制是怎样的(数据持久化)✔
+
+- 合并NameNode的Editlog到Fsimage文件中
+
+### 12.SecondaryNameNode不能恢复NameNode的全部数据，那如何保证NameNode数据存储安全(Ha高可用)✔
+
+- 共享存储（元数据信息同步）
+- 主备切换
+
+### 13.在NameNodeHa中，会出现脑裂问题吗？怎么解决脑裂
+
+- 调用旧ActivateNameNode的HAServiceProtocolRPC接口的`transitionToStandby`方法
+- ssh登录到目标机器上，执行命令fuser将对应的进程杀死
+
+### 14.小文件过多会有什么危害，如何避免
+
+- 内存
+- 合并小文件
+
+- 
+
+### 15.请说下HDFS的组织架构
+
+- client
+
+- - 切分文件
+  - 与NameNode交互，获取文件位置信息
+  - 与DataNode交互，读取或写入数据
+  - 管理HDFS
+
+- NameNode
+
+- - 管理HDFS命名空间
+  - 管理数据块映射信息
+  - 管理副本配置策略
+  - 处理客户端读写请求
+
+- DataNode
+
+- - 存储实际的数据块
+  - 执行数据块的读写操作
+
+- SecondaryNameNode
+
+- - 辅助NamNode，分担其工作量
+  - 定期合并Fsimage和Editlog文件，减少NameNode启动时间
+  - 辅助恢复NameNode一部分数据
+
+- - 
+
+### 16.HDFS中的block默认保存几份✔
+
+- 3、
+
+### 17.HSDS默认BlockSize是多大✔
+
+- 【64M--Hadoop2.72】【Hadoop2.73--128M】
+
+
+
+
+
 
 
 ## MapReduce

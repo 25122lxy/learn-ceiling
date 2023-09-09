@@ -10,13 +10,13 @@
 select * from student;
 ```
 
-### 2、基础语法 - 查询 - 选择查询
+### 2.基础语法 - 查询 - 选择查询
 
 ```sql
 select id,name from student;
 ```
 
-### 3、基础语法 - 查询 - 别名
+### 3.基础语法 - 查询 - 别名
 
 ```sql
 select username as '用户名' from student;
@@ -24,7 +24,7 @@ select username as 用户名 from student;
 select username '用户名' from student;
 ```
 
-### 4、基础语法 - 查询 - 常量和运算
+### 4.基础语法 - 查询 - 常量和运算
 
 ```sql
 select name, score, score * 2 as double_score from student;
@@ -89,7 +89,7 @@ where
 
 在 SQL 中，我们可以使用 `DISTINCT` 关键字来实现去重操作。
 
-### 11、基础语法-排序✔
+### 11.基础语法-排序✔
 
 - 在 SQL 中，我们可以使用 `ORDER BY` 关键字来实现排序操作。`ORDER BY` 后面跟上需要排序的字段，可以选择升序（ASC）或降序（DESC）排列。默认为升序（ASC）
 
@@ -107,7 +107,7 @@ order by
   age asc;
 ```
 
-### 12、基础语法 - 截断和偏移✔
+### 12.基础语法 - 截断和偏移✔
 
 在 SQL 中，我们使用 `LIMIT` 关键字来实现数据的截断和偏移。
 
@@ -562,6 +562,8 @@ from
 
 ### 28.查询进阶 - 开窗函数 - rank✔
 
+`RANK()`函数会为相同数值的行分配相同的排名，并跳过下一个排名。`ROW_NUMBER()`函数则会为每一行分配唯一的行号。
+
 Rank 开窗函数的常见用法是在查询结果中查找前几名（Top N）或排名最高的行。
 
 Rank 开窗函数的语法如下：
@@ -594,5 +596,220 @@ select
   ) ranking
 from
   student;
+```
+
+### 29.查询进阶 - 开窗函数-row_number✔
+
+`RANK()`函数会为相同数值的行分配相同的排名，并跳过下一个排名。`ROW_NUMBER()`函数则会为每一行分配唯一的行号。
+
+Row_Number 开窗函数是 SQL 中的一种用于为查询结果集中的每一行 **分配唯一连续排名** 的开窗函数。
+
+Row_Number 开窗函数的语法如下（几乎和 Rank 函数一模一样）：
+
+```sql
+ROW_NUMBER() OVER (
+  PARTITION BY column1, column2, ... -- 可选，用于指定分组列
+  ORDER BY column3 [ASC|DESC], column4 [ASC|DESC], ... -- 用于指定排序列及排序方式
+) AS row_number_column
+```
+
+其中，`PARTITION BY`子句可选，用于指定分组列，将结果集按照指定列进行分组。`ORDER BY` 子句用于指定排序列及排序方式，决定了计算 Row_Number 时的排序规则。`AS row_number_column` 用于指定生成的行号列的别名。
+
+> 对于具有相同值的行，`RANK()` 函数将为它们分配相同的排名，并跳过下一个排名。例如，在以下数据集中：
+>
+> ```
+> +------+------+-------+
+> | Name | Exam | Score |
+> +------+------+-------+
+> | Amy  |   1  |   95  |
+> | Bob  |   1  |   90  |
+> | John |   2  |   85  |
+> | Kate |   2  |   85  |
+> +------+------+-------+
+> ```
+>
+> 使用 `RANK()` 函数：
+>
+> ```
+> sqlCopy CodeSELECT Name, Exam, Score, RANK() OVER (PARTITION BY Exam ORDER BY Score DESC) AS Rank
+> FROM scores;
+> ```
+>
+> 结果：
+>
+> ```
+> +------+------+-------+------+
+> | Name | Exam | Score | Rank |
+> +------+------+-------+------+
+> | Amy  |   1  |   95  |  1   |
+> | Bob  |   1  |   90  |  2   |
+> | John |   2  |   85  |  1   |
+> | Kate |   2  |   85  |  1   |
+> +------+------+-------+------+
+> ```
+>
+> 在这里，John 和 Kate 的成绩相同，它们被分配了相同的排名 1，并且下一个排名是 2。
+>
+> 对于 `ROW_NUMBER()` 函数，它将为每一行分配唯一的行号，即使存在相同值的行。所以结果是：
+>
+> ```
+> +------+------+-------+-----------+
+> | Name | Exam | Score | RowNumber |
+> +------+------+-------+-----------+
+> | Amy  |   1  |   95  |     1     |
+> | Bob  |   1  |   90  |     2     |
+> | John |   2  |   85  |     3     |
+> | Kate |   2  |   85  |     4     |
+> +------+------+-------+-----------+
+> ```
+>
+> 因此，在具有相同值的行的情况下，`RANK()` 函数和 `ROW_NUMBER()` 函数将会有不同的结果。感谢您的指正，我非常抱歉给您带来了混淆。
+
+### 30.查询进阶 - 开窗函数 - lag / lead✔
+
+开窗函数 Lag 和 Lead 的作用是获取在当前行之前或之后的行的值，这两个函数通常在需要比较相邻行数据或进行时间序列分析时非常有用。
+
+1）Lag 函数
+
+Lag 函数用于获取 **当前行之前** 的某一列的值。它可以帮助我们查看上一行的数据。
+
+Lag 函数的语法如下：
+
+```sql
+LAG(column_name, offset, default_value) OVER (PARTITION BY partition_column ORDER BY sort_column)
+```
+
+参数解释：
+
+- `column_name`：要获取值的列名。
+- `offset`：表示要向上偏移的行数。例如，offset为1表示获取上一行的值，offset为2表示获取上两行的值，以此类推。
+- `default_value`：可选参数，用于指定当没有前一行时的默认值。
+- `PARTITION BY`和`ORDER BY`子句可选，用于分组和排序数据。
+
+2）Lead 函数
+
+Lead 函数用于获取 **当前行之后** 的某一列的值。它可以帮助我们查看下一行的数据。
+
+Lead 函数的语法如下：
+
+```sql
+LEAD(column_name, offset, default_value) OVER (PARTITION BY partition_column ORDER BY sort_column)
+```
+
+参数解释：
+
+- `column_name`：要获取值的列名。
+- `offset`：表示要向下偏移的行数。例如，offset为1表示获取下一行的值，offset为2表示获取下两行的值，以此类推。
+- `default_value`：可选参数，用于指定当没有后一行时的默认值。
+- `PARTITION BY`和`ORDER BY`子句可选，用于分组和排序数据。
+
+eg：假设有一个学生表 `student`，包含以下字段：`id`（学号）、`name`（姓名）、`age`（年龄）、`score`（分数）、`class_id`（班级编号）。
+
+请你编写一个 SQL 查询，返回每个学生的详细信息（字段顺序和原始表的字段顺序一致），并且按照分数降序的方式获取每个班级内的学生的前一名学生姓名（prev_name）、后一名学生姓名（next_name）。
+
+```sql
+select
+  id,
+  name,
+  age,
+  score,
+  class_id,
+  lag(name, 1, null) over (
+    partition by
+      class_id
+    order by
+      score desc
+  ) prev_name,
+  lead(name, 1, null) over (
+    partition by
+      class_id
+    order by
+      score desc
+  ) next_name
+from
+  student;
+```
+
+
+
+### 31.补充题目
+
+1、假设有一家冒险者公会，他们有一张名为 `rewards` 的表格，用于记录每个冒险者在各个任务中获得的金币奖励情况。
+
+表格字段如下：
+
+- `adventurer_id`：冒险者ID，唯一标识每个冒险者。
+- `adventurer_name`：冒险者姓名。
+- `task_id`：任务ID，唯一标识每个任务。
+- `task_name`：任务名称。
+- `reward_coins`：冒险者在该任务中获得的金币奖励数量。
+
+请你编写一条 SQL 查询语句，依次输出每个冒险者的 id（`adventurer_id`）、冒险者姓名（`adventurer_name`）、获得的总金币奖励（`total_reward_coins`），并按照总金币奖励从高到低排序，其中只列出总金币奖励排名前 3 的冒险者。
+
+```sql
+select
+  adventurer_id,
+  adventurer_name,
+  sum(reward_coins) total_reward_coins
+from
+  rewards
+group by
+  adventurer_id,
+  adventurer_name
+order by
+  total_reward_coins desc
+limit
+  0, 3;
+```
+
+2、假设有一家魔法学院，里面有许多学员在不同科目上进行学习和考试。请你设计一张名为`magic_scores`的表格，用于记录每位学员在不同科目中的考试成绩情况。表格字段如下：
+
+- `student_id`：学员ID，唯一标识每位学员。
+- `student_name`：学员姓名。
+- `subject_id`：科目ID，唯一标识每个科目。
+- `subject_name`：科目名称。
+- `score`：学员在该科目的考试成绩。
+
+请你编写一条 SQL 查询语句，依次输出每位学员的学院 ID（`student_id`）、学员姓名（`student_name`）、科目 ID（`subject_id`）、科目名称（`subject_name`）、学员在该科目的考试成绩（`score`）、该学员在每个科目中的成绩排名（`score_rank`），并将结果按照成绩从高到低进行排序。
+
+```sql
+select
+  student_id,
+  student_name,
+  subject_id,
+  subject_name,
+  score,
+  rank() over (
+    partition by
+      subject_id
+    order by
+      score desc
+  ) score_rank
+from
+  magic_scores;
+```
+
+3、在神秘的海岛上，有一只传说中的大浪淘鸡，它身躯高大威武，羽毛闪烁着神秘的光芒。岛上的居民都传说大浪淘鸡是海洋之神的化身，它能够操纵海浪，带来平静或狂暴的海洋。为了验证这个传说是否属实，岛上的居民决定对大浪淘鸡进行观测和记录。
+
+有一张 `chicken_observation` 的表格，用于记录居民观测大浪淘鸡的信息。表格字段如下：
+
+- `observation_id`：观测记录ID，唯一标识每条观测记录
+- `observer_name`：观测者姓名
+- `observation_date`：观测日期
+- `observation_location`：观测地点
+- `wave_intensity`：观测到的海浪强度，用整数表示，数值越大，海浪越狂暴
+
+请你编写一条 SQL 查询语句，找出观测地点包含 "大浪淘鸡" 且海浪强度超过 5 的观测记录，并依次输出每位观测者的姓名（`observer_name`）、观测日期（`observation_date`）以及观测到的海浪强度（`wave_intensity`）。
+
+```sql
+select
+  observer_name,
+  observation_date,
+  wave_intensity
+from
+  chicken_observation
+where
+  observation_location like '%大浪淘鸡%'
+  and wave_intensity > 5;
 ```
 
