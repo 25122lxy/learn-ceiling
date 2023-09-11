@@ -1362,3 +1362,98 @@ public class A03_InsertDemo1 {
 
 #### 4.快速排序
 
+**递归算法**
+
+指的是方法中调用本身的现象
+
+注意：递归一定要有出口，否则就会出现内存溢出
+
+作用：
+
+- 把一个复杂的问题层层转化为一个**与原问题相似的规模较小**的问题
+- 递归策略只需**少量的程序**就可描述出解题过程所需要的多次重复计算
+
+核心：
+
+- 找出口：什么时候不再调用方法
+- 找规则：如何把大问题变成规模较小的问题
+
+eg：递归求和，求1-100之间的和
+
+```java
+package com.lxy25122.mysort;
+
+/**
+ * @user 25122
+ * @date 2023/9/11
+ * @time 20:46
+ * @description 递归求1-100之间的和
+ * 100 + 99 + 98 + .. + 2 + 1
+ * 1~100 = 100 + (1~99)
+ * 1~99 = 99 + (1~98)
+ * 1~98 = 98 + (1~97)
+ * ...
+ * 1~3 = 3 + (1 ~ 2)
+ * 1~2 = 2 + (1 ~ 1)
+ * 1~1 = 1(递归出口)
+ */
+public class A04_RecursionDemo2 {
+
+    public static void main(String[] args) {
+        int sum = getSum(100);
+        System.out.println(sum);//5050
+    }
+
+    public static int getSum(int number){
+        //如果是1
+        if (number == 1){
+            return 1;
+        }
+        //如果不是1
+        return number + getSum(number - 1);
+    }
+
+}
+
+```
+
+eg：递归求5的阶乘
+
+```java
+package com.lxy25122.mysort;
+
+/**
+ * @user 25122
+ * @date 2023/9/11
+ * @time 20:46
+ * @description 递归求5的阶乘
+ * 核心：
+ *
+ * - 找出口：什么时候不再调用方法
+ * - 找规则：如何把大问题变成规模较小的问题
+ * 5! = 5 * 4!
+ * 4! = 4 * 3!
+ * 3! = 3 * 2!
+ * 2! = 2 * 1!
+ * 1! = 1(递归出口)
+ */
+public class A04_RecursionDemo3 {
+
+    public static void main(String[] args) {
+
+        int sum2 = deliveryX(5);
+        System.out.println(sum2);//120
+    }
+
+    public static int deliveryX(int number){
+        if (number == 1){
+            return 1;
+        }
+        return number * deliveryX(number - 1);
+    }
+
+
+}
+
+```
+

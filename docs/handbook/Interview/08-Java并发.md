@@ -179,7 +179,15 @@ jps
 
 
 
-### ConcurrentHashMap 
+### ConcurrentHashMap 底层具体实现原理✔
+
+基本功能
+
+- 本质是一个HashMap，在HashMap的基础上，提供了并发安全的一个实现，并发安全的主要实现，主要是通过对于Node节点去加锁来保证数据跟新的安全性
+
+性能方面的优化
+
+- 引入红黑树，降低了数据查询的时间复杂度
 
 ConcurrentHashMap 是一种线程安全的高效Map集合
 
@@ -189,7 +197,7 @@ ConcurrentHashMap 是一种线程安全的高效Map集合
 
   数据结构
 
-  - 提供了一个segment数组，在初始化ConcurrentHashMap 的时候可以指定数组的长度，默认是16，一旦初始化之后中间不可扩容
+  - 提供了一个segment数组，在初始化ConcurrentHashMap 的时候可以指定数组的长度，默认是 16，一旦初始化之后中间不可扩容
   - 在每个segment中都可以挂一个HashEntry数组，数组里面可以存储具体的元素，HashEntry数组是可以扩容的
   - 在HashEntry存储的数组中存储的元素，如果发生冲突，则可以挂单向链表
 
@@ -200,9 +208,12 @@ ConcurrentHashMap 是一种线程安全的高效Map集合
 
 - JDK1.8 采用的数据结构跟HashMap1.8的结构一样，数组+链表/红黑二叉树。
 
-  - CAS控制数组节点的添加
+  - 当数组长度大于64，并且链表长度大于等于8 时候，单向链表就会转化成红黑树，一旦链表长度小于8，红黑树会退回成单向链表
 
+  - CAS控制数组节点的添加
   - synchronized只锁定当前链表或红黑二叉树的首节点，只要hash不冲突，就不会产生并发的问题 , 效率得到提升
+
+
 
 ### 6. 常见的对比✔
 
@@ -579,11 +590,13 @@ public class MyInterrupt3 {
 
 
 
-### 如何知道线程池中的任务已经执行完成
+### 如何知道线程池中的任务已经执行完成✔
 
 在java中，有多种方法去判断线程池中的任务是否已经执行完成
 
 1. 使用`Future`对象，线程池有一个叫`submit()`方法，它会返回一个`Future`对象，我们可以通过`Future`的`isDone()`方法，来判断任务是否已经完成
+
+   其次可以通过`Future.get()`方法，获得任务的执行结果，当线程池中的任务没有执行完之前，方法会一直阻塞，直到任务执行结束，只要方法正常返回，就意味着传入线程池中的任务已经执行完成了
 
    ```java
    Executorservice executor = Executors.newFixedThreadPoo1(1); 
@@ -596,7 +609,7 @@ public class MyInterrupt3 {
    boolean done = future.isDone();
    ```
 
-2. 使用`CountDownLatch`，`CountDownLatch`是一个同步工具类，可以在开始的时候，设置一个初始值，每个任务执行完成以后，调用`CountDownLatch`方法，把计数器减1，然后在主线程中调用`await()`方法，等待计数器归零，当计数器归零的时候，表示所有的任务已经完成了
+2. 使用`CountDownLatch`计数器，`CountDownLatch`是一个同步工具类，可以在开始的时候，设置一个初始值，每个任务执行完成以后，调用`CountDownLatch`方法，把计数器减1，然后在主线程中调用`await()`方法，等待计数器归零，当计数器归零的时候，表示所有的任务已经完成了
 
    ```java
    int taskcount = 10;
@@ -607,7 +620,7 @@ public class MyInterrupt3 {
            @override
            public void run() {
                //任务内容
-               1atch. countDown();
+               1atch. countDown();//任务执行结束后，计数器减1
            }
        });
    }
@@ -615,9 +628,9 @@ public class MyInterrupt3 {
    
    ```
 
-3. 使用线程池中的`ThreadPoolExecutor`的`isTerminated()`方法，当调用了线程池中的`shutdonw()`方法或者`shutdownNow()`方法以后，并且所有任务都已经执行完成以后，`isTerminated()`方法，会返回`true`
+3. 使用线程池中的`ThreadPoolExecutor`的`isTerminated()`方法，当调用了线程池中的`shutdonw()`方法或者`shutdownNow()`方法以后，并且所有任务都已经执行完成以后，`isTerminated()`方法，会返回`true`，当然我们一般不会主动关闭线程，因此较少使用
 
-
+不管是线程池内部还是外部，想要知道线程是否执行结束，必须要获取线程执行结束后的状态，而线程本身是没有返回值的，所以只能通过阻塞-唤醒的方式来实现
 
 ### 9. Thread类中的yield方法有什么作用
 
@@ -733,25 +746,18 @@ public class Person implements Runnable{
 
 ### 20. synchronized 和 Lock 有什么区别✔
 
-- 加锁范围
-  - 类、方法、代码块
-  - 代码块
-- 获取锁、释放锁
-  - 自动
-  - 手动
-- 得到是否成功获取到锁
-
-> * 语法层面
->   * synchronized 是关键字，源码在 jvm 中，用 c++ 语言实现
->   * Lock 是接口，源码由 jdk 提供，用 java 语言实现
->   * **使用 synchronized 时，退出同步代码块锁会自动释放，而使用 Lock 时，需要手动调用 unlock 方法释放锁**
-> * 功能层面
->   * 二者均属于悲观锁、都具备基本的互斥、同步、锁重入功能
->   * Lock 提供了许多 synchronized 不具备的功能，例如获取等待状态、公平锁、可打断、可超时、多条件变量
->   * Lock 有适合不同场景的实现，如 ReentrantLock， ReentrantReadWriteLock
-> * 性能层面
->   * 在没有竞争时，synchronized 做了很多优化，如偏向锁、轻量级锁，性能不赖
->   * 在竞争激烈时，Lock 的实现通常会提供更好的性能
+* 特性层面
+  * synchronized 是Java中的同步关键字，源码在 jvm 中，用 c++ 语言实现，用在方法，代码块上
+  * Lock 是JUC包里面提供的一个接口，源码由 jdk 提供，用 java 语言实现，用在代码块上
+  * **使用 synchronized 时，退出同步代码块锁会自动释放，而使用 Lock 时，需要手动调用 unlock 方法释放锁，可以判断是否成功获取到锁，Lock锁更加灵活**
+* 功能层面
+  * lock和syschronized都是Java中解决线程安全的一个工具，二者均属于悲观锁、都具备基本的互斥、同步、锁重入功能
+  * Lock 提供了许多 synchronized 不具备的功能，例如获取等待状态、公平锁、可打断、可超时、多条件变量
+  * Lock 有适合不同场景的实现，如 ReentrantLock， ReentrantReadWriteLock
+  * **Lock提供了公平锁和非公平锁的机制 ，Synchronized只提供了一种非公平锁的实现**
+* 性能层面
+  * 在没有竞争时，synchronized 做了很多优化，如偏向锁、轻量级锁，实现锁的优化
+  * 在竞争激烈时，Lock 的实现通常会提供更好的性能，通过自旋锁实现性能优化
 
 ### 21. synchronized 和 ReentrantLock 区别是什么✔ 
 
@@ -1058,6 +1064,16 @@ Java内存模型(Java Memory Model)描述了Java程序中各种变量(线程共�
 | 入队会生成新 Node                | Node需要是提前创建好的 |
 | 两把锁（头尾）                   | 一把锁                 |
 
+### 什么叫做阻塞队列的有界和无界✔
+
+阻塞队列是一种特殊的队列，它在普通队列的基础上提供了两种附加的功能。
+
+第一，当队列为空的时候，获取队列中元素的消费者线程它会被阻塞，同时会唤醒生产者线程。
+
+第二，当队列中的元素满了的时候，向队列中去添加元素的生产者线程会被阻塞，同时会唤醒消费者线程，其中，阻塞队列中能够容纳的元素个数通常情况下是有限的，比如说我们去实例化一个`ArrayBlockinglist`可以在构造方法中去传入一个整形的数字，表示这个基于数组的阻塞队列中，能够容纳的元素个数，这种称为有界队列。
+
+第三，而无界队列就是没有设置固定大小的队列，并不是元素中没有任何限制，而是它的元素存储量很大，像`LinkedBlockingQueue`，它的默认队列长度是`Integer.Max.Value`，所有感知不到它的长度限制。无界队列存在比较大的潜在风险，如果在并发量比较大的情况下，线程池中几乎可以无限制的添加任务，容易导致内存溢出的问题
+
 ### 40. 源码中线程池是怎么复用线程的
 
 ![image.png](https://gitee.com/tjlxy/img/raw/master/1678185487298-87e8d2c1-9ba2-461e-9ef8-d6571fa3ea1c.png)
@@ -1107,11 +1123,11 @@ Java内存模型(Java Memory Model)描述了Java程序中各种变量(线程共�
 
 ## AQS
 
-### 43. 说一说什么是AQS
+### 43. 说一说什么是AQS✔
 
 - AQS是一个锁框架，它定义了锁的实现机制，并开放出扩展的地方，让子类去实现
 
-  全称是 AbstractQueuedSynchronizer，是阻塞式锁和相关的同步器工具的框架，它是构建锁或者其他同步组件的基础框架
+  全称是 AbstractQueuedSynchronizer，是JUC包下面Lock锁的底层实现，是阻塞式锁和相关的同步器工具的框架，它是构建锁或者其他同步组件的基础框架
 
 **AQS与Synchronized的区别**
 
@@ -1172,7 +1188,7 @@ AQS常见的实现类
 ![image.png](https://cdn.nlark.com/yuque/0/2023/png/29617954/1678452467928-f95cba14-34b4-4ea1-8998-69a8d501e0c7.png#averageHue=%23f1f1f1&clientId=uf6b2decf-7cc8-4&from=paste&height=498&id=u1566ad8a&name=image.png&originHeight=623&originWidth=1443&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=331166&status=done&style=none&taskId=u6aae9bf6-3226-44fa-bb27-9b793dc6bf0&title=&width=1154.4)
 ![image.png](https://cdn.nlark.com/yuque/0/2023/png/29617954/1678452401147-da4378cb-0940-453a-90b1-92d5f941fe14.png#averageHue=%23f3f3f3&clientId=uf6b2decf-7cc8-4&from=paste&height=430&id=ue9482d1d&name=image.png&originHeight=538&originWidth=1443&originalType=binary&ratio=1.25&rotation=0&showTitle=false&size=265290&status=done&style=none&taskId=ud3afbcb4-ce8f-47b6-9026-b05aca10f66&title=&width=1154.4)
 
-### 53.公平锁和非公平锁
+### 53.公平锁和非公平锁✔
 
 - 如果是公平锁，会先检查AQS队列中是否存在线程在排队，如果有线程在排队，则当前线程也进行排队
 - 如果是非公平锁，则不会去检查是否有线程在排队，而是直接竞争锁
