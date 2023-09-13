@@ -82,6 +82,15 @@ HA
 
 2. YARN HA
 
+
+
+### Hadoop宕机
+
+- MR：控制Yarn同时运行的任务数
+- 写入文件快：控制传输到HDFS的速度
+
+
+
 ## HDFS
 
 ### 7.hdfs数据读写流程✔
@@ -293,7 +302,9 @@ Secondary NameNode 是合并 NameNode 的 edit logs 到 fsimage 文件中； 它
 
 白名单、黑名单
 
+### HDFS的数据压缩算法
 
+- snappy。。。
 
 ## MapReduce
 
@@ -322,10 +333,10 @@ shuffle 是 Mapreduce 的核心，它分布在 Mapreduce 的 map 阶段和 reduc
 
 1. **Collect阶段**：将MapTask的结果输出到默认大小为 100M 的环形缓冲区， 保存的是 key/value，Partition 分区信息等
 2. **Spill 阶段**：当内存中的数据量达到一定的阀值的时候，就会将数据写入本地磁盘，在将数据写入磁盘之前需要对数据进行一次排序的操作，如果配置了 combiner，还会将有相同分区号和 key 的数据进行排序。
-3. **MapTask阶段的Merge：**把所有溢出的临时文件进行一次合并操作，以确保一个 MapTask 最终只产生一个中间数据
-4. **Copy阶段：**ReduceTask 启动 Fetcher 线程到已经完成 MapTask 的节点上复制一份属于自己的数据，**这些数据默认会保存在内存的缓冲区中，当内存的缓冲区达到一定的阀值的时候，就会将数据写到磁盘之上。**
+3. **MapTask阶段的Merge**：把所有溢出的临时文件进行一次合并操作，以确保一个 MapTask 最终只产生一个中间数据
+4. **Copy阶段**：ReduceTask 启动 Fetcher 线程到已经完成 MapTask 的节点上复制一份属于自己的数据，**这些数据默认会保存在内存的缓冲区中，当内存的缓冲区达到一定的阀值的时候，就会将数据写到磁盘之上。**
 5. **ReduceTask阶段的Merge**：在ReduceTask 远程复制数据的同时，会在后台开启两个线程对内存到本地的数据文件进行合并操作。
-6. **Sort阶段：**在对数据进行合并的同时，会进行排序操作，由于 MapTask 阶段已经对数据进行了局部的排序，ReduceTask 只需保证 Copy 的数据的最终整体有效性即可。
+6. **Sort阶段**：在对数据进行合并的同时，会进行排序操作，由于 MapTask 阶段已经对数据进行了局部的排序，ReduceTask 只需保证 Copy 的数据的最终整体有效性即可。
 
 ### shuffle阶段是数据压缩机制了解吗✔
 
@@ -370,9 +381,13 @@ shuffle 是 Mapreduce 的核心，它分布在 Mapreduce 的 map 阶段和 reduc
 ### 24.如何判定一个job的map和reduce的数量
 
 1）map数量
+
   splitSize=max{minSize,min{maxSize,blockSize}}
+
   map数量由处理的数据分成的block数量决定default_num = total_size / split_size;
+
 2）reduce数量
+
   reduce的数量job.setNumReduceTasks(x);x 为reduce的数量。不设置的话默认为 1。
 
 ### 25.Maptask的个数由什么决定
@@ -382,37 +397,44 @@ shuffle 是 Mapreduce 的核心，它分布在 Mapreduce 的 map 阶段和 reduc
 ### 26.MapTask和ReduceTask工作机制（也可回答MapReduce工作原理）✔
 
 - `MapTask`
-
-- - `read`
+  - `read`
   - `map`
   - `collect`（快排）
   - `spill`
   - `combine`（归并）
 
+
 （1）**Read阶段**：Map Task通过用户编写的RecordReader，从输入InputSplit中解析出一个个key/value。
+
 （2）**Map阶段**：该节点主要是将解析出的key/value交给用户编写map()函数处理，并产生一系列新的key/value。
+
 （3）**Collect收集阶段**：在用户编写map()函数中，当数据处理完成后，一般会调用OutputCollector.collect()输出结果。在该函数内部，它会将生成的key/value分区（调用Partitioner），并写入一个环形内存缓冲区中。
+
 （4）**Spill阶段**：即“溢写”，当环形缓冲区满后，MapReduce会将数据写到本地磁盘上，生成一个临时文件。需要注意的是，将数据写入本地磁盘之前，先要对数据进行一次本地排序，并在必要时对数据进行合并、压缩等操作。
+
 （5）**Combine阶段**：当所有数据处理完成后，MapTask对所有临时文件进行一次合并，以确保最终只会生成一个数据文件。
 
 - `ReduceTask`
-
-- - `copy`
+  - `copy`
   - `Merge`
   - `Sort`（归并）
   - `Reduce`
 
+
 （1）**Copy阶段**：ReduceTask从各个MapTask上远程拷贝一片数据，并针对某一片数据，如果其大小超过一定阈值，则写到磁盘上，否则直接放到内存中。
+
 （2）**Merge阶段**：在远程拷贝数据的同时，ReduceTask启动了两个后台线程对内存和磁盘上的文件进行合并，以防止内存使用过多或磁盘上文件过多。
+
 （3）**Sort阶段**：按照MapReduce语义，用户编写reduce()函数输入数据是按key进行聚集的一组数据。为了将key相同的数据聚在一起，Hadoop采用了基于排序的策略。 由于各个MapTask已经实现对自己的处理结果进行了局部排序，因此，ReduceTask只需对所有数据进行一次归并排序即可。
+
 （4）**Reduce阶段**：reduce()函数将计算结果写到HDFS上。
 
 ### 27.描述mapReduce有几种排序及排序发生的阶段
 
 - 阶段
-
-- - map发生后在spill后partition前
+  - map发生后在spill后partition前
   - reduce发生在copy后reduce前
+
 
 ### 28.描述mapReduce中combiner的作用是什么，一般使用情景，哪些情况不需要，及和reduce的区别
 
@@ -428,19 +450,20 @@ shuffle 是 Mapreduce 的核心，它分布在 Mapreduce 的 map 阶段和 reduc
 
 - 通过partitioner实现
 
-### 31.Hadoop的缓存机制（Distributedcache）（☆☆☆☆☆）
+### 31.Hadoop的缓存机制（Distributedcache）
 
 - 分布式缓存
+  - eg：一个大表一个小表，将小表进行广播处理，每个计算节点上都存一份，然后进行map端的连接操作（效率大于reduce端join）
 
-- - eg：一个大表一个小表，将小表进行广播处理，每个计算节点上都存一份，然后进行map端的连接操作（效率大于reduce端join）
 
 ### 32.如何使用mapReduce实现两个表的join
 
 - `reduce side join`map阶段同时读取两个文件
 - `map side join`小表直接放入内存，在每个maptask都存一份
 
->   1）reduce side join : 在map阶段，map函数同时读取两个文件File1和File2，为了区分两种来源的key/value数据对，对每条数据打一个标签（tag）,比如：tag=0 表示来自文件File1，tag=2 表示来自文件File2。
->   2）map side join : Map side join 是针对以下场景进行的优化：两个待连接表中，有一个表非常大，而另一个表非常小，以至于小表可以直接存放到内存中。这样，我们可以将小表复制多份，让每个map task 内存中存在一份（比如存放到hash table 中），然后只扫描大表：对于大表中的每一条记录key/value，在hash table 中查找是否有相同的key 的记录，如果有，则连接后输出即可。
+>     1）reduce side join : 在map阶段，map函数同时读取两个文件File1和File2，为了区分两种来源的key/value数据对，对每条数据打一个标签（tag）,比如：tag=0 表示来自文件File1，tag=2 表示来自文件File2。
+>
+>     2）map side join : Map side join 是针对以下场景进行的优化：两个待连接表中，有一个表非常大，而另一个表非常小，以至于小表可以直接存放到内存中。这样，我们可以将小表复制多份，让每个map task 内存中存在一份（比如存放到hash table 中），然后只扫描大表：对于大表中的每一条记录key/value，在hash table 中查找是否有相同的key 的记录，如果有，则连接后输出即可。
 
 ### 33.什么样的计算不能用mr来提速
 
@@ -454,5 +477,98 @@ shuffle 是 Mapreduce 的核心，它分布在 Mapreduce 的 map 阶段和 reduc
 
   Extraction-Transformation-Loading的缩写，中文名称为数据提取、转换和加载。
 
+### MapReduce2.0容错性
+
+- MRApplicationMaster	<--	RM
+- MapTask、ReduceTask	<--	AM
+
+### MapReduce跑得慢的原因
+
+- 计算机性能	
+  - CPU、磁盘、网络、内存
+
+- IO操作优化
+  - 数据倾斜
+  - map、reduce数不合理
+  - 小文件
+  - 。。。
+
+
+### MapReduce优化方法(图)✔
+
+- 数据输入
+  - 合并小文件
+  - 不影响实际业务的前提下使用combinFileInputFormat，减少map端数据
+
+- Map阶段
+  - 提高环形缓冲区的大小
+  - 提高环形缓冲区溢出阈值,可以有效减少磁盘IO
+  - 增加Merge次数，默认10，从而缩短mr处理时间
+  - 增大mapTask内存、堆内存、CPU核数、重试次数
+
+- Reduce阶段
+  - 合理设置map和reduce数量
+  - 设置map、reduce共存，减少reduce等待时间
+  - 提高从map端拉取数据的并行数，默认5
+  - 提高数据写入磁盘的比例
+  - 提高reduceTask内存、堆内存、CPU、重试次数
+
+- **数据倾斜问题**
+- IO传输
+
 ## Yarn
 
+### 35.Yarn集群的架构和工作原理知道多少✔
+
+- `ResourceManager`
+  - 负责整个系统的资源管理和分配，由调度器和应用程序管理器组成
+
+- `ApplicationMaster`
+  - 与RM调度器协商以获得资源
+  - 将得到的任务进一步分配给内部的任务
+  - 与NodeManager通信以启动/停止任务
+  - 监控所有的内部任务状态，并在任务运行失败的时候重新为任务申请资源以重启任务
+
+- `NodeManager`
+  - 定期向RM汇报本节点上的资源使用情况和各个Container的运行状态
+  - 接收来自AM的Container启动和停止请求
+
+- `Container`
+  - 一个应用程序会分配一个Container
+
+
+### 36.YARN的任务提交流程是怎样的✔
+
+![image-20230912120745956](https://gitee.com/tjlxy/img/raw/master/image-20230912120745956.png)
+
+1. 用户向YARN提交一个应用程序，并指定ApplicationMaster程序、启动ApplicationMaster的命令、用户程序。
+
+1.  RM为这个应用程序分配第一个Container，并与之对应的NM通讯，要求它在这个Container中启动应用程序ApplicationMaster 
+2.  ApplicationMaster向RM注册，然后拆分为内部各个子任务，为各个内部任务申请资源，并监控这些任务的运行，直到结束。 
+3.  AM采用轮询的方式向RM申请和领取资源 
+4.  RM为AM分配资源，以Container形式返回 
+5.  AM申请到资源后，便与之对应的NM通讯，要求NM启动任务。 
+6.  NodeManager为任务设置好运行环境，将任务启动命令写到一个脚本中，并通过运行这个脚本启动任务。 
+7.  各个任务向AM汇报自己的状态和进度，以便当任务失败时可以重启任务。 
+8.  应用程序完成后，ApplicationMaster向ResourceManager注销并关闭自己 
+
+### 37.YARN的资源调度三种模型了解吗✔
+
+1. FIFO调度器：先进先出，先提交的先分配资源执行
+2. 容量调度器：多队列，每个队列都是FIFO，可以借用空闲队列的资源
+3. 公平调度器：多队列，每个队列公平享有资源，按照缺额和权重分配，并发最高
+
+### 38.简述hadoop1与hadoop2的架构异同
+
+- 加入了`yarn`解决了资源调度的问题
+- 加入了对`ZooKeeper`的支持实现比较可靠的高可用
+
+### 39.为什么会产生yarn,它解决了什么问题，有什么优势
+
+- 解决运行的用户程序与`yarn`框架完全解耦
+- 可以运行各种类型的分布式运算程序
+
+### Yarn调优参数✔
+
+- NodeManager的资源：内存、CPU
+- 容器的资源：最小、最大的 内存、CPU

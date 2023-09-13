@@ -1150,7 +1150,7 @@ class Block2{
 
 ### 排序算法
 
-#### 1.冒泡排序
+#### 1.冒泡排序✔
 
 相邻的数据两两比较，小的放前面，大的放后面。
 
@@ -1227,7 +1227,7 @@ public class A01_BubbleDemo1 {
 
 
 
-#### 2.选择排序
+#### 2.选择排序✔
 
 从0索引开始，拿着每一个索引上的元素跟后面的元素依次比较，小的放前面，大的放后面，依次类推
 
@@ -1293,6 +1293,8 @@ public class A02_SelectionDemo1 {
 
 
 #### 3.插入排序
+
+将数组分为有序和无序两组，遍历无序数据，将元素插入有序序列中即可
 
 ```java
 package com.lxy25122.mysort;
@@ -1452,6 +1454,112 @@ public class A04_RecursionDemo3 {
         return number * deliveryX(number - 1);
     }
 
+
+}
+
+```
+
+**快速排序**
+
+第一轮：把0索引的数字作为基准数，确定基准数在数组中正确的位置。比基准数小的全部在左边，比基准数大的全部在右边
+
+后续递归操作，完成排序
+
+```java
+package com.lxy25122.mysort;
+
+import javafx.scene.input.DataFormat;
+
+import java.util.Date;
+
+/**
+ * @user 25122
+ * @date 2023/9/12
+ * @time 16:05
+ * @description 快速排序
+ * 第一轮：
+ * 把 0 索引的数字作为基准数，确定基准数在数组中正确的位置。
+ * 比基准数小的全部在左边，比基准数大的全部在右边，【先从结束索引开始比较】
+ * 后面以此类推， end索引和start索引都移动位置后 进行互换
+ *
+ */
+public class A05_QuickSortDemo {
+
+    public static void main(String[] args) {
+        /**
+         *    {6, 1【start】, 2, 7, 9, 3, 4, 5, 10, 8【end】} end
+         *    基准数：0->6，起始索引：1->1，结束索引：arr.length-1->8
+         *    6,1【start】,2,7,9,3,4,5【end】,10,8 start
+         *    6,1,2,5【start】,9,3,4,7【end】,10,8 end
+         *    6,1,2,5,4【start】,3,9【end】,7,10,8 start
+         *    6,1,2,5,4【start】,3【end】,9,7,10,8 end
+         *    6,1,2,5,4,3【start】【end】,9,7,10,8 start
+         *    3,1,2,5,4,6【start|end】，9,7,10,8 一轮结束
+         */
+        int arr[] = {6, 1, 2, 7, 9, 3, 4, 5, 10, 8};
+        long start = System.currentTimeMillis();
+        quickSort(arr,0,arr.length - 1);
+        long end = System.currentTimeMillis();
+        System.out.println(end - start);
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i] + ",");
+        }
+    }
+
+    /**
+     * 快速排序
+     * @param arr 要排序的数组
+     * @param startIndex 数组的起始索引
+     * @param endIndex  数组的结束索引
+     */
+    public static void quickSort(int arr[], int startIndex, int endIndex){
+        //定义两个变量记录要查找的范围
+        int start = startIndex;
+        int end = endIndex;
+
+        if (start > end){
+            //递归出口
+            return;
+        }
+
+        //记录基准数
+        int baseNumber = arr[startIndex];
+        //利用循环找到要交换的数字
+        while (start != end){
+            //1、利用 end 从后往前开始找，比基准数小的数字
+            while (true){
+                //结束索引位置 <= 起始索引位置 || 结束索引位置的值 < 基准数
+                if (end <= start || arr[end] < baseNumber){
+                    break;
+                }
+                end--;//不满足条件，结束索引向左移一位
+            }
+            //2、利用 start 从前往后找，比基准数大的数字
+            while (true){
+                //结束索引位置 <= 起始索引位置 || 起始索引位置的值 > 基准数
+                if (end <= start || arr[start] > baseNumber){
+                    break;
+                }
+                start++;//不满足条件，起始索引向右移一位
+            }
+            //交换 end 和 start 指向的元素
+            int temp = arr[start];
+            arr[start] = arr[end];
+            arr[end] = temp;
+        }
+        //当start和end指向了同一个元素的时候，那么上面的循环就会结束
+        //表示已经找到了基准数在数组中应存入的位置
+        //3、基准数归位 就是拿着这个范围中的第一个数字，跟start指向的元素进行交换
+        int temp = arr[startIndex];
+        arr[startIndex] = arr[start];
+        arr[start] = temp;
+        //一轮结束结果：3,1,2,5,4,6,9,7,10,8,
+        //确定 6 左边的范围，重复刚刚调用【递归】
+        quickSort(arr,startIndex,start - 1);
+        //确定 6 右边的范围【递归】
+        quickSort(arr, start + 1, endIndex);
+
+    }
 
 }
 

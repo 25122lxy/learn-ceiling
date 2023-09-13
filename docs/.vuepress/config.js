@@ -61,7 +61,8 @@ module.exports = {
 					{text: 'Java并发', link: '/handbook/Interview/08-Java并发'},
 					{text: 'JVM', link: '/handbook/Interview/09-JVM'},
 					{text: 'Linux', link: '/handbook/Interview/10-Linux'},
-					{text: 'Hadoop', link: '/handbook/Interview/11-Hadoop.md'}
+					{text: 'Hadoop', link: '/handbook/Interview/11-Hadoop.md'},
+					{text: 'Hive', link: '/handbook/Interview/12-Hive.md'}
 
                 ]
             },
@@ -160,7 +161,8 @@ module.exports = {
 					{title: "Java并发", path: "/handbook/Interview/08-Java并发"},
 					{title: "JVM", path: "/handbook/Interview/09-JVM"},
 					{title: "Linux", path: "/handbook/Interview/10-Linux"},
-					{title: "Hadoop", path: "/handbook/Interview/11-Hadoop"}
+					{title: "Hadoop", path: "/handbook/Interview/11-Hadoop"},
+					{title: "Hive", path: "/handbook/Interview/12-Hive"}
                 ],
             },
 
