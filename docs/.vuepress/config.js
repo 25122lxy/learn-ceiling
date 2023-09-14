@@ -29,6 +29,10 @@ module.exports = {
                 text: 'Learn',
                 items: [
                     {
+                        text: 'Microservices',
+                        link: '/handbook/Learn/Microservices/01-初识微服务'
+                    },
+                    {
                         text: 'RabbitMQ',
                         link: '/handbook/Learn/RabbitMQ/1.RabbitMQ-简介及安装'
                     },
@@ -90,6 +94,24 @@ module.exports = {
                 // collapsable: false, // 不折叠
                 collapsable: true, // 折叠
                 children: [
+                    {
+                        title: 'Microservices',//添加一层子标题
+                        collapsable: true, // 折叠
+                        children: [
+                            {title: '初识微服务', path: '/handbook/Learn/Microservices/01-初识微服务'},
+                            {title: 'Eureka注册中心', path: '/handbook/Learn/Microservices/02-Eureka注册中心'},
+                            {title: 'Ribbon负载均衡', path: '/handbook/Learn/Microservices/03-Ribbon负载均衡'},
+                            {title: 'Nacos注册中心', path: '/handbook/Learn/Microservices/04-Nacos注册中心'},
+                            {title: 'Nacos配置管理', path: '/handbook/Learn/Microservices/05-Nacos配置管理'},
+                            {title: 'Feign远程调用', path: '/handbook/Learn/Microservices/06-Feign远程调用.md'},
+                            {title: 'Gateway服务网关', path: '/handbook/Learn/Microservices/07-Gateway服务网关'},
+                            {title: 'Docker-介绍及安装', path: '/handbook/Learn/Microservices/08-Docker-介绍及安装'},
+                            {title: 'Docker-基础', path: '/handbook/Learn/Microservices/09-Docker-基础'},
+                            {title: 'Docker-高级', path: '/handbook/Learn/Microservices/10-Docker-高级'},
+                            {title: 'RabbitMQ-快速入门', path: '/handbook/Learn/Microservices/11-RabbitMQ-快速入门'},
+                            {title: 'RabbitMQ-SpringAMQP', path: '/handbook/Learn/Microservices/12-RabbitMQ-SpringAMQP'}
+                        ]
+                    },
                     {
                         title: 'RabbitMQ',//添加一层子标题
                         collapsable: true, // 折叠
