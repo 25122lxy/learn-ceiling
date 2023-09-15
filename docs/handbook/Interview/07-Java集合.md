@@ -1565,3 +1565,193 @@ public class A05_QuickSortDemo {
 
 ```
 
+
+
+### 综合练习
+
+#### 1.按照要求进行排序
+
+定义数组并存储一些女朋友对象，利用Arrays中的sort方法进行排序
+
+要求1：属性有姓名、年龄、身高。
+
+要求2：按照年龄的大小进行排序，年龄一样，按照身高排序，身高一样按照姓名的字母进行排序。
+
+(姓名中不要有中文或特殊字符，会涉及到后面的知识)
+
+**GirlFriend.java**
+
+```java
+package com.lxy25122.testExe;
+
+import jdk.nashorn.internal.objects.annotations.Constructor;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+/**
+ * @user 25122
+ * @date 2023/9/14
+ * @time 15:54
+ * @description 练习一
+ *
+ * 要求1：属性有姓名、年龄、身高。
+ *
+ */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class GirlFriend {
+
+    private String name;
+
+    private Integer age;
+
+    private double height;
+
+
+}
+```
+
+**Test1.java**
+
+```java
+package com.lxy25122.testExe;
+
+import java.util.Arrays;
+import java.util.Comparator;
+
+/**
+ * @user 25122
+ * @date 2023/9/14
+ * @time 15:51
+ * @description 练习一
+ * 定义数组并存储一些女朋友对象，利用Arrays中的sort方法进行排序
+ *
+ * 要求1：属性有姓名、年龄、身高。
+ *
+ * 要求2：按照年龄的大小进行排序，年龄一样，按照身高排序，身高一样按照姓名的字母进行排序。
+ *
+ * (姓名中不要有中文或特殊字符，会涉及到后面的知识)
+ *
+ */
+public class Test1 {
+
+    public static void main(String[] args) {
+
+        //1.创建三个女朋友对象
+        GirlFriend gf1 = new GirlFriend("xiaotu",18,1.67);
+        GirlFriend gf2 = new GirlFriend("xiaobai",18,1.67);
+        GirlFriend gf3 = new GirlFriend("xiaomei",21,1.65);
+        //2.定义数组存储女朋友信息
+        GirlFriend[] arr = {gf1,gf2,gf3};
+        //3.利用Arrays 中的 sort 方法进行排序
+//        //匿名内部类方式
+//        Arrays.sort(arr, new Comparator<GirlFriend>() {
+//            @Override
+//            public int compare(GirlFriend o1, GirlFriend o2) {
+//                //要求2：按照年龄的大小进行排序，年龄一样，按照身高排序，身高一样按照姓名的字母进行排序。
+//                double temp = o1.getAge() - o2.getAge();//比较年龄
+//                temp = temp == 0 ? o1.getHeight() - o2.getHeight() : temp;//比较身高
+//                temp = temp == 0 ? o1.getName().compareTo(o2.getName()) : temp;//比较姓名字母
+//                if (temp > 0){
+//                    return 1;
+//                }else if (temp < 0){
+//                    return -1;
+//                }else {
+//                    return 0;
+//                }
+//            }
+//        });
+        //Lambda方式
+        Arrays.sort(arr, (o1, o2) -> {
+                //要求2：按照年龄的大小进行排序，年龄一样，按照身高排序，身高一样按照姓名的字母进行排序。
+                double temp = o1.getAge() - o2.getAge();//比较年龄
+                temp = temp == 0 ? o1.getHeight() - o2.getHeight() : temp;//比较身高
+                temp = temp == 0 ? o1.getName().compareTo(o2.getName()) : temp;//比较姓名字母
+                if (temp > 0){
+                    return 1;
+                }else if (temp < 0){
+                    return -1;
+                }else {
+                    return 0;
+                }
+            }
+        );
+        //4.展示数组中的内容
+        System.out.println(Arrays.toString(arr));
+
+
+    }
+
+
+}
+
+```
+
+#### 2.不死神兔
+
+有一个很有名的数学逻辑题叫做不死神兔问题，有一对兔子，从出生后第三个月起每个月都生一对兔子,小兔子长到第三个月后每个月又生一对兔子，假如兔子都不死，问第十二个月的兔子对数为多少？
+
+![image-20230915133528986](https://gitee.com/tjlxy/img/raw/master/image-20230915133528986.png)
+
+```java
+package com.lxy25122.testExe;
+
+/**
+ * @user 25122
+ * @date 2023/9/15
+ * @time 13:36
+ * @description 不死神兔
+ * 有一个很有名的数学逻辑题叫做不死神兔问题，有一对兔子，从出生后第三个月起每个月都生一对兔子,
+ * 小兔子长到第三个月后每个月又生一对兔子，假如兔子都不死，问第十二个月的兔子对数为多少？
+ * 特点：从第三个数据开始，是前两个数据的和（斐波那契数列）
+ */
+public class Test2 {
+
+    public static void main(String[] args) {
+        //求解一：
+        //1.创建一个长度为12的数组
+        int[] arr = new int[12];
+        //2.手动给 0 索引和 1 索引的数据进行赋值
+        arr[0] = 1;
+        arr[1] = 1;
+        //3.利用循环给剩余的数据进行赋值
+        for (int i = 2; i < arr.length; i++) {
+            arr[i] = arr[i - 1] + arr[i - 2];
+
+        }
+        //4.获取最大索引上的数据即可
+        System.out.println(arr[11]);
+        System.out.println("-------------------------");
+
+        //求解二：
+        /**
+         * 递归的方式去完成
+         * 1.递归的出口
+         * 2.找到递归的规律
+         * Fn(12) = Fn(11) + Fn(10)
+         * Fn(11) = Fn(10) + Fn(9)
+         * Fn(10) = Fn(9) + Fn(8)
+         * ...
+         * Fn(3) = F(2) + F(1)
+         * Fn(2) = 1
+         * Fn(1) = 1
+         */
+        System.out.println(getSum(12));
+    }
+
+    public static Integer getSum(int month){
+        if (month == 1 || month == 2){
+            return 1;
+        }else {
+            return getSum(month - 1) + getSum(month - 2);
+        }
+    }
+
+}
+
+```
+
+
+
