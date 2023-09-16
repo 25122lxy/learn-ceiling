@@ -1,4 +1,4 @@
-# Docker-基础
+# **Docker**-基础
 
 ![image-20230914184846374](https://gitee.com/tjlxy/img/raw/master/image-20230914184846374.png)
 
@@ -81,6 +81,8 @@ https://hub.docker.com/ 可以在镜像仓库中搜索，查看官方教程
 - docker stop：停止一个运行的容器
 - docker start：让一个停止的容器再次运行
 - docker rm：删除一个容器
+- `docker inspect  xx`查看容器详情
+- `docker logs -f xx`查看容器运行日志
 
 ### 2.2 案例-启动Nginx容器
 
@@ -377,4 +379,203 @@ docker run的命令中通过 -v 参数挂载文件或目录到容器中：
 
 - 数据卷挂载耦合度低，由docker来管理目录，但是目录较深，不好找
 - 目录挂载耦合度高，需要我们自己管理目录，不过目录容易寻找查看
+
+## 4.自定义镜像
+
+常见的镜像在DockerHub就能找到，但是我们自己写的项目就必须自己构建镜像了。
+
+镜像就是包含了应用程序、程序运行的系统函数库、运行配置等文件的文件包。构建镜像的过程其实就是把上述文件按照顺序逐层打包。
+
+### 4.1 镜像结构
+
+镜像是将应用程序及其需要的系统函数库、环境、配置、依赖打包而成。
+
+我们以MySQL为例，来看看镜像的组成结构：
+
+![image-20230915221849440](https://gitee.com/tjlxy/img/raw/master/image-20230915221849440.png)
+
+简单来说，镜像就是在系统函数库、运行环境基础上，添加应用程序文件、配置文件、依赖文件等组合，然后编写好启动脚本打包在一起形成的文件。
+
+我们要构建镜像，其实就是实现上述打包的过程。
+
+
+
+### 4.2 Dockerfile
+
+构建自定义的镜像时，并不需要一个个文件去拷贝，打包。
+
+我们只需要告诉Docker，我们的镜像的组成，需要哪些BaseImage、需要拷贝什么文件、需要安装什么依赖、启动脚本是什么，将来Docker会帮助我们构建镜像。
+
+而描述上述信息的文件就是Dockerfile文件。
+
+**Dockerfile**就是一个文本文件，其中包含一个个的**指令(Instruction)**，用指令来说明要执行什么操作来构建镜像。每一个指令都会形成一层Layer。
+
+![image-20230915222020632](https://gitee.com/tjlxy/img/raw/master/image-20230915222020632.png)
+
+更新详细语法说明，请参考官网文档： https://docs.docker.com/engine/reference/builder
+
+### 4.3 构建镜像
+
+我们可以基于Ubuntu基础影响，利用Dockerfile描述镜像结构，也可以直接基于JDK为基础镜像，省略前面的步骤：
+
+![image-20230915222201780](https://gitee.com/tjlxy/img/raw/master/image-20230915222201780.png)
+
+当编写好了Dockerfile，可以利用下面命令来构建镜像：
+
+```sh
+docker build -t myImage:1.0 .
+```
+
+- **`-t`** ：是给镜像起名，格式依然是repository:tag的格式，不指定tag时，默认为latest
+
+- **`.`** ：是指定Dockerfile所在目录，如果就在当前目录，则指定为"."
+
+#### 构建Java项目
+
+需求：基于openjdk:11.0-jre-buster镜像，将一个Java项目构建为镜像
+
+实现思路如下：
+
+- ① 新建一个空的目录，然后在目录中新建一个文件，命名为Dockerfile
+
+- ② 拷贝课前资料提供的docker-demo.jar到这个目录中
+
+- ③ 编写Dockerfile文件：
+
+  - a ）基于openjdk:11.0-jre-buster作为基础镜像
+
+  - b ）将app.jar拷贝到镜像中
+
+  - c ）暴露端口
+
+  - d ）编写入口ENTRYPOINT
+
+    内容如下：
+
+    ```dockerfile
+    # 基础镜像
+    FROM openjdk:11.0-jre-buster
+    # 设定时区
+    ENV TZ=Asia/Shanghai
+    RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+    # 拷贝jar包
+    COPY docker-demo.jar /app.jar
+    # 入口
+    ENTRYPOINT ["java", "-jar", "/app.jar"]
+    ```
+
+- ④ 使用docker build命令构建镜像
+
+  ```sh
+  docker build -t docker-demo .
+  ```
+
+  可以不指定版本号
+
+- ⑤ 使用docker run创建容器并运行
+
+  ```sh
+  docker run --name docker-demo -p 8090:8090 -d docker-demo
+  ```
+
+  ```
+  http://192.168.137.60:8090/hello/count
+  ```
+
+  
+
+## 5.网络
+
+默认情况下，所有容器都是以bridge方式连接到Docker的一个虚拟网桥上：
+
+![image-20230916220307968](https://gitee.com/tjlxy/img/raw/master/image-20230916220307968.png)
+
+加入自定义网络的容器才可以通过容器名互相访问，Docker的网络操作命令如下
+
+| 命令                      | 说明                     | 文档地址                                                     |
+| ------------------------- | ------------------------ | ------------------------------------------------------------ |
+| docker network create     | 创建一个网络             | [docker   network create](https://docs.docker.com/engine/reference/commandline/network_create/) |
+| docker network ls         | 查看所有网络             | [docker   network ls](https://docs.docker.com/engine/reference/commandline/network_ls/) |
+| docker network rm         | 删除指定网络             | [docker   network rm](https://docs.docker.com/engine/reference/commandline/network_rm/) |
+| docker network prune      | 清除未使用的网络         | [docker   network prune](https://docs.docker.com/engine/reference/commandline/network_prune/) |
+| docker network connect    | 使指定容器连接加入某网络 | [docker   network connect](https://docs.docker.com/engine/reference/commandline/network_connect/) |
+| docker network disconnect | 使指定容器连接离开某网络 | [docker   network disconnect](https://docs.docker.com/engine/reference/commandline/network_disconnect/) |
+| docker network inspect    | 查看网络详细信息         | [docker   network inspect](https://docs.docker.com/engine/reference/commandline/network_inspect/) |
+
+运行容器时指定网络
+
+```sh
+docker run xxx... --network 自定义网络名
+```
+
+
+
+
+
+## 常用软件部署示例
+
+```sh
+--Redis--
+docker pull redis
+
+docker run --name redisContainer -p 6379:6379 -d redis redis-server --appendonly yes
+
+
+--Nginx--
+docker pull nginx
+
+docker run --name nginxContainer -p 80:80 -d nginx
+--MySQL--
+docker load -i mysql.tar
+
+docker run \
+--name mysqlContainer \
+-e MYSQL_ROOT_PASSWORD=123456 \
+-p 3307:3307 \
+-v /tmp/mysql/conf/hmy.cnf:/etc/mysql/conf.d/hmy.cnf \
+-v /tmp/mysql/data:/var/lib/mysql \
+-d \
+mysql:5.7.25
+
+需要改 conf 中文件
+添加port=3307
+-----------
+docker pull rabbitmq:3-management
+
+docker run \
+ -e RABBITMQ_DEFAULT_USER=admin \
+ -e RABBITMQ_DEFAULT_PASS=123 \
+ --name rabbitmqContainer \
+ --hostname rabbitmq \
+ -p 15672:15672 \
+ -p 5672:5672 \
+ -d \
+ rabbitmq:3-management
+----------
+docker load -i xxx.tar
+
+
+docker run -d \
+    --name es \
+    -e "ES_JAVA_OPTS=-Xms512m -Xmx512m" \
+    -e "discovery.type=single-node" \
+    -v es-data:/usr/share/elasticsearch/data \
+    -v es-plugins:/usr/share/elasticsearch/plugins \
+    --privileged \
+    --network es-net \
+    -p 9200:9200 \
+    -p 9300:9300 \
+elasticsearch:7.12.1
+
+http://192.168.137.60:9200/
+
+docker run -d \
+--name kibana \
+-e ELASTICSEARCH_HOSTS=http://es:9200 \
+--network=es-net \
+-p 5601:5601  \
+kibana:7.12.1
+
+http://192.168.137.60:5601/app/home#/
+```
 
