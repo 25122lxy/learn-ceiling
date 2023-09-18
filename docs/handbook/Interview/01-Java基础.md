@@ -713,7 +713,7 @@ objectList = stringList; //compilation error incompatible types
 
 - `Error`非程序异常，指编译或者系统性错误
 
-  java运⾏环境内部错误或者硬件问题， 不能指望程序来处理这样的问题， 除了退出运⾏外别⽆选择， 它是Java虚拟机抛出的。
+  java运⾏环境内部错误或者硬件问题， 不能指望程序来处理这样的问题， 除了退出运⾏外别⽆选择， 它是Java虚拟机抛出的。如OOM
 
 - `Exception`程序异常，由程序内部产生，又分为运行时异常和非运行时异常、
   
@@ -736,6 +736,12 @@ objectList = stringList; //compilation error incompatible types
   - Finaly：通常情况下一定执行，如system.exit,等，前面终止的话finaly就不会执行了
 
 ### 73. 非受检查异常(运行时异常)和受检查异常(一般异常)区别是什么✔
+
+所谓受检查异常表示是在编译的时候，要强制检查的异常，这个异常需要通过 try/catch 来进行捕捉，或者通过 throws 抛出去，否则程序是无法通过编译的，而非受检查异常表示编译器可以不需要去强制检查异常，不需要去捕获。
+
+Throw 有两个直接子类，一个是 error，一个是 exception，error表示的是程序底层或者硬件层面的一些错误，和程序本身没有什么关系，比如 OOM，不需要去检查，属于非受检查异常。而Exception 表示程序里的一些异常，是由于程序不严谨导致，比如 NullPointerException。
+
+Exception 派生了两种异常，一种是 RuntimeException 和其他 Exception，其中 RuntimeException  是属于运行时异常，属于非受检异常，**所以除了 error，以及RuntimeException  的派生类以外，其他异常都是受检异常**
 
 - 是否强制要求调用者必须处理此异常（强制要求，受检查异常；非强制要求，非受检查异常）
 - 非受检查异常=运行时异常

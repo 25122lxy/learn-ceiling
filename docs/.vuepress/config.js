@@ -65,8 +65,10 @@ module.exports = {
 					{text: 'Java并发', link: '/handbook/Interview/08-Java并发'},
 					{text: 'JVM', link: '/handbook/Interview/09-JVM'},
 					{text: 'Linux', link: '/handbook/Interview/10-Linux'},
-					{text: 'Hadoop', link: '/handbook/Interview/11-Hadoop.md'},
-					{text: 'Hive', link: '/handbook/Interview/12-Hive.md'}
+					{text: 'Hadoop', link: '/handbook/Interview/11-Hadoop'},
+					{text: 'Hive', link: '/handbook/Interview/12-Hive'},
+					{text: 'Spark', link: '/handbook/Interview/13-Spark'},
+					{text: '数据采集工具', link: '/handbook/Interview/16-数据采集工具'}
 
                 ]
             },
@@ -107,7 +109,7 @@ module.exports = {
                             {title: 'Gateway服务网关', path: '/handbook/Learn/Microservice/07-Gateway服务网关'},
                             {title: 'Docker-介绍及安装', path: '/handbook/Learn/Microservice/08-Docker-介绍及安装'},
                             {title: 'Docker-基础', path: '/handbook/Learn/Microservice/09-Docker-基础'},
-                            {title: 'Docker-高级', path: '/handbook/Learn/Microservice/10-Docker-高级'},
+                            {title: 'Docker-项目部署', path: '/handbook/Learn/Microservice/10-Docker-项目部署'},
                             {title: 'RabbitMQ-快速入门', path: '/handbook/Learn/Microservice/11-RabbitMQ-快速入门'},
                             {title: 'RabbitMQ-SpringAMQP', path: '/handbook/Learn/Microservice/12-RabbitMQ-SpringAMQP'}
 
@@ -185,7 +187,9 @@ module.exports = {
 					{title: "JVM", path: "/handbook/Interview/09-JVM"},
 					{title: "Linux", path: "/handbook/Interview/10-Linux"},
 					{title: "Hadoop", path: "/handbook/Interview/11-Hadoop"},
-					{title: "Hive", path: "/handbook/Interview/12-Hive"}
+					{title: "Hive", path: "/handbook/Interview/12-Hive"},
+					{title: "Spark", path: "/handbook/Interview/13-Spark"},
+					{title: "数据采集工具", path: "/handbook/Interview/16-数据采集工具"}
                 ],
             },
 
