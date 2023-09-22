@@ -59,7 +59,7 @@ Spring容器使用依赖注入来管理组成应用程序的组件。
 
 - 构造函数注入、setter注入、（接口）、@autowire 自动注入
 
-### 4.区分BeanFactory和ApplicationContext✔
+### 4.区分BeanFactory和ApplicationContext✔❤
 
 ApplicationContext是BeanFactory的子接口  
 
@@ -246,19 +246,22 @@ ApplicationContext是BeanFactory的子接口
 
 > aop是面向切面编程，在spring中用于将那些与业务无关，但却对多个对象产生影响的公共行为和逻辑，抽取公共模块复用，降低耦合，一般比如可以做为公共日志保存，事务处理等
 
-### AOP的使用情景有哪些?简述其实现原理
+### AOP的使用情景有哪些?简述其实现原理✔
 
-关键点：
+1. **统一日志处理**
 
-1. aop面向切面编程使用非常广泛，几乎适用于一切需要统一化处理的场景
+   
 
-答：
-
-1. 统一日志处理
 2. 统一异常处理
+
 3. 访问限制（权限，限流等）
-4. 事务处理
+
+4. **事务处理**
+
+   
+
 5. 缓存管理等
+
 6. aop是面向切面编程，通过代理的方式（jdk或cglib）为程序统一添加功能，解决公共问题
 
 ### 你们项目中有没有使用到AOP
@@ -481,6 +484,37 @@ public class TestService{
 - 无须准备各种独立的JAR文件，引入相关依赖即可
 - 集成Spring框架，方便与其他框架整合，Spring Boot 应用为这些第三方库提供了几乎可以零配置的开箱即用的能力。
 
+---
+
+- **快速创建**独立 Spring 应用
+
+- - SSM：导包、写配置、启动运行
+
+- 直接**嵌入**Tomcat、Jetty or Undertow（无需部署 war 包）【Servlet容器】
+
+- - linux  java tomcat mysql： war 放到 tomcat 的 webapps下
+  - jar： java环境；  java -jar
+
+- **重点**：提供可选的starter，简化应用**整合**
+
+- - **场景启动器**（starter）：web、json、邮件、oss（对象存储）、异步、定时任务、缓存...
+  - 导包一堆，控制好版本。
+  - 为每一种场景准备了一个依赖； **web-starter。mybatis-starter**
+
+- **重点：**按需自动配置 Spring 以及 第三方库
+
+- - 如果这些场景我要使用（生效）。这个场景的所有配置都会自动配置好。
+  - **约定大于配置**：每个场景都有很多默认配置。
+  - 自定义：配置文件中修改几项就可以
+
+- 提供生产级特性：如 监控指标、健康检查、外部化配置等
+
+- - 监控指标、健康检查（k8s）、外部化配置
+
+- 无代码生成、无xml
+
+总结：简化开发，简化配置，简化整合，简化部署，简化监控，简化运维。
+
 ### SpringBoot中约定优于配置的理解
 
 - 约定优于配置是一种软件设计范式。
@@ -555,7 +589,7 @@ public class TestService{
 
 ### Springboot自动配置原理✔
 
-在Spring Boot项目中的引导类上有一个注解@SpringBootApplication，这个 注解是对三个注解进行了封装，分别是：
+在Spring Boot项目中的引导类上有一个注解@SpringBootApplication，这个注解是对三个注解进行了封装，分别是：
 
 - @SpringBootConfiguration 
 - @EnableAutoConfiguration 
@@ -960,3 +994,7 @@ jsp本质上就是servlet
 代表：异常信息
 
 作用：获取页面中的异常
+
+### JDBC连接数据库步骤
+
+![image-20230922095746828](https://gitee.com/tjlxy/img/raw/master/image-20230922095746828.png)

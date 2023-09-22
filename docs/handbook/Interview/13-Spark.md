@@ -6,13 +6,24 @@
 
 ![image.png](https://cdn.nlark.com/yuque/0/2023/png/29617954/1673686098022-0ad1a544-3cc9-468a-a73b-35d659359eab.png#averageHue=%23f6eadc&clientId=u3b80b119-e69c-4&from=paste&height=365&id=u2ea949d8&originHeight=456&originWidth=713&originalType=binary&ratio=1&rotation=0&showTitle=false&size=66950&status=done&style=none&taskId=ub037ff62-02d1-4702-84f8-a512c6da568&title=&width=570.4)
 
+1. SparkContext向资源管理器注册并向资源管理器申请运行Executor 
+2. 资源管理器分配Executor，然后资源管理器启动Executor 
+3. Executor发送心跳至资源管理器 
+4. SparkContext构建DAG有向无环图 
+5. 将DAG分解成Stage（TaskSet） 
+6. 把Stage发送给TaskScheduler
+7. Executor向SparkContext申请Task 
+8. TaskScheduler将Task发送给Executor运行 
+9. 同时SparkContext将应用程序代码发放给Executor 
+10. Task在Executor上运行，运行完毕释放所有资源
+
 ### 2.Spark有哪些组件
 
-- master
-- worker
-- driver
-- sparkcontext
-- clinet
+- master：管理集群和节点，不参与计算。
+- worker：计算节点，进程本身不参与计算，和master汇报。 
+- driver：运行程序的main方法，创建sparkcontext对象。 
+- sparkcontext：控制整个application的生命周期，包括dagsheduler和taskscheduler等组件。 
+- clinet：用户提交程序的入口。
 
 ### Spark的使用场景✔
 
@@ -22,34 +33,44 @@
 
 - spark on hive
 
-  sparksql 去读写 hive 表，只用到了 hive 的，其他编译、解析、优化、执行都是spark自己的
+  sparksql 去读写 hive 表，只用到了 hive 的元数据，其他编译、解析、优化、执行都是spark自己的
 
 ### 33.spark的有几种部署模式，每种模式特点✔
 
 - local，测试
+  - 将 Spark 应用以多线程的方式之间运行在本地（local:启动一个executor。local[k]:启动k歌executor。local[*]：启动跟CPU数目相同的executor）
+
 - standalone，自己管资源
+  - 分布式部署集群，自带完整服务，资源管理和任务监控是Spark自己监控
+
 - **yarn**，yarn管资源
-  - client，driver在提交节点启动
-  - cluster，driver由yarn决定在哪启动
+  - client，driver在提交节点启动，适合生产
+  - cluster，driver由yarn决定在哪启动，适合调试
 - mesos，国外用
 - k8s，未来趋势
 
 ### 104.Spark 常用端口号✔
 
 **1）4040 spark-shell任务端口**
-2）7077 内部通讯端口。类比Hadoop的8020/9000
+2）7077 内部通讯端口。类比Hadoop的8020
 3）8080 查看任务执行情况端口。类比Hadoop的8088
 **4）18080 历史服务器。类比Hadoop的19888**
 注意：由于Spark只负责计算，所有并没有Hadoop中存储数据的端口50070
 
 ## SparkCore
 
-
-
 ### 3.Spark中RDD机制理解吗✔
 
 - 数据结构、hdfs文件、集合
 - 分布式弹性数据集
+
+**rdd分布式弹性数据集，简单的理解成一种数据结构**，是spark框架上的通用货币。所有算子都是基于rdd来执行的，不同的场景会有不同的rdd实现类，但是都可以进行互相转换。rdd执行过程中会形成dag图，然后形成lineage保证容错性等。 从物理的角度来看rdd存储的是block和node之间的映射。**RDD是spark提供的核心抽象，全称为弹性分布式数据集**。 
+
+**RDD在逻辑上是一个hdfs文件，在抽象上是一种元素集合，包含了数据。它是被分区的，分为多个分区，每个分区分 布在集群中的不同结点上，从而让RDD中的数据可以被并行操作（分布式数据集）** 
+
+比如有个RDD有90W数据，3个partition，则每个分区上有30W数据。RDD通常通过Hadoop上的文件，即HDFS或 者HIVE表来创建，还可以通过应用程序中的集合来创建；**RDD最重要的特性就是容错性，可以自动从节点失败中恢复过来**。即如果某个结点上的RDDpartition因为节点故障，导致数据丢失，那么RDD可以通过自己的数据来源重新计算该 partition。这一切对使用者都是透明的。 
+
+**RDD的数据默认存放在内存中，但是当内存资源不足时，spark会自动将RDD数据写入磁盘**。比如某结点内存只能处理20W数据，那么这20W数据就会放入内存中计算，剩下10W放到磁盘中。**RDD的弹性体现在于RDD上自动进行内存和磁盘之间权衡和切换的机制**。
 
 ### 4.RDD中reduceByKey与groupByKey那个性能好，为什么✔
 
@@ -62,22 +83,41 @@
 
 ### 5.介绍一下cogroupRdd实现原理，你再什么场景下用过这个rdd
 
-- 合并RDD
+- cogroupRdd（合并RDD）
+  - 对多个（2~4）RDD中的KV元素，每个RDD中相同key中的元素分别聚合成一个集合。
+  - 与reduceByKey不同的是：reduceByKey针对一个RDD中相同的key进行合并。而**cogroup针对多个RDD中相同的key的 元素进行合并。**
+
 - 使用场景：表关联查询或处理重复的key
 
 ### 6.如何区分RDD的宽窄依赖✔
 
-窄依赖:父RDD的一个分区只会被子RDD的一个分区依赖； 
+窄依赖：父RDD的一个分区只会被子RDD的一个分区依赖； 
 
-宽依赖:父RDD的一个分区会被子RDD的多个分区依赖(涉及到shuffle)。
+宽依赖：父RDD的一个分区会被子RDD的多个分区依赖(**涉及到shuffle**)。
 
 ### 7.为什么要设计宽窄依赖
 
+对于窄依赖： 窄依赖的多个分区可以并行计算； 窄依赖的一个分区的数据如果丢失只需要重新计算对应的分区的数据就可以了。 
+
+对于宽依赖： 划分Stage(阶段)的依据:对于宽依赖,必须等到上一阶段计算完成才能计算下一阶段
+
 ### 8.DAG是什么（localhost:4040）✔
+
+DAG(DirectedAcyclicGraph有向无环图)指的是数据转换执行的过程，有方向，无闭环(**其实就是RDD执行的流程**)； 
+
+**原始的RDD通过一系列的转换操作就形成了DAG有向无环图**，任务执行时，可以按照DAG的描述，执行真正的计算 (数据被操作的一个过程)。
 
 ### 9.DAG中为什么要划分Stage
 
-### 10.如何划分DAG的stage
+**并行计算** 
+
+一个复杂的业务逻辑如果有shuffle，那么就意味着前面阶段产生结果后，才能执行下一个阶段，即下一个阶段的计算要依 赖上一个阶段的数据。那么我们按照shuffle进行划分(也就是按照宽依赖进行划分)，就可以将一个DAG划分成多个Stage/ 1. 2. 1. 阶段，在同一个Stage中，会有多个算子操作，可以形成一个pipeline流水线，流水线内的多个平行的分区可以并行执行。
+
+### 10.如何划分DAG的stage	
+
+**对于窄依赖**，partition的转换处理在stage中完成计算，不划分(将窄依赖尽量放在在同一个stage中，可以实现流水线计算)。 
+
+**对于宽依赖**，由于有shuffle的存在，只能在父RDD处理完成后，才能开始接下来的计算，也就是说需要要划分stage。
 
 ### 11.Spark中的OOM的问题
 
@@ -93,11 +133,13 @@
 
 - `blockManger`
 
-### 13.Spark程序执行，有时候默认为什么会产生很多task，怎么修改默认task执行个数？
+每个数据分片都对于具体物理位置，**数据的位置是被blockManager管理**，无论数据是在磁盘，内存还是tacyan，都是由blockManager管理。
 
-- `**SPARK_HOME/conf/spark-default.conf**`
-  - `**spark.sql.shuffle.partitions=50**`
-  - `**spark.default.paralleism=10**`
+### 13.Spark程序执行，有时候默认为什么会产生很多task，怎么修改默认task执行个数
+
+- `SPARK_HOME/conf/spark-default.conf`
+  - `spark.sql.shuffle.partitions=50`
+  - `spark.default.paralleism=10`
 
 ### 14.Spark与MapReduce的Shuffle的区别
 

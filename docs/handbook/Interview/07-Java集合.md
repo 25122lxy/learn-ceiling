@@ -224,9 +224,11 @@ void print(int n) {
 - 线程安全问题
 - 扩容问题`0.5 -> 1`（ArrayList有利于节省内存空间）
 
-### 5.说一说ArrayList的扩容机制
+### 5.说一说ArrayList的扩容机制✔
 
 - 将原有数组内容复制到新数组中去
+
+ArrayList是一个数组结构的存储容器，默认情况下数组的长度是10个，当然可以在构建ArrayList对象的时候指定初始长度，随着在程序里面不断的往ArrayList里面添加数据，当添加的数据达到10个的时候，ArrayList里面就没有足够的容量去存储后续的数据，这时就会触发自动扩容，**首先创建一个新的数组，长度是原来数组的1.5倍，然后使用Arrays.copyOf把老数组中的数据拷贝到新数组中，扩容完成以后，把当前需要添加的元素加入到新的数组里面，完成动态扩容**。
 
 ### 6.Array和ArrayList有什么区别？什么时候该用Array而不是ArrayList呢
 
@@ -367,21 +369,68 @@ jdk7的的数据结构是：数组+链表
 
 我们可以采用ConcurrentHashMap进行使用，它是一个线程安全的 HashMap
 
-### 16. ConcurrentHashMap 的实现原理是什么
+### 16. ConcurrentHashMap 的实现原理是什么✔
 
 - JDK1.7
-  - segment数组+HashEntry数组
+  - segment数组+HashEntry数组+链表
 - JDK1.8
   - 数组+链表+红黑树
 
+1、ConcurrentHashMapl的整体架构
+
+- 在JDK1.7中的存储结构
+
+![image-20230922213829764](https://gitee.com/tjlxy/img/raw/master/image-20230922213829764.png)
+
+其中，Segment 继承了 ReentrantLock，所以 Segment 是一种可重入锁，扮演锁的角色；HashEntry 用于存储键值对数据，首先将数据分为一段一段的存储，然后给每一段数据配一把锁，当一个线程占用锁访问其中一个段数据时，其他段的数据也能被其他线程访问，能够实现真正的并发访问。
+
+在JDK1.8中的存储结构
+
+![image-20230922211504842](https://gitee.com/tjlxy/img/raw/master/image-20230922211504842.png)
+
+由数组+红黑树+单向链表构成，当初始化ConcurrentHashMap时，默认会初始化一个长度为16的数组，由于ConcurrentHashMap的核心仍然是Hash表，所以必然会存在hash冲突的问题，所以ConcurrentHashMap采用链式寻址的方式解决Hash表的冲突，当Hash冲突比较多的时候会造成链表长度较长的问题，所以这种情况会使得ConcurrentHashMap中的一个数组元素的查询复杂度会增加，所以在JDK1.8中引入红黑树，当数组长度大于64，并且链表长度大于等于8时，单向链表就会转换成红黑树，另外随着CurrentHashMap的动态扩容，一旦链表的长度小于6，红黑树会退化成单向链表
+
+2、ConcurrentHashMap的基本功能
+
+![image-20230922212248466](https://gitee.com/tjlxy/img/raw/master/image-20230922212248466.png)
+
+CurrentHashMap本质是一个HashMap，因此功能和HashMap是一样的，但是CurrentHashMap在HashMap的基础上提供了并发安全的一个实现，主要是通过对于Node节点去加锁，来保证数据更新的安全性。
+
+3、ConcurrentHashMap在性能方面的优化
+
+![image-20230922212838860](https://gitee.com/tjlxy/img/raw/master/image-20230922212838860.png)
+
+- 在JDK1.8中，CurrentHashMap锁的粒度是数组中的某个节点，而在JDK1.7中锁定的是Segment，锁的范围更大，性能更低
+- 引入红黑树这样一个机制，去降低数据查询的时间复杂度，红黑树的时间复杂度是O(logn)
+- 当数组长度不够时候，CurrentHashMap需要对数组进行扩容，而在扩容的时间上，CurrentHashMap引入了多线程并发扩容的一个实现，就是多个线程对原始数组进行分片，分片之后，每个线程去负责一个分片的数据迁移，从而去整体的提升了扩容过程中数据迁移的一个效率
+- CurrentHashMap有一个size()方法获取总的元素个数，而在多线程并发0场景中，在保证原子性的前提下，去实现元素个数的累加性能是非常低的，所有CurrentHashMap在这方面做了两个优化
+  - 当线程竞争不激烈的时候，之间采用CAS的方式，实现元素个数的一个原子递增
+  - 线程竞争激烈的情况下，使用一个数组来维护元素个数，如果要增加总的原子个数之间从数组中随机选择一个，在通过CAS算法来实现原子递增，核心思想是引入了数组来实现对并发更新的一个负载。	
+
 ### 17. ConcurrentHashMap 的 put 方法执行逻辑是什么
 
-- JDK1.7
-  - 计算hashcode值定位到hash entry
-  - 遍历HashEntry
-- JDK1.8
-  - 计算hash值
-  - 。。。
+先来看JDK1.7
+
+首先，会尝试获取锁，如果获取失败，利用自旋获取锁；如果自旋重试的次数超过 64 次，则改为阻塞 获取锁。 
+
+获取到锁后： 
+
+1. 将当前 Segment 中的 table 通过 key 的 hashcode 定位到 HashEntry。 
+2. 遍历该 HashEntry，如果不为空则判断传入的 key 和当前遍历的 key 是否相等，相等则覆盖旧的 value。 
+3. 不为空则需要新建一个 HashEntry 并加入到 Segment 中，同时会先判断是否需要扩容。 
+4. 释放 Segment 的锁。 
+
+再来看JDK1.8 
+
+大致可以分为以下步骤： 
+
+1. 根据 key 计算出 hash值。 
+2. 判断是否需要进行初始化。 
+3. 定位到 Node，拿到首节点 f，判断首节点 f： 
+   1. 如果为 null ，则通过cas的方式尝试添加。 
+   2. 如果为 f.hash = MOVED = -1 ，说明其他线程在扩容，参与一起扩容。 
+   3. 如果都不满足 ，synchronized 锁住 f 节点，判断是链表还是红黑树，遍历插入。 
+4. 当在链表长度达到8的时候，数组扩容或者将链表转换为红黑树。
 
 ### 18. ConcurrentHashMap 的 get 方法是否要加锁，为什么
 
@@ -422,7 +471,7 @@ jdk7的的数据结构是：数组+链表
   - hash算法简化
 - 查询时间复杂度
       - O(n)
-      - O(logN)
+          - O(logN)
 
 ### 24. ConcurrentHashMap 和Hashtable的效率哪个更高？为什么
 
@@ -635,7 +684,7 @@ list用了toArray转数组后，如果修改了list内容，数组不会影响�
 
 第一：我们使用这个集合，优先在方法内使用，定义为局部变量，这样的话，就不会出现线程安全问题。
 
-第二：如果非要在成员变量中使用的话，可以使用线程安全的集合来替代 ArrayList可以通过Collections 的 synchronizedList 方法将 ArrayList 转换成线 程安全的容器后再使用。
+第二：如果非要在成员变量中使用的话，可以使用线程安全的集合来替代 ArrayList可以通过Collections 的 synchronizedList 方法将 ArrayList 转换成线程安全的容器后再使用。
 
 LinkedList 换成ConcurrentLinkedQueue来使用
 
