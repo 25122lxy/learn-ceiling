@@ -972,11 +972,19 @@ public static void main(String[] args) {
 这就好像十进制无法精确地表示分数 1/3—样。
 如果在数值计算中不允许有任何舍入误差， 就应该使用 BigDecimal类。**
 
-
-
 ### JDK动态代理为什么只能代理有接口的类✔
 
 动态代理需要传入被动态代理的一个接口类，之所以要传入接口而不能传入类，还是取决于JDK动态代理的一个底层实现，JDK 动态代理会在程序的运行期间去动态生成一个代理类，**动态生成的代理类会去继承一个 java.lang.reflect.Proxy这样一个类，同时还会去实现被代理类的接口，在Java里面不支持多种继承，所以只能代理接口**。
+
+### Java有几种拷贝方式，哪一种效率最高✔
+
+1、使用java.io包下的库，使用FilelnputStream读取，再使用FileO山tputStream写出
+
+2、利用iava.nio包下的库，使用transferTo或transfFrom方法实现
+
+3、Java标准类库本身已经提供了Files.copy的实现
+
+对于文件拷贝效率，和操作系统和配置的情况有关系
 
 ### 常见的HTTP状态码：
 
