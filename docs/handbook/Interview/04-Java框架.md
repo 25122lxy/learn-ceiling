@@ -89,10 +89,10 @@ ApplicationContext是BeanFactory的子接口
 - 基于注解配置
 - 基于JavaAPI配置`@Bean 和 @Configuration`
 
-### 7.Spring中的bean的作用域有哪些✔
+### 7.Spring中的bean的作用域有哪些（Spring支持几种beanscope）✔
 
-- `singleton`唯一bean实例，Spring中bean默认都是单例的，每个容器只有一个bean的实例
-- `prototype`每次注入时都会创建一个新的对象
+- `singleton`唯一bean实例，Spring中bean默认都是单例的，每个容器只有一个bean的实例（单实例）
+- `prototype`每次注入时都会创建一个新的对象（多实例）
 - `request`每一次HTTP请求都会产生一个新的bean，该bean仅在当前HTTP request内有效。
 - `session`在一个HTTP Session中，一个Bean定义对应一个实例。该作用域仅在基于web的Spring ApplicationContext情形下有效。
 - `global-session`全局session作用域
@@ -116,14 +116,6 @@ ApplicationContext是BeanFactory的子接口
 - `@Repository`持久层，主要用于数据库相关操作。
 - `@Service`业务层，主要涉及一些复杂的逻辑，需要用到 Dao层
 - `@Controller`SpringMVC控制层，主要用户接受用户请求并调用 Service 层返回数据给前端页面
-
-### 10.Spring支持几种beanscope
-
-- `singleton`	
-- `prototype`
-- `request`
-- `session`
-- `global-session`
 
 ### 11.Spring中的bean生命周期✔
 
@@ -167,7 +159,7 @@ ApplicationContext是BeanFactory的子接口
 
 - 当`bean`在`Spring`容器中组合在一起时，它被称为装配或`bean`装配（ autowire  ）
 
-### 14.自动装配有什么局限
+### 14.自动装配有什么局限？
 
 - 覆盖的可能性
 - 基本元数据类型
@@ -179,7 +171,7 @@ ApplicationContext是BeanFactory的子接口
 - 不同配置文件中存在的，后解析的配置文件会覆盖先解析的配置文件、
 - 同文件中，`@bean`的会生效，【` @ComponentScan`扫描进来的优先级是最低的  】
 
-### 16.Spring怎么解决循环依赖问题✔
+### 16.Spring怎么解决循环依赖问题✔？
 
 - 构造器的循环依赖（直接抛出）
 - 单例模式下的setter循环依赖（三级缓存）
@@ -385,7 +377,7 @@ public class TestService{
 
 11、前端控制器（DispatcherServlet）响应用户。 
 
-当然现在的开发，基本都是前后端分离的开发的，并没有视图这些，一般都 是handler中使用Response直接结果返回
+当然现在的开发，基本都是前后端分离的开发的，并没有视图这些，一般都是handler中使用Response直接结果返回
 
 > ①用户发送出请求到前端控制器DispatcherServlet
 >
@@ -487,29 +479,24 @@ public class TestService{
 ---
 
 - **快速创建**独立 Spring 应用
-
-- - SSM：导包、写配置、启动运行
+  - SSM：导包、写配置、启动运行
 
 - 直接**嵌入**Tomcat、Jetty or Undertow（无需部署 war 包）【Servlet容器】
-
-- - linux  java tomcat mysql： war 放到 tomcat 的 webapps下
+  - linux  java tomcat mysql： war 放到 tomcat 的 webapps下
   - jar： java环境；  java -jar
 
 - **重点**：提供可选的starter，简化应用**整合**
-
-- - **场景启动器**（starter）：web、json、邮件、oss（对象存储）、异步、定时任务、缓存...
+  - **场景启动器**（starter）：web、json、邮件、oss（对象存储）、异步、定时任务、缓存...
   - 导包一堆，控制好版本。
   - 为每一种场景准备了一个依赖； **web-starter。mybatis-starter**
 
-- **重点：**按需自动配置 Spring 以及 第三方库
-
-- - 如果这些场景我要使用（生效）。这个场景的所有配置都会自动配置好。
+- **重点**：按需自动配置 Spring 以及 第三方库
+  - 如果这些场景我要使用（生效）。这个场景的所有配置都会自动配置好。
   - **约定大于配置**：每个场景都有很多默认配置。
   - 自定义：配置文件中修改几项就可以
 
 - 提供生产级特性：如 监控指标、健康检查、外部化配置等
-
-- - 监控指标、健康检查（k8s）、外部化配置
+  - 监控指标、健康检查（k8s）、外部化配置
 
 - 无代码生成、无xml
 
@@ -559,7 +546,9 @@ public class TestService{
 
 - 生成中使用HTTPS
 - 升级到最新版本
-- 。。
+- 使用Snyk检查你的依赖关系
+- 启用CSRF保护
+- 使用内容安全策略防止XSS攻击
 
 ### 45.Spring、SpringBoot和SpringCloud的关系
 
@@ -587,6 +576,67 @@ public class TestService{
 1. springboot底层使用maven管理依赖，通过控制pom.xml父子关系来完成细节配置，在父pom中定义具体框架和版本号以及额外的信息。
 2. 提供了很多场景的spring-boot-starter 的 pom.xml文件，来标准化的引入依赖避免冲突
 
+### SpringBoot自动配置机制
+
+**初步理解**
+
+- **自动配置**的 Tomcat、SpringMVC 等
+
+- - **导入场景**，容器中就会自动配置好这个场景的核心组件。
+  - 以前：DispatcherServlet、ViewResolver、CharacterEncodingFilter....
+  - 现在：自动配置好的这些组件
+  - 验证：**容器中有了什么组件，就具有什么功能**
+
+```java
+    public static void main(String[] args) {
+
+        //java10： 局部变量类型的自动推断
+        var ioc = SpringApplication.run(MainApplication.class, args);
+
+        //1、获取容器中所有组件的名字
+        String[] names = ioc.getBeanDefinitionNames();
+        //2、挨个遍历：
+        // dispatcherServlet、beanNameViewResolver、characterEncodingFilter、multipartResolver
+        // SpringBoot把以前配置的核心组件现在都给我们自动配置好了。
+        for (String name : names) {
+            System.out.println(name);
+        }
+
+    }
+```
+
+- **默认的包扫描规则**
+
+- - `@SpringBootApplication` 标注的类就是主程序类
+  - **SpringBoot只会扫描主程序所在的包及其下面的子包，自动的component-scan功能**
+  - **自定义扫描路径**
+
+- - - @SpringBootApplication(scanBasePackages = "com.atguigu")
+    - `@ComponentScan("com.atguigu")` 直接指定扫描的路径
+
+- **配置默认值**
+
+- - **配置文件**的所有配置项是和某个**类的对象**值进行一一绑定的。
+  - 绑定了配置文件中每一项值的类： **属性类**。
+  - 比如：
+
+- - - `ServerProperties`绑定了所有Tomcat服务器有关的配置
+    - `MultipartProperties`绑定了所有文件上传相关的配置
+    - ....参照[官方文档](https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#appendix.application-properties.server)：或者参照 绑定的  **属性类**。
+
+- 按需加载自动配置
+
+- - 导入场景`spring-boot-starter-web`
+  - 场景启动器除了会导入相关功能依赖，导入一个`spring-boot-starter`，是所有`starter`的`starter`，基础核心starter
+  - `spring-boot-starter`导入了一个包 `spring-boot-autoconfigure`。包里面都是各种场景的`AutoConfiguration`**自动配置类**
+  - 虽然全场景的自动配置都在 `spring-boot-autoconfigure`这个包，但是不是全都开启的。
+
+- - - 导入哪个场景就开启哪个自动配置
+
+总结： 导入场景启动器、触发 `spring-boot-autoconfigure`这个包的自动配置生效、容器中就会具有相关场景的功能
+
+
+
 ### Springboot自动配置原理✔
 
 在Spring Boot项目中的引导类上有一个注解@SpringBootApplication，这个注解是对三个注解进行了封装，分别是：
@@ -599,7 +649,7 @@ public class TestService{
 
 该注解通过 @Import 注解导入对应的配置选择器。关键的是内部就是读取了该项目和该项目引用的Jar包的classpath路径下METAINF/spring.factories文件中的所配置的类的全类名
 
-在这些配置类中所定义的Bean会根据条件注解所指定的条件来决定是否需要将其导入到Spring容器中。
+在这些配置类中所定义的Bean会根据条 件注解所指定的条件来决定是否需要将其导入到Spring容器中。
 
 一般条件判断会有像 @ConditionalOnClass 这样的注解，判断是否有对应的 class文件，如果有则加载该类，把这个配置类的所有的Bean放入spring容器中使用。
 
