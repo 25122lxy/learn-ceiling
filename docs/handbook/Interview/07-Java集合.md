@@ -200,9 +200,9 @@ void print(int n) {
 >
 > 1、从操作数据效率来说
 >
-> ArrayList按照下标查询的时间复杂度O(1)【内存是连续的，根据寻址公式】， LinkedList不支持下标查询
+> - ArrayList按照下标查询的时间复杂度O(1)【内存是连续的，根据寻址公式】， LinkedList不支持下标查询
 >
-> 查找（未知索引）： ArrayList需要遍历，链表也需要遍历，时间复杂度都是 O(n)
+> - 查找（未知索引）： ArrayList需要遍历，链表也需要遍历，时间复杂度都是 O(n)
 >
 > 新增和删除
 >
@@ -233,12 +233,34 @@ ArrayList是一个数组结构的存储容器，默认情况下数组的长度�
 ### 6.Array和ArrayList有什么区别？什么时候该用Array而不是ArrayList呢
 
 - 类型
-  - 基本数据类型+对象类型
-  - 对象类型
+  - 数组可以包含任何类型的元素，包括基本数据类型+对象类型
+  - ArrayList 是泛型类，它可以指定特定类型的元素，对象类型
 - 大小
-  - 前者大小固定的
-  - 后者动态变化的
+  - 数组在创建时需要指定固定的大小，一旦创建后其大小就不能改变。
+  - 动态数组具有可变的大小，可以根据需要动态地添加或删除元素。
 - 后者提供了更多的方法和特性
+  - 使用索引直接访问数组元素，例如 `array[0]`。
+  - ArrayList 提供了一组方法来操作元素，例如添加、删除、查找等。
+
+### sortedSet和List异同点
+
+相同点：
+
+1、都可以用来存储一组有序的元素
+
+2、都支持随机访问和按照索引位置插入元素
+
+3、都是派生自Collection接口
+
+不同点：
+
+1、SortedSet是有序集合，不允许有元素重复；List是一个有序列表，允许元素重复
+
+2、SortedSet可以按照元素的自然顺序或者自定义比较器进行排序；List只能按照元素的添加顺序排序
+
+3、SortedSet中元素的添加和删除操作时间复杂为O(Logn)；List中元素的添加和删除操作的时间复杂度为O(n)
+
+4、最后SortedSet可以方便的进行范围查询；而list只能通过遍历实现范围查找
 
 ### 7.HashMap的底层数据结构是什么(1.7和1.8有什么区别)✔
 
@@ -281,6 +303,8 @@ HashMap 在 JDK1.8 版本中，是通过链式寻址法以及红黑树的方式�
 - 元素个数小于8的时候，链表查询性能大于红黑树
 
 ### 10.HashMap默认加载因子是多少？为什么是0.75，不是0.6或者0.8
+
+表示哈希表中元素的填充长度，扩容因子的值越大，意味着触发扩容的元素个数会更多，哈希冲突概率也会增加，相反扩容因子的值越小，触发扩容的元素会更少，所以这就是维持平衡的一个过程，当扩容因子在0.75的时候，链表长度达到8的可能性几乎为0，比较好的达到了一个空间成本，和时间成本的平衡
 
 ### 11. HashMap 中 key 的存储索引是怎么计算的？  
 
@@ -354,7 +378,7 @@ HashMap 在 JDK1.8 版本中，是通过链式寻址法以及红黑树的方式�
 
 ### HashMap中的Hash方法为什么要右移16位进行异或运算✔
 
-![image-20230923094341462](C:/Users/25122/AppData/Roaming/Typora/typora-user-images/image-20230923094341462.png)
+![image-20230927114023172](https://gitee.com/tjlxy/img/raw/master/image-20230927114023172.png)
 
 之所以要右移16位进行异或运算，核心目的是为了让hash值的散列度更高，尽可能的去减少Hash表的hash冲突，从而去提升数据的查找性能
 
@@ -378,7 +402,7 @@ jdk7的的数据结构是：数组+链表
 
 线程一先将A移入新的链表，再将B插入到链头，由于另外一个线程的原因， B的next指向了A，所以B->A->B,形成循环。 
 
-当然，JDK 8 将扩容算法做了调整，不再将元素加入链表头（而是保持与扩 容前一样的顺序），尾插法，就避免了jdk7中死循环的问题。
+当然，JDK 8 将扩容算法做了调整，不再将元素加入链表头（而是保持与扩容前一样的顺序），尾插法，就避免了jdk7中死循环的问题。
 
 ### 14. 一般用什么作为HashMap的key
 
@@ -439,7 +463,7 @@ CurrentHashMap本质是一个HashMap，因此功能和HashMap是一样的，但�
 
 先来看JDK1.7
 
-首先，会尝试获取锁，如果获取失败，利用自旋获取锁；如果自旋重试的次数超过 64 次，则改为阻塞 获取锁。 
+首先，会尝试获取锁，如果获取失败，利用自旋获取锁；如果自旋重试的次数超过 64 次，则改为阻塞获取锁。 
 
 获取到锁后： 
 
@@ -533,18 +557,28 @@ CurrentHashMap本质是一个HashMap，因此功能和HashMap是一样的，但�
   - HashMap相对于HashSet较快，因为它使用唯一的键获取对象
   - HashSet较HashMap来说比较慢
 
+### HashMap和HashTable有何不同✔
 
-> ### HashMap和HashTable有何不同
->
-> 第一，数据结构不一样，hashtable是数组+链表，hashmap在1.8之后改为了 数组+链表+红黑树 
->
-> 第二，hashtable存储数据的时候都不能为null，而hashmap是可以的 
->
-> 第三，hash算法不同，hashtable是用本地修饰的hashcode值，而hashmap经常了二次hash 
->
-> 第四，扩容方式不同，hashtable是当前容量翻倍+1，hashmap是当前容量翻倍 
->
-> 第五，hashtable是线程安全的，操作数据的时候加了锁synchronized， hashmap不是线程安全的，效率更高一些 在实际开中不建议使用HashTable，在多线程环境下可以使用 ConcurrentHashMap类
+第一，数据结构不一样，hashtable是数组+链表，hashmap在1.8之后改为了 数组+链表+红黑树 
+
+第二，hashtable存储数据的时候都不能为null，而hashmap是可以的 
+
+第三，hash算法不同，hashtable是用本地修饰的hashcode值，而hashmap经常了二次hash 
+
+第四，扩容方式不同，hashtable是当前容量翻倍+1，hashmap是当前容量翻倍 
+
+第五，hashtable是线程安全的，操作数据的时候加了锁synchronized， hashmap不是线程安全的，效率更高一些在实际开中不建议使用HashTable，在多线程环境下可以使用 ConcurrentHashMap类
+
+- 功能特性
+  - HashTable是线程安全的，而HashMap不是
+  - HashMap的性能要比HashTable更好，因为HashTable采用全局同步锁来保证线程安全性，对性能影响较大
+- 内部实现
+  - HashTable使用数组加链表，HashMap采用了数组+链表+红黑树
+  - HashMap初始容量是16，HashTable初始容量是11
+  - HashMap可以使用null作为key，因为HashMap会把null转换为0进行存储，而HashTable不允许
+- 散列算法
+  - HashTable直接是使用key的hashcode对数组长度做取模。而HashMap对Key的hashcode做了二次散列，从而避免key的
+    分布不均匀问题影响到查询性能	
 
 ### 28. Collection框架中实现比较要怎么做
 

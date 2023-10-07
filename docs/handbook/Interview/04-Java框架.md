@@ -866,14 +866,123 @@ Hibernate 是一个强大、方便、高效、复杂、间接、全自动化的�
 - 可移植性差
 - SQL编写工作量大
 
-### 10.#{}和${}的区别✔
+### Mybatis是如何进行分页的✔
 
-- `#{}`预编译处理，是占位符，预编译处理？？？
+1、直接在`select`语句上增加数据库提供的分页关键字，然后在应用程序里面传递当前页，以及每页展示条数即可
+
+```sql
+select id,name from studnet limit 2,10;#从第3条开始查，查询10行数据
+select id,name from student limit 5;#查询前5行数据
+select id,name from student limit 3 offset 6;#从第7条开始查，查询3条数据
+
+-----------------------------------------
+int pageSize = 10;#每页条数 10
+int currentPage = 3;#当前页 3
+int offset = (currentPage - 1) * pageSize; #从第？条开始查询
+String sql = "SELECT * FROM user LIMIT " + offset + "," + pageSize; #从第21条开始查，查询10条数据
+```
+
+2、使用Mybatis提供的`RowBounds`对象，实现内存级别分页
+
+```java
+public interface UserMapper {
+    List<User> selectAllUsers(RowBounds rowBounds);
+}
+//-------------------------------------
+SqlSession sqlSession = sqlSessionFactory.openSession();
+UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+
+int pageSize = 10;
+int currentPage = 3;
+int offset = (currentPage - 1) * pageSize;
+RowBounds rowBounds = new RowBounds(offset, pageSize);
+
+List<User> users = userMapper.selectAllUsers(rowBounds);
+```
+
+3、基于Mybatis里面的`Interecptor`拦截器，在`select`语句执行之前，动态去拼接分页的关键字	
+
+```java
+@Intercepts({
+    @Signature(type = StatementHandler.class, method = "query", args = {Statement.class, ResultHandler.class})
+})
+public class PaginationInterceptor implements Interceptor {
+
+    @Override
+    public Object intercept(Invocation invocation) throws Throwable {
+        StatementHandler statementHandler = (StatementHandler) invocation.getTarget();
+        MetaObject metaObject = SystemMetaObject.forObject(statementHandler);
+        MappedStatement mappedStatement = (MappedStatement) metaObject.getValue("delegate.mappedStatement");
+
+        // 判断是否需要进行分页操作
+        if (!isPaginationStatement(mappedStatement)) {
+            return invocation.proceed();
+        }
+
+        BoundSql boundSql = statementHandler.getBoundSql();
+        String originalSql = boundSql.getSql();
+
+        // 进行分页操作
+        int pageSize = 10;
+        int currentPage = 3;
+        int offset = (currentPage - 1) * pageSize;
+        String paginationSql = buildPaginationSql(originalSql, offset, pageSize);
+
+        // 修改原始的SQL语句
+        metaObject.setValue("delegate.boundSql.sql", paginationSql);
+
+        return invocation.proceed();
+    }
+
+    private boolean isPaginationStatement(MappedStatement mappedStatement) {
+        // 在此处判断是否需要进行分页操作，例如根据mappedStatement的ID或方法名、注解等进行判断
+        ...
+    }
+
+    private String buildPaginationSql(String originalSql, int offset, int pageSize) {
+        // 在此处拼接分页关键字，例如MySQL的limit语句
+        return originalSql + " LIMIT " + pageSize + " OFFSET " + offset;
+    }
+}
+
+```
+
+在Mybatis配置文件中声明该拦截器
+
+```xml
+<configuration>
+    ...
+    <plugins>
+        <plugin interceptor="com.example.PaginationInterceptor"/>
+    </plugins>
+    ...
+</configuration>
+
+```
+
+
+
+### 10.Mybatis中#{}和${}的区别✔
+
+Mybatis里面提供了`#{}`，`${}`两种占位符，都是去实现动态SQL的一种方式，可以把参数传递给XML里面，在传递之前会对这两种占位符进行动态解析
+
+- **`#{}`预编译处理，是占位符，预编译处理？？？**
+
   - 将SQL中的`#{}`替换为`?`，调用PrepareStatement来赋值
 
-- `${}`拼接符，字符串替换，没有预编译处理
+  ![image-20231003100345215](https://gitee.com/tjlxy/img/raw/master/image-20231003100345215.png)
+
+  - 等同于JDBC里面的一个`?`占位符，相当于向`PreparedStatement`里面的预处理语句设置参数，而`PreparedStatement`是预编译的，规定了这样的一个结构，设置参数时候，有特殊字符会自动转义，防止SQL注入
+
+- **`${}`拼接符，字符串替换，没有预编译处理**
+
   - 替换为变量的值，调用Statement来赋值
 
+  ![image-20231003100634783](https://gitee.com/tjlxy/img/raw/master/image-20231003100634783.png)
+
+  - 使用 `${}`传参，相当于之间把参数拼接到原始SQL里面，Mybatis不会对它进行特殊处理，
+
+- 最大区别就是，`#{}`是占位符，`${}`是动态参数，动态参数无法防止SQL注入
 
 ### 11.通常一个XML映射文件，都会写一个Dao接口与之对应，那么这个Dao接口的工作原理是什么？Dao接口里的方法、参数不同时，方法能重载吗
 
@@ -902,8 +1011,9 @@ Hibernate 是一个强大、方便、高效、复杂、间接、全自动化的�
 - 嵌套查询
   - 先查一个表。在根据外键查另一个表
 
+### 16.Mybatis的一级、二级缓存（缓存机制）✔
 
-### 16.Mybatis的一级、二级缓存✔
+Mybatis里面设计了二级缓存来提升数据的一个检索效率，避免每一次数据的检索都去查询数据库，一级缓存是`SqlSession`级别的一个缓存，也叫本地缓存，因为每一个用户在执行查询的时候，都需要使用`SqlSession`来执行，为了避免每一次都去查询数据库，Mybatis把查询出来的数据库缓存到`SqlSession`的本地缓存里面，后续Sql如果在命中缓存的情况下，就可以直接到本地缓存去读取这样的一个数据，如果想要实现跨`SqlSession`级别的一个缓存，一级缓存是无法做到的，因此引入了二级缓存，当多个用户在进行查询数据的时候，只要有任何一个`SqlSession`拿到了数据，就会放入到二级缓存里面，那么其他`SqlSession`就可以直接从二级缓存里面去加载数据。
 
 - 一级缓存
   - 作用域session，当flush、close后，cache将清空，默认打开一级缓存

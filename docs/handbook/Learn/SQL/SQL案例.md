@@ -107,7 +107,7 @@ order by
   age asc;
 ```
 
-### 12.基础语法 - 截断和偏移✔
+### 12.基础语法 - 截断和偏移-limit✔
 
 在 SQL 中，我们使用 `LIMIT` 关键字来实现数据的截断和偏移。
 
@@ -123,6 +123,14 @@ order by
   age asc
 limit
   1, 3;
+```
+
+**补充**
+
+```sql
+select id,name from studnet limit 2,10;#从第3条开始查，查询10行数据
+select id,name from student limit 5;#查询前5行数据
+select id,name from student limit 3 offset 6;#从第7条开始查，查询3条数据
 ```
 
 ### 13.基础语法-条件分支✔
