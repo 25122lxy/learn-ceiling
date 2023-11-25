@@ -74,7 +74,7 @@ ApplicationContext是BeanFactory的子接口
   - 缺点：所有对象进行了预加载，内存占用较大
 
 
-### 5.区分构造函数注入和setter注入
+### 5.区分构造函数注入和setter注入❕
 
 | 构造函数注入                   | setter注入                     |
 | ------------------------------ | ------------------------------ |
@@ -117,7 +117,7 @@ ApplicationContext是BeanFactory的子接口
 - `@Service`业务层，主要涉及一些复杂的逻辑，需要用到 Dao层
 - `@Controller`SpringMVC控制层，主要用户接受用户请求并调用 Service 层返回数据给前端页面
 
-### 11.Spring中的bean生命周期✔
+### 11.Spring中的bean生命周期✔❗
 
 - 创建前准备
 
@@ -177,7 +177,7 @@ ApplicationContext是BeanFactory的子接口
 - 单例模式下的setter循环依赖（三级缓存）
 - 非单例循环依赖（无法处理）
 
-### Spring中的循环引用✔
+### Spring中的循环引用✔❕
 
 循环依赖：循环依赖其实就是循环引用,也就是两个或两个以上的bean互相持有对方,最终形成闭环。比如A依赖于B,B依赖于A 
 
@@ -242,7 +242,165 @@ ApplicationContext是BeanFactory的子接口
 
 1. **统一日志处理**
 
-   
+   > 以下是一个使用AOP实现统一日志处理的示例：
+   >
+   > 假设我们有一个基于Spring框架的Java应用程序，其中包含多个Service类，每个Service类中都有多个方法需要记录日志。我们希望在所有Service类中统一记录日志，避免代码重复。
+   >
+   > 首先，我们需要创建一个切面类，用于定义日志处理的逻辑。可以使用Spring的@Aspect注解来标记该类为切面，并在切面类中编写相应的逻辑。
+   >
+   > ```java
+   > import org.aspectj.lang.JoinPoint;
+   > import org.aspectj.lang.annotation.AfterReturning;
+   > import org.aspectj.lang.annotation.Aspect;
+   > import org.aspectj.lang.annotation.Before;
+   > import org.slf4j.Logger;
+   > import org.slf4j.LoggerFactory;
+   > import org.springframework.stereotype.Component;
+   > 
+   > @Aspect
+   > @Component
+   > public class LoggingAspect {
+   > 
+   >     private Logger logger = LoggerFactory.getLogger(this.getClass());
+   > 
+   >     @Before("execution(* com.example.service..*.*(..))")
+   >     public void logMethodCall(JoinPoint joinPoint) {
+   >         // 记录方法调用前的日志
+   >         logger.info("Method {} is called with args {}", joinPoint.getSignature().getName(), joinPoint.getArgs());
+   >     }
+   > 
+   >     @AfterReturning(pointcut = "execution(* com.example.service..*.*(..))", returning = "result")
+   >     public void logMethodReturn(JoinPoint joinPoint, Object result) {
+   >         // 记录方法返回值的日志
+   >         logger.info("Method {} returns {}", joinPoint.getSignature().getName(), result);
+   >     }
+   > 
+   > }
+   > ```
+   >
+   > 在上述示例中，我们使用了Slf4j作为日志框架，并定义了两个通知方法：logMethodCall()和logMethodReturn()。前者用于记录方法调用前的日志，后者用于记录方法返回值的日志。通过@Before和@AfterReturning注解，我们可以指定切入点表达式，从而将这两个通知方法应用到所有Service类中的方法上。
+   >
+   > 接下来，在Spring配置文件中启用AOP，并将切面类注册为一个切面。
+   >
+   > ```xml
+   > <!-- 启用AOP -->
+   > <aop:aspectj-autoproxy />
+   > 
+   > <!-- 注册切面类 -->
+   > <bean id="loggingAspect" class="com.example.LoggingAspect" />
+   > ```
+   >
+   > 最后，在各个Service类中需要记录日志的方法上，不需要再手动添加日志记录代码，而是直接调用即可。
+   >
+   > ```java
+   > @Service
+   > public class UserService {
+   > 
+   >     public void addUser(User user) {
+   >         // 执行添加用户的业务逻辑
+   >     }
+   > 
+   >     public void deleteUser(int userId) {
+   >         // 执行删除用户的业务逻辑
+   >     }
+   > 
+   >     // 其他需要记录日志的方法
+   > 
+   > }
+   > ```
+   >
+   > 通过以上步骤，我们就可以使用AOP来实现对所有Service类中需要记录日志的方法进行统一处理。在方法调用前和返回后，切面类中的logMethodCall()和logMethodReturn()方法会被调用，从而记录相应的日志信息。
+   >
+   > 需要注意的是，上述示例中使用了execution()切入点表达式，该表达式匹配所有com.example.service包及其子包中的所有方法。如果需要更精确地匹配某些方法，可以使用其他切入点表达式或自定义注解来标记需要记录日志的方法。
+   >
+   > ---
+   >
+   > 如果你希望使用自定义注解来标记需要记录日志的方法，可以按照以下步骤进行操作：
+   >
+   > 首先，创建一个自定义注解，用于标记需要记录日志的方法。
+   >
+   > ```java
+   > import java.lang.annotation.ElementType;
+   > import java.lang.annotation.Retention;
+   > import java.lang.annotation.RetentionPolicy;
+   > import java.lang.annotation.Target;
+   > 
+   > @Target(ElementType.METHOD)
+   > @Retention(RetentionPolicy.RUNTIME)
+   > public @interface Loggable {
+   >     // 可以在注解中定义一些参数，用于指定日志的级别、描述等信息
+   > }
+   > ```
+   >
+   > 接下来，创建一个切面类，用于定义日志处理的逻辑。在切面类中，通过@Around注解和自定义注解的结合，实现对标记了@Loggable注解的方法进行日志记录。
+   >
+   > ```java
+   > import org.aspectj.lang.ProceedingJoinPoint;
+   > import org.aspectj.lang.annotation.Around;
+   > import org.aspectj.lang.annotation.Aspect;
+   > import org.slf4j.Logger;
+   > import org.slf4j.LoggerFactory;
+   > import org.springframework.stereotype.Component;
+   > 
+   > @Aspect
+   > @Component
+   > public class LoggingAspect {
+   > 
+   >     private Logger logger = LoggerFactory.getLogger(this.getClass());
+   > 
+   >     @Around("@annotation(loggable)")
+   >     public Object logMethod(ProceedingJoinPoint joinPoint, Loggable loggable) throws Throwable {
+   >         // 记录方法调用前的日志
+   >         logger.info("Method {} is called with args {}", joinPoint.getSignature().getName(), joinPoint.getArgs());
+   > 
+   >         // 执行方法
+   >         Object result = joinPoint.proceed();
+   > 
+   >         // 记录方法返回值的日志
+   >         logger.info("Method {} returns {}", joinPoint.getSignature().getName(), result);
+   > 
+   >         return result;
+   >     }
+   > 
+   > }
+   > ```
+   >
+   > 在上述示例中，我们使用了@Around注解来定义一个环绕通知方法logMethod()。通过@Around注解和切入点表达式"@annotation(loggable)"的结合，可以将该通知方法应用到所有标记了@Loggable注解的方法上。
+   >
+   > 最后，在Spring配置文件中启用AOP，并将切面类注册为一个切面。
+   >
+   > ```xml
+   > <!-- 启用AOP -->
+   > <aop:aspectj-autoproxy />
+   > 
+   > <!-- 注册切面类 -->
+   > <bean id="loggingAspect" class="com.example.LoggingAspect" />
+   > ```
+   >
+   > 在各个Service类中需要记录日志的方法上，使用自定义注解@Loggable进行标记。
+   >
+   > ```java
+   > @Service
+   > public class UserService {
+   > 
+   >     @Loggable
+   >     public void addUser(User user) {
+   >         // 执行添加用户的业务逻辑
+   >     }
+   > 
+   >     @Loggable
+   >     public void deleteUser(int userId) {
+   >         // 执行删除用户的业务逻辑
+   >     }
+   > 
+   >     // 其他需要记录日志的方法
+   > 
+   > }
+   > ```
+   >
+   > 通过以上步骤，我们就可以使用AOP和自定义注解来实现对标记了@Loggable注解的方法进行统一的日志处理。在方法调用前和返回后，切面类中的logMethod()方法会被调用，从而记录相应的日志信息。
+   >
+   > 需要注意的是，自定义注解的参数可以根据实际需求进行扩展，例如可以添加日志级别、描述等信息。切面类中的日志处理逻辑也可以根据具体需求进行调整。
 
 2. 统一异常处理
 
@@ -250,7 +408,68 @@ ApplicationContext是BeanFactory的子接口
 
 4. **事务处理**
 
-   
+   >以下是一个使用AOP（面向切面编程）实现事务处理的示例：
+   >
+   >假设我们有一个基于Spring框架的Java应用程序，其中包含一个UserService类，该类负责处理与用户相关的业务逻辑。我们希望在UserService类的方法中实现事务管理。
+   >
+   >首先，我们需要创建一个切面类，用于定义事务处理的逻辑。可以使用Spring的@Transactional注解来标记需要进行事务管理的方法，并在切面类中编写相应的逻辑。
+   >
+   >```java
+   >import org.aspectj.lang.annotation.Aspect;
+   >import org.aspectj.lang.annotation.Before;
+   >import org.springframework.stereotype.Component;
+   >import org.springframework.transaction.annotation.Transactional;
+   >
+   >@Aspect
+   >@Component
+   >public class TransactionAspect {
+   >
+   >    @Before("@annotation(transactional)")
+   >    public void beginTransaction(Transactional transactional) {
+   >        // 在方法执行前开始事务
+   >        // 这里可以使用具体的事务管理器来开启事务
+   >        // 例如：TransactionManager.beginTransaction();
+   >    }
+   >
+   >    // 可以在切面类中定义其他事务相关的通知方法，如提交事务、回滚事务等
+   >
+   >}
+   >```
+   >
+   >接下来，我们需要在Spring配置文件中启用AOP，并将切面类注册为一个切面。
+   >
+   >```xml
+   ><!-- 启用AOP -->
+   ><aop:aspectj-autoproxy />
+   >
+   ><!-- 注册切面类 -->
+   ><bean id="transactionAspect" class="com.example.TransactionAspect" />
+   >```
+   >
+   >最后，在UserService类中的需要进行事务管理的方法上添加@Transactional注解。
+   >
+   >```java
+   >@Service
+   >public class UserService {
+   >
+   >    @Transactional
+   >    public void addUser(User user) {
+   >        // 执行添加用户的业务逻辑
+   >    }
+   >
+   >    @Transactional
+   >    public void deleteUser(int userId) {
+   >        // 执行删除用户的业务逻辑
+   >    }
+   >
+   >    // 其他需要进行事务管理的方法
+   >
+   >}
+   >```
+   >
+   >通过以上步骤，我们就可以使用AOP来实现对UserService类中带有@Transactional注解的方法进行事务管理。在方法执行前，切面类中的beginTransaction()方法会被调用，从而开始事务。当方法执行完毕后，事务会根据具体的配置进行提交或回滚。
+   >
+   >需要注意的是，上述示例是一个简化的实现，实际应用中可能还需要考虑异常处理、事务的传播行为等更复杂的情况。此外，具体的事务管理器的配置也需要根据实际情况进行调整。
 
 5. 缓存管理等
 
@@ -345,7 +564,7 @@ public class TestService{
 - PROPAGATION_NEVER: 以非事务方式执行，如果当前存在事务，则抛出异常。
 - PROPAGATION_NESTED:如果当前存在事务，则在嵌套事务内执行。如果当前没有事务，则进行与PROPAGATION_REQUIRED类似的操作。
 
-### 25.SpringMVC工作原理了解吗✔
+### 25.SpringMVC工作原理了解吗✔❕
 
 1. **请求到达前端控制器（DispatcherServlet）**：前端控制器是Spring MVC的核心组件。它是一个Servlet，负责拦截所有进入应用程序的请求。
 2. **处理器映射器（Handler Mapping）**：前端控制器通过处理器映射器（Handler Mapping）确定请求对应的处理器（Handler）。
@@ -421,15 +640,15 @@ public class TestService{
 
 ### 31.`@RequestParam`和`@PathVariable`两个注解的区别
 
-- `@RequestParam `参数从请求携带的参数中获取
-- `@PathVariable`从请求的url中获取
+- `@RequestParam `参数从请求携带的参数中获取（xxx/index?name=zhansan&age=18）
+- `@PathVariable`从请求的url中获取（xxx/findById/{3}）
 
 ### 32.返回 JSON 格式使用什么注解
 
 - `@ResponseBody`
 - `@RestController` 
 
-### 33.什么是SpringMVC拦截器以及如何使用它✔
+### 33.什么是SpringMVC拦截器以及如何使用它✔❕
 
 实现`org.springframework.web.servlet`包的`HandlerInteceptor`接口
 
@@ -469,35 +688,21 @@ public class TestService{
 
 ### 39.为什么要用SpringBoot✔
 
-- 自动装配，零配置。无冗余代码生成和XML 强制配置，遵循“约定大于配置” 。
-- 创建项目时，可以选择需要的依赖关系
-- 可以打成jar文件，部署到服务器上
-- **内嵌Tomcat服务器，独立运行**
-- 无须准备各种独立的JAR文件，引入相关依赖即可
-- 集成Spring框架，方便与其他框架整合，Spring Boot 应用为这些第三方库提供了几乎可以零配置的开箱即用的能力。
-
----
-
-- **快速创建**独立 Spring 应用
+- **快速创建**独立 Spring 应用<font color=red>**-简化开发**</font>
   - SSM：导包、写配置、启动运行
-
-- 直接**嵌入**Tomcat、Jetty or Undertow（无需部署 war 包）【Servlet容器】
-  - linux  java tomcat mysql： war 放到 tomcat 的 webapps下
-  - jar： java环境；  java -jar
-
-- **重点**：提供可选的starter，简化应用**整合**
+- 直接**嵌入**Tomcat、Jetty or Undertow（无需部署 war 包）【Servlet容器】<font color=red>**-简化部署**</font>
+  - linux java tomcat mysql： war 放到 tomcat 的 webapps下
+  - jar： java环境； java -jar
+- **重点**：提供可选的starter，简化应用**整合**<font color=red>**-简化整合**</font>
   - **场景启动器**（starter）：web、json、邮件、oss（对象存储）、异步、定时任务、缓存...
   - 导包一堆，控制好版本。
   - 为每一种场景准备了一个依赖； **web-starter。mybatis-starter**
-
-- **重点**：按需自动配置 Spring 以及 第三方库
+- **重点**：按需自动配置 Spring 以及 第三方库<font color=red>**-简化配置**</font>
   - 如果这些场景我要使用（生效）。这个场景的所有配置都会自动配置好。
   - **约定大于配置**：每个场景都有很多默认配置。
   - 自定义：配置文件中修改几项就可以
-
-- 提供生产级特性：如 监控指标、健康检查、外部化配置等
+- 提供生产级特性：如 监控指标、健康检查、外部化配置等<font color=red>**-简化监控、简化运维**</font>
   - 监控指标、健康检查（k8s）、外部化配置
-
 - 无代码生成、无xml
 
 总结：简化开发，简化配置，简化整合，简化部署，简化监控，简化运维。
@@ -536,11 +741,33 @@ public class TestService{
 
 - 启动器
 
-### 43.SpringBoot Starter的工作原理是什么
+Spring Boot中的Starters是一种便捷的方式来引入常用的依赖项和配置。它们是预先配置好的Maven或Gradle依赖项，可以帮助我们快速启动和构建特定功能的应用程序。
+
+Starters的设计目的是简化Spring Boot应用程序的配置和集成流程。通过引入适当的Starter，可以自动配置所需的依赖项、类和配置，并且不需要手动编写大量的配置代码。
+
+每个Starter都针对不同的功能模块，例如Web开发、数据访问、安全性等，它们都有自己的命名规范，通常以"spring-boot-starter-"开头，后面跟着模块名称。例如，"spring-boot-starter-web"用于启动一个Web应用程序，它会自动配置Spring MVC、Tomcat服务器和其他相关依赖项。
+
+使用Starters非常简单，只需在项目的构建文件（如pom.xml）中添加相应的Starter依赖项即可。Spring Boot会根据启动器的依赖关系自动处理版本兼容性，并自动配置所需的组件。
+
+总之，**Spring Boot的Starters提供了一种方便快捷的方式，以模块化和自动化的方式引入常用功能的依赖项和配置，使得开发人员能够更加专注于业务逻辑的实现，而不需要过多关注底层配置和依赖项的集成**。
+
+### 43.SpringBoot Starter的工作原理是什么❕
 
 - 读取配置信息
 - 对资源进行初始化
 - 直接注入对应的bean资源
+
+> Spring Boot Starter的工作原理主要基于自动配置和条件化加载。
+>
+> 首先，每个Spring Boot Starter都包含一个自动配置（Auto-configuration）类。这些自动配置类使用Spring的条件化注解（@Conditional）根据类路径上存在的依赖项自动配置应用程序。例如，如果类路径上存在Tomcat依赖项，那么自动配置将启用内嵌Tomcat服务器。
+>
+> 其次，每个Starter还包含一个Spring.factories文件，其中列出了该Starter提供的自动配置类。这样，当引入某个Starter时，Spring Boot会自动扫描并加载相应的自动配置类。
+>
+> 在应用程序启动时，Spring Boot会根据classpath上的Starter依赖项和相关条件来决定是否应用某个自动配置。如果满足自动配置的条件，Spring Boot将自动为应用程序配置相关的组件、bean和属性。
+>
+> 此外，Spring Boot还提供了@ConfigurationProperties注解，可以将自动配置的属性绑定到特定的配置类上。这允许开发者通过配置文件或其他方式轻松地自定义应用程序的行为。
+>
+> 总体而言，Spring Boot Starter的工作原理是通过自动配置和条件化加载来简化应用程序的配置。它根据类路径上的依赖项和条件判断来决定是否应用特定的自动配置，并自动为应用程序提供所需的组件和属性。这大大简化了应用程序的配置和集成过程，提高了开发效率。
 
 ### 44.保护SpringBoot应用有哪些方法
 
@@ -576,7 +803,7 @@ public class TestService{
 1. springboot底层使用maven管理依赖，通过控制pom.xml父子关系来完成细节配置，在父pom中定义具体框架和版本号以及额外的信息。
 2. 提供了很多场景的spring-boot-starter 的 pom.xml文件，来标准化的引入依赖避免冲突
 
-### SpringBoot自动配置机制
+### SpringBoot自动配置机制❕
 
 **初步理解**
 
@@ -649,7 +876,7 @@ public class TestService{
 
 该注解通过 @Import 注解导入对应的配置选择器。关键的是内部就是读取了该项目和该项目引用的Jar包的classpath路径下METAINF/spring.factories文件中的所配置的类的全类名
 
-在这些配置类中所定义的Bean会根据条 件注解所指定的条件来决定是否需要将其导入到Spring容器中。
+在这些配置类中所定义的Bean会根据条件注解所指定的条件来决定是否需要将其导入到Spring容器中。
 
 一般条件判断会有像 @ConditionalOnClass 这样的注解，判断是否有对应的 class文件，如果有则加载该类，把这个配置类的所有的Bean放入spring容器中使用。
 
@@ -682,7 +909,7 @@ http://192.168.137.60:8080
 
 2、通过配置文件，实现`WebMvcConfigurer `接口，重写`addCorsMappings`方法，配置允许跨域的请求源
 
-### 如何实现一个IOC容器  
+### 如何实现一个IOC容器  ❕
 
 1、配置文件配置包扫描路径 
 
@@ -692,7 +919,7 @@ http://192.168.137.60:8080
 
 4、对需要注入的类进行依赖注入  
 
-### Spring单例bean和单例模式
+### Spring单例bean和单例模式❕
 
 - 单例模式表示JVM中某个类的对象只会存在唯一一个
 - 而单例bean并不表示JVM中只能存在唯一的某个类的bean对象
@@ -732,7 +959,7 @@ http://192.168.137.60:8080
 
 ### Spring Boot是如何启动Tomcat的  
 
-### Spring Boot中配置⽂件的加载顺序是怎样的
+### Spring Boot中配置⽂件的加载顺序是怎样的❕
 
 - 命令行参数
 - 系统属性
@@ -797,7 +1024,7 @@ Spring Boot的核心注解是@SpringBootApplication , 他由几个注解组成 :
 
 - 简化SQL开发，内部封装jdbc，加载驱动，创建连接等，可以通过xml或者注解的方式配置映射信息
 
-### 2.Mybatis的优缺点✔
+### 2.Mybatis的优缺点✔❕
 
 - 优点
   - 基于SQL语句编程，灵活
@@ -829,7 +1056,7 @@ MyBatis 是一个小巧、方便、高效、简单、直接、半自动化的持
 
 Hibernate 是一个强大、方便、高效、复杂、间接、全自动化的持久层框架。  
 
-### 5.JDBC编程有哪些不足之处，Mybatis是如何解决这些问题的
+### 5.JDBC编程有哪些不足之处，Mybatis是如何解决这些问题的❕
 
 - 配置数据连接池，创建、释放造成资源浪费，影响系统性能
   - 在sqlMapConfig中配置数据连接池，方便管理
@@ -1041,7 +1268,7 @@ Mybatis里面设计了二级缓存来提升数据的一个检索效率，避免�
 - 接口方法的输出参数类型和xml文件中resultType类型相同
 - namespace是mapper接口的类路径
 
-### Mybatis的执行流程✔
+### Mybatis的执行流程✔❕
 
 ①读取MyBatis配置文件：mybatis-config.xml加载运行环境和映射文件 
 
@@ -1158,3 +1385,42 @@ jsp本质上就是servlet
 ### JDBC连接数据库步骤
 
 ![image-20230922095746828](https://gitee.com/tjlxy/img/raw/master/image-20230922095746828.png)
+
+### vue中的钩子函数
+
+在 Vue.js 中，钩子函数指的是在组件生命周期中可以用来挂载自定义逻辑的一系列方法。这些钩子函数允许你在特定的生命周期阶段执行代码，以便在组件被创建、更新或销毁时实现一些特定的行为。
+
+以下是 Vue.js 中常用的生命周期钩子函数：
+
+1. **beforeCreate**: 在实例初始化之后，数据观测 (data observer) 和 event/watcher 事件配置之前被调用。
+2. **created**: 实例已经创建完成之后被调用。在这一步，实例已完成以下的配置：数据观测 (data observer)，属性和方法的运算，watch/event 事件回调。然而，挂载阶段还没开始，$el 属性目前不可见。
+3. **beforeMount**: 在挂载开始之前被调用：相关的 render 函数首次被调用。
+4. **mounted**: el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用该钩子。
+5. **beforeUpdate**: 数据更新时调用，发生在虚拟 DOM 重新渲染和打补丁之前。
+6. **updated**: 由于数据更改导致的虚拟 DOM 重新渲染和打补丁后调用。
+7. **beforeDestroy**: 在实例销毁之前调用。实例仍然完全可用。
+8. **destroyed**: 实例销毁后调用。该钩子被调用后，对应Vue实例的所有指令都被解绑，所有事件监听器被移除，所有子实例也会被销毁。
+
+这些钩子函数允许开发者在组件生命周期的不同阶段注入自定义逻辑，以便进行数据处理、异步操作、DOM 操作等。通过合理地利用这些钩子函数，可以更好地控制组件的行为，实现更加复杂的交互和逻辑。
+
+### Get请求与Post请求区别
+
+1. 参数传递方式不同
+
+GET请求中，参数是通过URL传递的，即将参数以键值对的形式附加在URL后面，使用“?”分隔参数和URL，使用“&”连接多个参数。例如：http://www.example.com?name=John&age=22。由于URL的长度存在限制，GET请求传递的参数大小也存在一定限制。
+
+而POST请求中，参数是通过HTTP请求体传递的，即将参数封装在HTTP请求体中发送给服务器。这种方式可以传递更多的参数，并且参数的大小没有限制。
+
+2. 安全性不同
+
+因为GET请求中参数是通过URL传递的，所以参数会暴露在URL中，容易被第三方获取。而POST请求中参数是放在请求体中的，相对来说比较安全。
+
+3. 缓存机制不同
+
+因为GET请求的参数是以URL形式传递的，所以浏览器可以缓存GET请求的结果，下次再发起同样的请求时，直接从缓存中获取结果。而POST请求不支持缓存机制。
+
+4. 适用场景不同
+
+一般来说，GET请求适合处理读取数据的操作，如查询、搜索等；而POST请求适合处理写入数据的操作，如表单提交、文件上传等。
+
+总的来说，GET请求和POST请求各有优缺点，需要根据具体的场景选择使用。

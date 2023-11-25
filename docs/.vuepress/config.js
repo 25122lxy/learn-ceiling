@@ -37,9 +37,17 @@ module.exports = {
                         link: '/handbook/Learn/RabbitMQ/1.RabbitMQ-简介及安装'
                     },
 					{
-                        text: 'SQL',
+                        text: 'SQL-Learn',
                         link: '/handbook/Learn/SQL/SQL案例'
+                    },					
+					{
+                        text: 'MySQL-Exe',
+                        link: '/handbook/Learn/SQL/MySQL-Exe'
                     },
+                    {
+                        text: '前端快速入门',
+                        link: '/handbook/Learn/前端快速入门/01-HTML-CSS-JS'
+                    }
                 ]
             },
             {
@@ -137,9 +145,15 @@ module.exports = {
                         title: 'SQL',//添加一层子标题
                         collapsable: true, // 折叠
                         children: [
-                            {title: 'SQL练习', path: '/handbook/Learn/SQL/SQL案例'}
-
-
+                            {title: 'SQL-Learn', path: '/handbook/Learn/SQL/SQL案例'},
+                            {title: 'MySQL-Exe', path: '/handbook/Learn/SQL/MySQL-Exe'}
+                        ]
+                    },
+                    {
+                        title: '前端快速入门',//添加一层子标题
+                        collapsable: true, // 折叠
+                        children: [
+                            {title: '01-HTML-CSS-JS', path: '/handbook/Learn/前端快速入门/01-HTML-CSS-JS'},
                         ]
                     },
                 ],

@@ -260,7 +260,7 @@ where
 
    这将匹配包含"pattern"子字符串的任何位置的行。
 
-2. CONTAINS函数：
+2. **CONTAINS函数**：
 
    - CONTAINS函数用于在一个字符串列中搜索另一个字符串。它返回一个逻辑值，如果搜索字符串在列中存在，则返回TRUE，否则返回FALSE。
    - 例如，以下查询将返回包含特定字符串的所有行：
@@ -271,7 +271,7 @@ where
 
    这将搜索"column_name"列中是否存在"search_string"，如果存在，返回TRUE，否则返回FALSE。
 
-3. REPLACE函数：
+3. **REPLACE函数**：
 
    - REPLACE函数用于在一个字符串中替换指定的子字符串为另一个字符串。
    - 例如，以下查询将把特定字符串替换为新的字符串：
@@ -401,7 +401,7 @@ from
 
 在 SQL 中，OUTER JOIN 是一种关联查询方式，它根据指定的关联条件，将两个表中满足条件的行组合在一起，并 **包含没有匹配的行** 。
 
-在 OUTER JOIN 中，包括 LEFT OUTER JOIN 和 RIGHT OUTER JOIN 两种类型，它们分别表示查询左表和右表的所有行（即使没有被匹配），再加上满足条件的交集部分。
+在 OUTER JOIN 中，**包括 LEFT OUTER JOIN 和 RIGHT OUTER JOIN 两种类型，它们分别表示查询左表和右表的所有行（即使没有被匹配），再加上满足条件的交集部分**。
 
 eg：假设有一个学生表 `student`，包含以下字段：`id`（学号）、`name`（姓名）、`age`（年龄）、`class_id`（班级编号）。还有一个班级表 `class`，包含以下字段：`id`（班级编号）、`name`（班级名称）、`level`（班级级别）。
 
