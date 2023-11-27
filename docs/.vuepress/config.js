@@ -46,7 +46,7 @@ module.exports = {
                     },
                     {
                         text: '前端快速入门',
-                        link: '/handbook/Learn/前端快速入门/01-HTML-CSS-JS'
+                        link: '/handbook/Learn/前端快速入门/01-HTML-CSS'
                     }
                 ]
             },
@@ -153,7 +153,8 @@ module.exports = {
                         title: '前端快速入门',//添加一层子标题
                         collapsable: true, // 折叠
                         children: [
-                            {title: '01-HTML-CSS-JS', path: '/handbook/Learn/前端快速入门/01-HTML-CSS-JS'},
+                            {title: '01-HTML-CSS', path: '/handbook/Learn/前端快速入门/01-HTML-CSS'},
+                            {title: '02-JavaScript', path: '/handbook/Learn/前端快速入门/02-JavaScript'}
                         ]
                     },
                 ],
