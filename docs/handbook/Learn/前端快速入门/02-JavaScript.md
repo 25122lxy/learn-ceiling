@@ -499,7 +499,7 @@ alert(obj.name);
 alert(JSON.stringify(obj));
 ~~~
 
-## 4.2 BOM对象
+### 4.2 BOM对象
 
 BOM的全称是Browser Object Model,翻译过来是浏览器对象模型。也就是JavaScript将浏览器的各个组成部分封装成了对象。我们要操作浏览器的部分功能，可以通过操作BOM对象的相关属性或者函数来完成。例如：我们想要将浏览器的地址改为`http://www.baidu.com`,我们就可以通过BOM中提供的location对象的href属性来完成，代码如下：`location.href='http://www.baidu.com'`
 
@@ -515,7 +515,7 @@ BOM中提供了如下5个对象：
 
 这里重点关注Window对象、Location对象这2个。
 
-### 4.2.1 Window对象
+#### 4.2.1 Window对象
 
 window对象指的是浏览器窗口对象，是JavaScript的全部对象，所以对于window对象，可以直接使用，并且对于window对象的方法和属性，我们可以省略`window.`例如：
 
@@ -561,7 +561,7 @@ window也提供了一些常用的函数，如下表格所示：
 
 - setTimeout(fn,毫秒值) ：定时器，只会在一段时间后**执行一次功能**。参数和上述setInterval一致
 
-### 4.2.2 Location对象
+#### 4.2.2 Location对象
 
 location是指代浏览器的地址栏对象，对于这个对象，我们常用的是href属性，用于获取或者设置浏览器的地址信息，添加如下代码：
 
@@ -572,5 +572,295 @@ alert(location.href);
 location.href = "https://www.baicu.com";
 ~~~
 
-## 4.3 DOM对象
+### 4.3 DOM对象
+
+DOM：Document Object Model 文档对象模型。也就是 JavaScript 将 HTML 文档的各个组成部分封装为对象。
+
+DOM 其实我们并不陌生，之前在学习 XML 就接触过，只不过 XML 文档中的标签需要我们写代码解析，而 HTML 文档是浏览器解析。封装的对象分为
+
+- Document：整个文档对象
+- Element：元素对象
+- Attribute：属性对象
+- Text：文本对象
+- Comment：注释对象
+
+HTML中的Element对象可以通过Document对象获取，而Document对象是通过window对象获取的。document对象提供的用于获取Element元素对象的api如下表所示：
+
+| 函数                              | 描述                                     |
+| --------------------------------- | ---------------------------------------- |
+| document.getElementById()         | 根据id属性值获取，返回单个Element对象    |
+| document.getElementsByTagName()   | 根据标签名称获取，返回Element对象数组    |
+| document.getElementsByName()      | 根据name属性值获取，返回Element对象数组  |
+| document.getElementsByClassName() | 根据class属性值获取，返回Element对象数组 |
+
+### 4.4 案例
+
+**需求**
+
+- 点亮灯泡
+
+  - 首先获取img标签对象
+  - 然后修改img标签对象的src属性值，进行图片的切换
+
+  ```js
+  //1. 点亮灯泡 : src 属性值
+  //首先获取img标签对象
+  var img = document.getElementById('h1');
+  //然后修改img标签对象的src属性值，进行图片的切换
+  img.src = "img/on.gif";
+  ```
+
+- 将所有的div标签的标签体内容后面加上：very good；并且very good是红色字体
+
+  - 通过标签的名字div获取所有的div标签
+  - 遍历所有的div标签
+  - 获取div标签的原有内容，然后追加&lt;font color='red'&gt;very good&lt;/font&gt;,并且替原内容 
+
+  ```js
+  //2. 将所有div标签的内容后面加上: very good (红色字体) -- <font color='red'></font>
+  var divs = document.getElementsByTagName('div');
+  for (let i = 0; i < divs.length; i++) {
+      const div = divs[i];
+      div.innerHTML += "<font color='red'>very good</font>"; 
+  }
+  ```
+
+- 使所有的复选框呈现被选中的状态
+
+  - 可以通过name属性值获取所有的checkbox标签
+  - 遍历所有的checkbox标签，
+  - 设置每个checkbox标签的
+
+  ```js
+  // //3. 使所有的复选框呈现选中状态
+  var ins = document.getElementsByName('hobby');
+  for (let i = 0; i < ins.length; i++) {
+  const check = ins[i];
+  check.checked = true;//选中
+  }
+  ```
+
+完整代码：
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS-对象-DOM-案例</title>
+</head>
+
+<body>
+    <img id="h1" src="img/off.gif">  <br><br>
+
+    <div class="cls">传智教育</div>   <br>
+    <div class="cls">黑马程序员</div>  <br>
+
+    <input type="checkbox" name="hobby"> 电影
+    <input type="checkbox" name="hobby"> 旅游
+    <input type="checkbox" name="hobby"> 游戏
+</body>
+
+<script>
+    //1. 点亮灯泡 : src 属性值
+    var img = document.getElementById('h1');
+    img.src = "img/on.gif";
+
+
+    //2. 将所有div标签的内容后面加上: very good (红色字体) -- <font color='red'></font>
+    var divs = document.getElementsByTagName('div');
+    for (let i = 0; i < divs.length; i++) {
+        const div = divs[i];
+        div.innerHTML += "<font color='red'>very good</font>"; 
+    }
+
+
+    // //3. 使所有的复选框呈现选中状态
+    var ins = document.getElementsByName('hobby');
+    for (let i = 0; i < ins.length; i++) {
+        const check = ins[i];
+        check.checked = true;//选中
+    }
+
+</script>
+</html>
+```
+
+## 5. JavaScript事件
+
+什么是事件呢？HTML事件是发生在HTML元素上的 “事情”，例如：
+
+- 按钮被点击
+- 鼠标移到元素上
+- 输入框失去焦点
+- ........
+
+### 5.1 事件绑定 
+
+JavaScript对于事件的绑定提供了2种方式：
+
+- 方式1：通过html标签中的事件属性进行绑定
+
+  例如一个按钮，我们对于按钮可以绑定单机事件，可以借助标签的onclick属性，属性值指向一个函数。
+
+  ~~~html
+  <input type="button" id="btn1" value="事件绑定1" onclick="on()">
+  ~~~
+
+  很明显没有on函数，所以我们需要创建该函数，代码如下：
+
+  ~~~html
+  <script>
+      function on(){
+          alert("按钮1被点击了...");
+      }
+  </script>
+  ~~~
+
+
+- 方式2：通过DOM中Element元素的事件属性进行绑定
+
+  html中的标签被加载成element对象，所以也可以通过element对象的属性来操作标签的属性。此时再次添加一个按钮，代码如下：
+
+  ~~~html
+  <input type="button" id="btn2" value="事件绑定2">
+  ~~~
+
+  我们可以先通过id属性获取按钮对象，然后操作对象的onclick属性来绑定事件，代码如下：
+
+  ~~~js
+  document.getElementById('btn2').onclick = function(){
+      alert("按钮2被点击了...");
+  }
+  ~~~
+
+
+**需要注意的是：事件绑定的函数，只有在事件被触发时，函数才会被调用。**
+
+### 5.2 常见事件
+
+上面案例中使用到了 `onclick` 事件属性，那都有哪些事件属性供我们使用呢？下面就给大家列举一些比较常用的事件属性
+
+| 事件属性名  | 说明                     |
+| ----------- | ------------------------ |
+| onclick     | 鼠标单击事件             |
+| onblur      | 元素失去焦点             |
+| onfocus     | 元素获得焦点             |
+| onload      | 某个页面或图像被完成加载 |
+| onsubmit    | 当表单提交时触发该事件   |
+| onmouseover | 鼠标被移到某元素之上     |
+| onmouseout  | 鼠标从某元素移开         |
+
+### 5.3 案例
+
+需求如下3个：
+
+1. 点击 “点亮”按钮 点亮灯泡，点击“熄灭”按钮 熄灭灯泡
+   - 首先给点亮按钮和熄灭按钮都绑定单击事件。分别绑定函数on()和off（）
+   - 然后在js中定义on()和off()函数
+   - on()函数中，通过id获取img标签对象，然后通过img标签对象的src属性切换点亮的图片
+   - off()函数中，通过id获取img标签对象，然后通过img标签对象的src属性切换熄灭的图片
+2. 输入框鼠标聚焦后，展示小写；鼠标离焦后，展示大写。
+   - 给input标签的onfocus和onblur事件分别绑定lower()和upper()函数
+   - 然后在js中定义lower()和upper()函数
+   - 对于lower()函数，先通过id获取输入框对象，然后通过输入框的value属性来设置内容，内容的话可以通过字符串的toLowerCase()函数来进行小写转换
+   - 对于upper()函数，先通过id获取输入框对象，然后通过输入框的value属性来设置内容，内容的话可以通过字符串的toupperCase()函数来进行大写转换
+3. 点击 “全选”按钮使所有的复选框呈现被选中的状态，点击 “反选”按钮使所有的复选框呈现取消勾选的状态。
+   - 给全选和反选按钮绑定单击事件，分别绑定函数checkAll()和reverse()
+   - 在js中定义checkAll()和reverse()函数
+   - 对于checkAll()函数，首先通过name属性值为hobby来获取所有的复选框，然后遍历复选框，设置每个复选框的checked属性为true即可
+   - 对于reverse()函数，首先通过name属性值为hobby来获取所有的复选框，然后遍历复选框，设置每个复选框的checked属性为false即可
+
+完整代码
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS-事件-案例</title>
+</head>
+<body>
+
+    <img id="light" src="img/off.gif"> <br>
+
+    <input type="button" value="点亮" onclick="on()"> 
+    <input type="button"  value="熄灭" onclick="off()">
+    
+    <br> <br>
+    <input type="text" id="name" value="ITCAST" onfocus="lower()" onblur="upper()">
+    <br> <br>
+
+    <input type="checkbox" name="hobby"> 电影
+    <input type="checkbox" name="hobby"> 旅游
+    <input type="checkbox" name="hobby"> 游戏
+    <br>
+    <input type="button" value="全选" onclick="checkAll()"> 
+    <input type="button" value="反选" onclick="reverse()">
+</body>
+<script>
+    //1. 点击 "点亮" 按钮, 点亮灯泡; 点击 "熄灭" 按钮, 熄灭灯泡; -- onclick
+    function on(){
+        //a. 获取img元素对象
+        var img = document.getElementById("light");
+
+        //b. 设置src属性
+        img.src = "img/on.gif";
+    }
+
+    function off(){
+        //a. 获取img元素对象
+        var img = document.getElementById("light");
+
+        //b. 设置src属性
+        img.src = "img/off.gif";
+    }
+
+    //2. 输入框聚焦后, 展示小写; 输入框离焦后, 展示大写; -- onfocus , onblur
+    function lower(){//小写
+        //a. 获取输入框元素对象
+        var input = document.getElementById("name");
+
+        //b. 将值转为小写
+        input.value = input.value.toLowerCase();
+    }
+
+    function upper(){//大写
+        //a. 获取输入框元素对象
+        var input = document.getElementById("name");
+
+        //b. 将值转为大写
+        input.value = input.value.toUpperCase();
+    }
+
+    //3. 点击 "全选" 按钮使所有的复选框呈现选中状态 ; 点击 "反选" 按钮使所有的复选框呈现取消勾选的状态 ; -- onclick
+    function checkAll(){
+        //a. 获取所有复选框元素对象
+        var hobbys = document.getElementsByName("hobby");
+
+        //b. 设置选中状态
+        for (let i = 0; i < hobbys.length; i++) {
+            const element = hobbys[i];
+            element.checked = true;
+        }
+    }
+    
+    function reverse(){
+        //a. 获取所有复选框元素对象
+        var hobbys = document.getElementsByName("hobby");
+
+        //b. 设置未选中状态
+        for (let i = 0; i < hobbys.length; i++) {
+            const element = hobbys[i];
+            element.checked = false;
+        }
+    }
+
+</script>
+</html>
+```
 

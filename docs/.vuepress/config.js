@@ -37,16 +37,16 @@ module.exports = {
                         link: '/handbook/Learn/RabbitMQ/1.RabbitMQ-简介及安装'
                     },
 					{
-                        text: 'SQL-Learn',
-                        link: '/handbook/Learn/SQL/SQL案例'
-                    },					
-					{
-                        text: 'MySQL-Exe',
-                        link: '/handbook/Learn/SQL/MySQL-Exe'
+                        text: 'MySQL',
+                        link: '/handbook/Learn/SQL/MySQL语法'
                     },
                     {
                         text: '前端快速入门',
                         link: '/handbook/Learn/前端快速入门/01-HTML-CSS'
+                    },
+                    {
+                        text: 'Linux',
+                        link: '/handbook/Learn/Linux/01-Linux入门'
                     }
                 ]
             },
@@ -145,8 +145,8 @@ module.exports = {
                         title: 'SQL',//添加一层子标题
                         collapsable: true, // 折叠
                         children: [
-                            {title: 'SQL-Learn', path: '/handbook/Learn/SQL/SQL案例'},
-                            {title: 'MySQL-Exe', path: '/handbook/Learn/SQL/MySQL-Exe'}
+                            {title: 'MySQL-语法', path: '/handbook/Learn/SQL/SQL案例'},
+                            {title: 'MySQL-Exercise', path: '/handbook/Learn/SQL/MySQL-Exe'}
                         ]
                     },
                     {
@@ -154,7 +154,22 @@ module.exports = {
                         collapsable: true, // 折叠
                         children: [
                             {title: '01-HTML-CSS', path: '/handbook/Learn/前端快速入门/01-HTML-CSS'},
-                            {title: '02-JavaScript', path: '/handbook/Learn/前端快速入门/02-JavaScript'}
+                            {title: '02-JavaScript', path: '/handbook/Learn/前端快速入门/02-JavaScript'},
+                            {title: '03-Vue', path: '/handbook/Learn/前端快速入门/03-Vue'}
+                        ]
+                    },
+                    {
+                        title: 'Linux',//添加一层子标题
+                        collapsable: true, // 折叠
+                        children: [
+                            {title: '01-Linux入门', path: '/handbook/Learn/Linux/01-Linux入门'},
+                            {title: '02-VI、VIM 编辑器-√', path: '/handbook/Learn/Linux/02-VI、VIM 编辑器-√'},
+                            {title: '03-网络配置-√', path: '/handbook/Learn/Linux/03-网络配置-√'},
+                            {title: '04-系统管理', path: '/handbook/Learn/Linux/04-系统管理'},
+                            {title: '05-常用基本命令-√', path: '/handbook/Learn/Linux/05-常用基本命令-√'},
+                            {title: '06-软件包管理', path: '/handbook/Learn/Linux/06-软件包管理'},
+                            {title: '07-克隆虚拟机', path: '/handbook/Learn/Linux/07-克隆虚拟机'},
+                            {title: '08-补充', path: '/handbook/Learn/Linux/08-补充'},
                         ]
                     },
                 ],

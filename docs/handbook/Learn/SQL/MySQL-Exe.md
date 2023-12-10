@@ -1,4 +1,4 @@
-# MySQL-Exe
+# MySQL-Exercise
 
 注意：**select、from、where、group by、having、order by、limit**
 

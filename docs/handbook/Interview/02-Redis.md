@@ -471,7 +471,6 @@ Redis支持8种不同策略来选择要删除的key：
   
     ②利用canal中间件，不需要修改业务代码，部署一个canal服务。canal服务把自己伪装成mysql的一个从节点，当mysql数据更新以后，canal会读取binlog数据，然后在通过canal的客户端获取到数据， 更新缓存即可。
   
-  
 
 
 

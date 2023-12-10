@@ -179,7 +179,7 @@ void print(int n) {
 > 第一个是Collection 属于单列集合，第二个是Map 属于双列集合 
 >
 > - 在Collection中有两个子接口List和Set。在我们平常开发的过程中用的比较多像list 接口中的实现类ArrarList和LinkedList。 在Set接口中有实现类HashSet和 TreeSet。 
-> - 在map接口中有很多的实现类，平时比较常见的是HashMap、TreeMap，还有一个线程安全的map:ConcurrentHashMap
+> - 在map接口中有很多的实现类，平时比较常见的是HashMap、TreeMap，还有一个线程安全的map：ConcurrentHashMap
 
 ### 2.线程安全的集合有哪些？线程不安全的呢
 
@@ -306,7 +306,7 @@ HashMap 在 JDK1.8 版本中，是通过链式寻址法以及红黑树的方式�
 
 表示哈希表中元素的填充长度，扩容因子的值越大，意味着触发扩容的元素个数会更多，哈希冲突概率也会增加，相反扩容因子的值越小，触发扩容的元素会更少，所以这就是维持平衡的一个过程，当扩容因子在0.75的时候，链表长度达到8的可能性几乎为0，比较好的达到了一个空间成本，和时间成本的平衡
 
-### 11. HashMap 中 key 的存储索引是怎么计算的？  
+### 11. HashMap 中 key 的存储索引是怎么计算的？
 
 - 根据key的值计算出hashcode的值，
 - 然后根据hashcode计算出hash值，

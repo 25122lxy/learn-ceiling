@@ -1,4 +1,4 @@
-# SQL案例
+# SQL语法
 
 ## Mysql
 
