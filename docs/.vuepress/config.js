@@ -36,9 +36,13 @@ module.exports = {
                         text: 'RabbitMQ',
                         link: '/handbook/Learn/RabbitMQ/1.RabbitMQ-简介及安装'
                     },
+                    {
+                        text: 'Redis',
+                        link: '/handbook/Learn/Redis/0-Redis-Basic'
+                    },
 					{
                         text: 'MySQL',
-                        link: '/handbook/Learn/SQL/MySQL语法'
+                        link: '/handbook/Learn/SQL/SQL案例'
                     },
                     {
                         text: '前端快速入门',
@@ -62,7 +66,7 @@ module.exports = {
             {
                 text: 'Interview',
                 items: [
-                    {text: 'personnel', link: '/handbook/Interview/00-personnel'},
+                    {text: '查漏补缺', link: '/handbook/Interview/00-查漏补缺.md'},
                     {text: 'Java基础', link: '/handbook/Interview/01-Java基础'},
                     {text: 'Redis', link: '/handbook/Interview/02-Redis'},
                     {text: 'MySQL', link: '/handbook/Interview/03-MySQL'},
@@ -142,6 +146,13 @@ module.exports = {
                         ]
                     },
                     {
+                        title: 'Redis',//添加一层子标题
+                        collapsable: true, // 折叠
+                        children: [
+                            {title: 'Redis-Basic', path: '/handbook/Learn/Redis/0-Redis-Basic'},
+                        ]
+                    },
+                    {
                         title: 'SQL',//添加一层子标题
                         collapsable: true, // 折叠
                         children: [
@@ -169,7 +180,7 @@ module.exports = {
                             {title: '05-常用基本命令-√', path: '/handbook/Learn/Linux/05-常用基本命令-√'},
                             {title: '06-软件包管理', path: '/handbook/Learn/Linux/06-软件包管理'},
                             {title: '07-克隆虚拟机', path: '/handbook/Learn/Linux/07-克隆虚拟机'},
-                            {title: '08-补充', path: '/handbook/Learn/Linux/08-补充'},
+                            {title: '08-Shell', path: '/handbook/Learn/Linux/08-Shell'},
                         ]
                     },
                 ],
@@ -205,7 +216,7 @@ module.exports = {
                 // path: '/handbook/Interview/01-Java基础',
                 // collapsable: false, // 不折叠
                 children: [
-                    {title: "personnel", collapsable: true,path: "/handbook/Interview/00-personnel"},
+                    {title: "查漏补缺", collapsable: true,path: "/handbook/Interview/00-查漏补缺"},
                     {title: "Java基础", collapsable: true,path: "/handbook/Interview/01-Java基础"},
                     {title: 'Redis', path: "/handbook/Interview/02-Redis"},
                     {title: "MySQL", path: "/handbook/Interview/03-MySQL"},

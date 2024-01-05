@@ -838,8 +838,8 @@ Starters的设计目的是简化Spring Boot应用程序的配置和集成流程�
   - **SpringBoot只会扫描主程序所在的包及其下面的子包，自动的component-scan功能**
   - **自定义扫描路径**
 
-- - - @SpringBootApplication(scanBasePackages = "com.atguigu")
-    - `@ComponentScan("com.atguigu")` 直接指定扫描的路径
+- - - @SpringBootApplication(scanBasePackages = "com.lxy25122")
+    - `@ComponentScan("com.lxy25122")` 直接指定扫描的路径
 
 - **配置默认值**
 

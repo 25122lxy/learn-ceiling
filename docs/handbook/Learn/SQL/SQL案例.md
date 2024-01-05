@@ -175,15 +175,17 @@ MySQL 提供了许多用于处理时间和日期的内置函数。以下是一�
    ```
    
 2. `CURDATE()`：返回当前日期。
+   
    ```sql
    SELECT CURDATE();
-   select current_date();
+   select current_date;
    ```
    
 3. `CURTIME()`：返回当前时间。
+   
    ```sql
    SELECT CURTIME();
-   select current_time();
+   select current_time;
    ```
    
 4. `DATE()`：从日期时间值中提取日期部分。

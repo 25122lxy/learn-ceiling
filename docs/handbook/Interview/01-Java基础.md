@@ -127,6 +127,8 @@
 - 代码块执行顺序**静态代码块——> 构造代码块 ——> 构造函数——> 普通代码块** 
 - 继承中代码块执行顺序：**父类静态代码块——>子类静态代码块——>父类构造代码块——>父类构造函数——>子类构造代码块——>子类构造函数——>父类普通代码块——>子类普通代码块**
 
+## 面向对象
+
 ### 18.面向对象和面向过程的区别✔
 
 1. 面向对象
@@ -549,6 +551,8 @@ public static void main(String[] args){
 
 ### Java为什么设计封装类
 
+如：Integer、Long
+
 Java本身是面向对象的语言，一切操作都是以对象作为基础。比如说集合里面存元素，也只支持Object类型，普通类型是无法通过集合来存储的
 
 ### 46. 两个new生成的Integer变量的对比  
@@ -572,7 +576,7 @@ Integer是一个封装类型，对应的是一个int类型的包装，Integer对
 
 ### 为什么阿里巴巴强制要求使用包装类型定义属性❕
 
-1. 默认值的问题
+1. **默认值的问题**
 
    使用基本数据类型定义属性的时候，如果没有给属性赋予初始值，会使用默认值
 
@@ -662,11 +666,15 @@ Integer是一个封装类型，对应的是一个int类型的包装，Integer对
 
 ### 56. 反射机制的原理是什么❤❗
 
-1. 反射获取类实例
-2. 根据Class对象实例获取Constructor对象
-3. 使用Constructor对象的newInstance()方法获取反射类对象
-4. 使用Class对象实例获取Method对象
-5. 接着调用invoke()方法
+1、获取目标类的Class对象
+
+2、根据Class对象实例获取Construct对象
+
+3、使用Construct对象的newInstance()方法获取反射类对象
+
+4、使用Class对象实例获取Method对象
+
+5、根据Method实例调用invoke()方法
 
 ```java
 import java.lang.reflect.Constructor;
@@ -829,7 +837,7 @@ objectList.add(123); // 试图将 Integer 添加到一个实际上是 List<Strin
 
 - 持久化（序列化、**反序列化**）
 
-但是，**虚拟机是否允许反序列化**， 不仅取决于类路径和功能代码是否⼀致， ⼀个⾮常重要的⼀点是两个类的序列化 ID 是否⼀致， 即`serialVersionUID`要求⼀致。
+但是，**虚拟机是否允许反序列化**， 不仅取决于类路径和功能代码是否⼀致， ⼀个⾮常重要的⼀点是两个类的**序列化 ID** 是否⼀致， 即`serialVersionUID`要求⼀致。
 
 在进⾏反序列化时， JVM会把传来的字节流中的`serialVersionUID`与本地相应实体类的`serialVersionUID`进⾏⽐较， 如果相同就认为是⼀致的， 可以进⾏反序列化， 否则就会出现序列化版本不⼀致的异常， 即是`InvalidCastException`。
 
@@ -871,7 +879,7 @@ objectList.add(123); // 试图将 Integer 添加到一个实际上是 List<Strin
   - ClassCastException类型转换异常
   
 - 关键字特点
-  - Try:可能发生的异常
+  - Try：可能发生的异常
   - Catch：异常类型，一旦其中一条捕获到异常，后面就不执行了,(先写子类异常，再写父类异常)
   - Finaly：通常情况下一定执行，如system.exit,等，前面终止的话finaly就不会执行了
 
@@ -982,9 +990,13 @@ public static void foo(int i) {
 
 public static void main(String[] args) {
     foo(0);
-    foo(1);
+    foo(1)
     System.out.println(output);
 }
+/**
+ * foo(0); try中不符合条件，直接finally输出 3
+ * foo(1); try中符合条件，进行抛出异常，在catch中捕获，输出 2，再进入finally中，输出 3
+ *
 ```
 
 答：323
