@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>SQL语法 | Code Diary</title>
+    <meta name="generator" content="VuePress 1.9.9">
+    <link rel="icon" href="/learn-ceiling/hand.jpg">
+    <meta name="description" content="技术笔记、编程心得分享">
+    <meta name="referrer" content="no-referrer">
+    
+    <link rel="preload" href="/learn-ceiling/assets/css/0.styles.df47c79f.css" as="style"><link rel="preload" href="/learn-ceiling/assets/js/app.235538a9.js" as="script"><link rel="preload" href="/learn-ceiling/assets/js/2.c7d2b1f7.js" as="script"><link rel="preload" href="/learn-ceiling/assets/js/60.74872728.js" as="script"><link rel="prefetch" href="/learn-ceiling/assets/js/10.c4c4f495.js"><link rel="prefetch" href="/learn-ceiling/assets/js/11.06c1692d.js"><link rel="prefetch" href="/learn-ceiling/assets/js/12.e70990f1.js"><link rel="prefetch" href="/learn-ceiling/assets/js/13.5ea6f405.js"><link rel="prefetch" href="/learn-ceiling/assets/js/14.5ce76ccb.js"><link rel="prefetch" href="/learn-ceiling/assets/js/15.b5c61832.js"><link rel="prefetch" href="/learn-ceiling/assets/js/16.6e4e0759.js"><link rel="prefetch" href="/learn-ceiling/assets/js/17.b6f52e7f.js"><link rel="prefetch" href="/learn-ceiling/assets/js/18.155f2caf.js"><link rel="prefetch" href="/learn-ceiling/assets/js/19.ea21c3cf.js"><link rel="prefetch" href="/learn-ceiling/assets/js/20.33c43e06.js"><link rel="prefetch" href="/learn-ceiling/assets/js/21.f4e6e20a.js"><link rel="prefetch" href="/learn-ceiling/assets/js/22.485d0a07.js"><link rel="prefetch" href="/learn-ceiling/assets/js/23.fb805a45.js"><link rel="prefetch" href="/learn-ceiling/assets/js/24.6a258cf5.js"><link rel="prefetch" href="/learn-ceiling/assets/js/25.c4c4023d.js"><link rel="prefetch" href="/learn-ceiling/assets/js/26.d92cf884.js"><link rel="prefetch" href="/learn-ceiling/assets/js/27.5d88d619.js"><link rel="prefetch" href="/learn-ceiling/assets/js/28.a0b76e62.js"><link rel="prefetch" href="/learn-ceiling/assets/js/29.3f0426da.js"><link rel="prefetch" href="/learn-ceiling/assets/js/3.d1fbc4fe.js"><link rel="prefetch" href="/learn-ceiling/assets/js/30.7adccd2c.js"><link rel="prefetch" href="/learn-ceiling/assets/js/31.7d0b9a7f.js"><link rel="prefetch" href="/learn-ceiling/assets/js/32.6970bcc0.js"><link rel="prefetch" href="/learn-ceiling/assets/js/33.eeb35d50.js"><link rel="prefetch" href="/learn-ceiling/assets/js/34.ea24ea8b.js"><link rel="prefetch" href="/learn-ceiling/assets/js/35.c40a585a.js"><link rel="prefetch" href="/learn-ceiling/assets/js/36.79790a12.js"><link rel="prefetch" href="/learn-ceiling/assets/js/37.a847b8a1.js"><link rel="prefetch" href="/learn-ceiling/assets/js/38.9a6ab34d.js"><link rel="prefetch" href="/learn-ceiling/assets/js/39.bf0bc1a7.js"><link rel="prefetch" href="/learn-ceiling/assets/js/4.b6acf418.js"><link rel="prefetch" href="/learn-ceiling/assets/js/40.2e93acfd.js"><link rel="prefetch" href="/learn-ceiling/assets/js/41.bcc213e5.js"><link rel="prefetch" href="/learn-ceiling/assets/js/42.558394fc.js"><link rel="prefetch" href="/learn-ceiling/assets/js/43.cd846378.js"><link rel="prefetch" href="/learn-ceiling/assets/js/44.afcb9063.js"><link rel="prefetch" href="/learn-ceiling/assets/js/45.526cdab6.js"><link rel="prefetch" href="/learn-ceiling/assets/js/46.3bbeeda3.js"><link rel="prefetch" href="/learn-ceiling/assets/js/47.dba7847e.js"><link rel="prefetch" href="/learn-ceiling/assets/js/48.29379048.js"><link rel="prefetch" href="/learn-ceiling/assets/js/49.f526a58a.js"><link rel="prefetch" href="/learn-ceiling/assets/js/5.3747e8f8.js"><link rel="prefetch" href="/learn-ceiling/assets/js/50.2be0a3da.js"><link rel="prefetch" href="/learn-ceiling/assets/js/51.46ccf051.js"><link rel="prefetch" href="/learn-ceiling/assets/js/52.9bcd0722.js"><link rel="prefetch" href="/learn-ceiling/assets/js/53.06fef668.js"><link rel="prefetch" href="/learn-ceiling/assets/js/54.534da4f1.js"><link rel="prefetch" href="/learn-ceiling/assets/js/55.22f59a2a.js"><link rel="prefetch" href="/learn-ceiling/assets/js/56.5b1e2aa6.js"><link rel="prefetch" href="/learn-ceiling/assets/js/57.daacfc08.js"><link rel="prefetch" href="/learn-ceiling/assets/js/58.cb240494.js"><link rel="prefetch" href="/learn-ceiling/assets/js/59.f0cab42c.js"><link rel="prefetch" href="/learn-ceiling/assets/js/6.3688e4ed.js"><link rel="prefetch" href="/learn-ceiling/assets/js/61.a7a19f44.js"><link rel="prefetch" href="/learn-ceiling/assets/js/62.bda341fd.js"><link rel="prefetch" href="/learn-ceiling/assets/js/63.39847a02.js"><link rel="prefetch" href="/learn-ceiling/assets/js/64.8ac906c5.js"><link rel="prefetch" href="/learn-ceiling/assets/js/7.dddd7af2.js"><link rel="prefetch" href="/learn-ceiling/assets/js/8.4b31d8be.js"><link rel="prefetch" href="/learn-ceiling/assets/js/9.9a27c3e2.js">
+    <link rel="stylesheet" href="/learn-ceiling/assets/css/0.styles.df47c79f.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><main><main slot="sidebar-top"><a href="https://github.com/25122lxy/" aria-label="View source on GitHub" target="_blank" class="github-corner"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path> <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" class="octo-arm" style="transform-origin: 130px 106px;"></path> <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a></main> <div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/learn-ceiling/" class="home-link router-link-active"><!----> <span class="site-name">Code Diary</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/learn-ceiling/" class="nav-link">
+  Index
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Learn" class="dropdown-title"><span class="title">Learn</span> <span class="arrow down"></span></button> <button type="button" aria-label="Learn" class="mobile-dropdown-title"><span class="title">Learn</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/Microservice/01-初识微服务.html" class="nav-link">
+  Microservice
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/RabbitMQ/1.RabbitMQ-简介及安装.html" class="nav-link">
+  RabbitMQ
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/Redis/0-Redis-Basic.html" class="nav-link">
+  Redis
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/SQL/SQL案例.html" class="nav-link">
+  MySQL
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/前端快速入门/01-HTML-CSS.html" class="nav-link">
+  前端快速入门
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/Linux/01-Linux入门.html" class="nav-link">
+  Linux
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Project" class="dropdown-title"><span class="title">Project</span> <span class="arrow down"></span></button> <button type="button" aria-label="Project" class="mobile-dropdown-title"><span class="title">Project</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/RabbitMQ/1.RabbitMQ-简介及安装.html" class="nav-link">
+  社区精品汇
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Interview" class="dropdown-title"><span class="title">Interview</span> <span class="arrow down"></span></button> <button type="button" aria-label="Interview" class="mobile-dropdown-title"><span class="title">Interview</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/00-查漏补缺.html" class="nav-link">
+  查漏补缺
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/01-Java基础.html" class="nav-link">
+  Java基础
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/02-Redis.html" class="nav-link">
+  Redis
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/03-MySQL.html" class="nav-link">
+  MySQL
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/04-Java框架.html" class="nav-link">
+  Java框架
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/05-微服务.html" class="nav-link">
+  微服务
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/06-消息中间件.html" class="nav-link">
+  消息中间件
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/07-Java集合.html" class="nav-link">
+  Java集合
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/08-Java并发.html" class="nav-link">
+  Java并发
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/09-JVM.html" class="nav-link">
+  JVM
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/10-Linux.html" class="nav-link">
+  Linux
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/11-Hadoop.html" class="nav-link">
+  Hadoop
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/12-Hive.html" class="nav-link">
+  Hive
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/13-Spark.html" class="nav-link">
+  Spark
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/16-数据采集工具.html" class="nav-link">
+  数据采集工具
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="lxy25122-blog" class="dropdown-title"><span class="title">lxy25122-blog</span> <span class="arrow down"></span></button> <button type="button" aria-label="lxy25122-blog" class="mobile-dropdown-title"><span class="title">lxy25122-blog</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://github.com/lxy25122" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://gitee.com/tjlxy" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Gitee
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/learn-ceiling/" class="nav-link">
+  Index
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Learn" class="dropdown-title"><span class="title">Learn</span> <span class="arrow down"></span></button> <button type="button" aria-label="Learn" class="mobile-dropdown-title"><span class="title">Learn</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/Microservice/01-初识微服务.html" class="nav-link">
+  Microservice
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/RabbitMQ/1.RabbitMQ-简介及安装.html" class="nav-link">
+  RabbitMQ
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/Redis/0-Redis-Basic.html" class="nav-link">
+  Redis
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/SQL/SQL案例.html" class="nav-link">
+  MySQL
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/前端快速入门/01-HTML-CSS.html" class="nav-link">
+  前端快速入门
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/Linux/01-Linux入门.html" class="nav-link">
+  Linux
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Project" class="dropdown-title"><span class="title">Project</span> <span class="arrow down"></span></button> <button type="button" aria-label="Project" class="mobile-dropdown-title"><span class="title">Project</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/RabbitMQ/1.RabbitMQ-简介及安装.html" class="nav-link">
+  社区精品汇
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Interview" class="dropdown-title"><span class="title">Interview</span> <span class="arrow down"></span></button> <button type="button" aria-label="Interview" class="mobile-dropdown-title"><span class="title">Interview</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/00-查漏补缺.html" class="nav-link">
+  查漏补缺
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/01-Java基础.html" class="nav-link">
+  Java基础
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/02-Redis.html" class="nav-link">
+  Redis
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/03-MySQL.html" class="nav-link">
+  MySQL
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/04-Java框架.html" class="nav-link">
+  Java框架
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/05-微服务.html" class="nav-link">
+  微服务
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/06-消息中间件.html" class="nav-link">
+  消息中间件
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/07-Java集合.html" class="nav-link">
+  Java集合
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/08-Java并发.html" class="nav-link">
+  Java并发
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/09-JVM.html" class="nav-link">
+  JVM
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/10-Linux.html" class="nav-link">
+  Linux
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/11-Hadoop.html" class="nav-link">
+  Hadoop
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/12-Hive.html" class="nav-link">
+  Hive
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/13-Spark.html" class="nav-link">
+  Spark
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/16-数据采集工具.html" class="nav-link">
+  数据采集工具
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="lxy25122-blog" class="dropdown-title"><span class="title">lxy25122-blog</span> <span class="arrow down"></span></button> <button type="button" aria-label="lxy25122-blog" class="mobile-dropdown-title"><span class="title">lxy25122-blog</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://github.com/lxy25122" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://gitee.com/tjlxy" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Gitee
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/learn-ceiling/" aria-current="page" class="sidebar-link">学前必读</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>Learn</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading"><span>Microservice</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading"><span>RabbitMQ</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading"><span>Redis</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading open"><span>SQL</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/learn-ceiling/handbook/Learn/SQL/SQL案例.html" class="active sidebar-link">MySQL-语法</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/SQL/SQL案例.html#mysql" class="sidebar-link">Mysql</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/SQL/SQL案例.html#_1-基础语法-查询-全表查询" class="sidebar-link">1.基础语法 - 查询 - 全表查询</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/SQL/SQL案例.html#_2-基础语法-查询-选择查询" class="sidebar-link">2.基础语法 - 查询 - 选择查询</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/SQL/SQL案例.html#_3-基础语法-查询-别名" class="sidebar-link">3.基础语法 - 查询 - 别名</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/SQL/SQL案例.html#_4-基础语法-查询-常量和运算" class="sidebar-link">4.基础语法 - 查询 - 常量和运算</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/SQL/SQL案例.html#_5、基础语法-条件查询-where" class="sidebar-link">5、基础语法 - 条件查询 - where</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/SQL/SQL案例.html#_6、基础语法-条件查询-运算符" class="sidebar-link">6、基础语法 - 条件查询 - 运算符</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/SQL/SQL案例.html#_7-基于语法-条件查询-空值✔" class="sidebar-link">7. 基于语法-条件查询-空值✔</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/SQL/SQL案例.html#_8、基础语法-条件查询-模糊查询✔" class="sidebar-link">8、基础语法-条件查询-模糊查询✔</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/SQL/SQL案例.html#_9、基础语法-条件查询-逻辑运算" class="sidebar-link">9、基础语法-条件查询-逻辑运算</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/SQL/SQL案例.html#_10、基础语法-去重" class="sidebar-link">10、基础语法-去重</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/SQL/SQL案例.html#_11-基础语法-排序✔" class="sidebar-link">11.基础语法-排序✔</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/SQL/SQL案例.html#_12-基础语法-截断和偏移-limit✔" class="sidebar-link">12.基础语法 - 截断和偏移-limit✔</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/SQL/SQL案例.html#_13-基础语法-条件分支✔" class="sidebar-link">13.基础语法-条件分支✔</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/SQL/SQL案例.html#_14-函数-时间函数✔" class="sidebar-link">14. 函数-时间函数✔</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/SQL/SQL案例.html#_15-函数-字符串处理✔✔" class="sidebar-link">15. 函数-字符串处理✔✔</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/SQL/SQL案例.html#_16-函数-聚合函数" class="sidebar-link">16. 函数-聚合函数</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/SQL/SQL案例.html#_17-分组聚合-单字段分组" class="sidebar-link">17. 分组聚合-单字段分组</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/SQL/SQL案例.html#_18-分组聚合-多字段分组✔" class="sidebar-link">18.分组聚合-多字段分组✔</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/SQL/SQL案例.html#_19-分组聚合-having-子句" class="sidebar-link">19.分组聚合 - having 子句</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/SQL/SQL案例.html#_20-查询进阶-关联查询-cross-join✔✔" class="sidebar-link">20.查询进阶 - 关联查询 - cross join✔✔</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/SQL/SQL案例.html#_21-查询进阶-关联查询-inner-join" class="sidebar-link">21.查询进阶-关联查询-inner join</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/SQL/SQL案例.html#_22-查询进阶-关联查询-outer-join✔" class="sidebar-link">22.查询进阶 - 关联查询 - outer join✔</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/SQL/SQL案例.html#_23-查询进阶-子查询✔" class="sidebar-link">23.查询进阶 - 子查询✔</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/SQL/SQL案例.html#_24-查询进阶-子查询-exists-✔✔" class="sidebar-link">24.查询进阶 - 子查询 - exists ✔✔</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/SQL/SQL案例.html#_25-查询进阶-组合查询✔" class="sidebar-link">25.查询进阶 - 组合查询✔</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/SQL/SQL案例.html#_26-查询进阶-开窗函数-sum-over✔✔" class="sidebar-link">26.查询进阶 - 开窗函数 - sum over✔✔</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/SQL/SQL案例.html#_27-查询进阶-开窗函数-sum-over-order-by✔✔" class="sidebar-link">27.查询进阶 - 开窗函数 - sum over order by✔✔</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/SQL/SQL案例.html#_28-查询进阶-开窗函数-rank✔✔" class="sidebar-link">28.查询进阶 - 开窗函数 - rank✔✔</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/SQL/SQL案例.html#_29-查询进阶-开窗函数-row-number✔✔" class="sidebar-link">29.查询进阶 - 开窗函数-row_number✔✔</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/SQL/SQL案例.html#_30-查询进阶-开窗函数-lag-lead✔" class="sidebar-link">30.查询进阶 - 开窗函数 - lag / lead✔</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/SQL/SQL案例.html#_31-补充题目" class="sidebar-link">31.补充题目</a></li></ul></li></ul></li><li><a href="/learn-ceiling/handbook/Learn/SQL/MySQL-Exe.html" class="sidebar-link">MySQL-Exercise</a></li></ul></section></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading"><span>前端快速入门</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading"><span>Linux</span> <span class="arrow right"></span></p> <!----></section></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Project</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Interview</span> <span class="arrow right"></span></p> <!----></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="sql语法"><a href="#sql语法" class="header-anchor">#</a> SQL语法</h1> <h2 id="mysql"><a href="#mysql" class="header-anchor">#</a> Mysql</h2> <p><strong>SELECT ... FROM ... WHERE ... GROUP BY ... HAVING ... ORDER BY ... LIMIT...</strong></p> <h3 id="_1-基础语法-查询-全表查询"><a href="#_1-基础语法-查询-全表查询" class="header-anchor">#</a> 1.基础语法 - 查询 - 全表查询</h3> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> student<span class="token punctuation">;</span>
+</code></pre></div><h3 id="_2-基础语法-查询-选择查询"><a href="#_2-基础语法-查询-选择查询" class="header-anchor">#</a> 2.基础语法 - 查询 - 选择查询</h3> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">select</span> id<span class="token punctuation">,</span>name <span class="token keyword">from</span> student<span class="token punctuation">;</span>
+</code></pre></div><h3 id="_3-基础语法-查询-别名"><a href="#_3-基础语法-查询-别名" class="header-anchor">#</a> 3.基础语法 - 查询 - 别名</h3> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">select</span> username <span class="token keyword">as</span> <span class="token string">'用户名'</span> <span class="token keyword">from</span> student<span class="token punctuation">;</span>
+<span class="token keyword">select</span> username <span class="token keyword">as</span> 用户名 <span class="token keyword">from</span> student<span class="token punctuation">;</span>
+<span class="token keyword">select</span> username <span class="token string">'用户名'</span> <span class="token keyword">from</span> student<span class="token punctuation">;</span>
+</code></pre></div><h3 id="_4-基础语法-查询-常量和运算"><a href="#_4-基础语法-查询-常量和运算" class="header-anchor">#</a> 4.基础语法 - 查询 - 常量和运算</h3> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">select</span> name<span class="token punctuation">,</span> score<span class="token punctuation">,</span> score <span class="token operator">*</span> <span class="token number">2</span> <span class="token keyword">as</span> double_score <span class="token keyword">from</span> student<span class="token punctuation">;</span>
+</code></pre></div><h3 id="_5、基础语法-条件查询-where"><a href="#_5、基础语法-条件查询-where" class="header-anchor">#</a> 5、基础语法 - 条件查询 - where</h3> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">select</span> name <span class="token keyword">from</span> student <span class="token keyword">where</span> id <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
+</code></pre></div><h3 id="_6、基础语法-条件查询-运算符"><a href="#_6、基础语法-条件查询-运算符" class="header-anchor">#</a> 6、基础语法 - 条件查询 - 运算符</h3> <p>运算符是 SQL 中用于在条件查询中进行条件判断的特殊符号，比如 <code>=</code>、 <code>!=</code>、<code>&lt;</code>、<code>&gt;</code> 等</p> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">select</span> name<span class="token punctuation">,</span> age<span class="token punctuation">,</span> salary <span class="token keyword">from</span> employees <span class="token keyword">where</span> age <span class="token operator">between</span> <span class="token number">25</span> <span class="token operator">and</span> <span class="token number">30</span><span class="token punctuation">;</span>
+</code></pre></div><h3 id="_7-基于语法-条件查询-空值✔"><a href="#_7-基于语法-条件查询-空值✔" class="header-anchor">#</a> 7. 基于语法-条件查询-空值✔</h3> <ul><li>空值表示该字段的值是未知的、不存在的或者没有被填写的。在SQL查询中，我们可以使用 &quot;IS NULL&quot; 和 &quot;IS NOT NULL&quot; 来判断字段是否为空值或非空值。</li></ul> <p>eg：从名为 student 的数据表中选择出所有学生的姓名（name）、年龄（age）和成绩（score），要求学生年龄不为空值。</p> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">select</span>
+  name<span class="token punctuation">,</span>
+  age<span class="token punctuation">,</span>
+  score
+<span class="token keyword">from</span>
+  student
+<span class="token keyword">where</span>
+  age <span class="token operator">is</span> <span class="token operator">not</span> <span class="token boolean">null</span><span class="token punctuation">;</span>
+</code></pre></div><h3 id="_8、基础语法-条件查询-模糊查询✔"><a href="#_8、基础语法-条件查询-模糊查询✔" class="header-anchor">#</a> 8、基础语法-条件查询-模糊查询✔</h3> <ul><li>百分号（%）：表示任意长度的任意字符序列。</li> <li>下划线（_）：表示任意单个字符。</li></ul> <p>eg：从名为 <code>student</code> 的数据表中选择出所有学生的姓名（name）和成绩（score），要求姓名（name）不包含 &quot;李&quot; 这个字。</p> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">select</span>
+  name<span class="token punctuation">,</span>
+  score
+<span class="token keyword">from</span>
+  student
+<span class="token keyword">where</span>
+  name <span class="token operator">not</span> <span class="token operator">like</span> <span class="token string">'%李%'</span><span class="token punctuation">;</span>
+</code></pre></div><h3 id="_9、基础语法-条件查询-逻辑运算"><a href="#_9、基础语法-条件查询-逻辑运算" class="header-anchor">#</a> 9、基础语法-条件查询-逻辑运算</h3> <p>在逻辑运算中，常用的运算符有：</p> <ul><li>AND：表示逻辑与，要求同时满足多个条件，才返回 true。</li> <li>OR：表示逻辑或，要求满足其中任意一个条件，就返回 true。</li> <li>NOT：表示逻辑非，用于否定一个条件（本来是 true，用了 not 后转为 false）</li></ul> <h3 id="_10、基础语法-去重"><a href="#_10、基础语法-去重" class="header-anchor">#</a> 10、基础语法-去重</h3> <p>在 SQL 中，我们可以使用 <code>DISTINCT</code> 关键字来实现去重操作。</p> <h3 id="_11-基础语法-排序✔"><a href="#_11-基础语法-排序✔" class="header-anchor">#</a> 11.基础语法-排序✔</h3> <ul><li>在 SQL 中，我们可以使用 <code>ORDER BY</code> 关键字来实现排序操作。<code>ORDER BY</code> 后面跟上需要排序的字段，可以选择升序（ASC）或降序（DESC）排列。默认为升序（ASC）</li></ul> <p>eg：从名为 <code>student</code> 的数据表中选择出学生姓名（name）、年龄（age）和成绩（score），首先按照成绩从大到小排序，如果成绩相同，则按照年龄从小到大排序。</p> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">select</span>
+  name<span class="token punctuation">,</span>
+  age<span class="token punctuation">,</span>
+  score
+<span class="token keyword">from</span>
+  student
+<span class="token keyword">order</span> <span class="token keyword">by</span>
+  score <span class="token keyword">desc</span><span class="token punctuation">,</span>
+  age <span class="token keyword">asc</span><span class="token punctuation">;</span>
+</code></pre></div><h3 id="_12-基础语法-截断和偏移-limit✔"><a href="#_12-基础语法-截断和偏移-limit✔" class="header-anchor">#</a> 12.基础语法 - 截断和偏移-limit✔</h3> <p>在 SQL 中，我们使用 <code>LIMIT</code> 关键字来实现数据的截断和偏移。</p> <p>eg：从名为 <code>student</code> 的数据表中选择学生姓名（name）和年龄（age），按照年龄从小到大排序，从第 2 条数据开始、截取 3 个学生的信息。</p> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">select</span>
+  name<span class="token punctuation">,</span>
+  age
+<span class="token keyword">from</span>
+  student
+<span class="token keyword">order</span> <span class="token keyword">by</span>
+  age <span class="token keyword">asc</span>
+<span class="token keyword">limit</span>
+  <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">;</span>
+</code></pre></div><p><strong>补充</strong></p> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">select</span> id<span class="token punctuation">,</span>name <span class="token keyword">from</span> studnet <span class="token keyword">limit</span> <span class="token number">2</span><span class="token punctuation">,</span><span class="token number">10</span><span class="token punctuation">;</span><span class="token comment">#从第3条开始查，查询10行数据</span>
+<span class="token keyword">select</span> id<span class="token punctuation">,</span>name <span class="token keyword">from</span> student <span class="token keyword">limit</span> <span class="token number">5</span><span class="token punctuation">;</span><span class="token comment">#查询前5行数据</span>
+<span class="token keyword">select</span> id<span class="token punctuation">,</span>name <span class="token keyword">from</span> student <span class="token keyword">limit</span> <span class="token number">3</span> <span class="token keyword">offset</span> <span class="token number">6</span><span class="token punctuation">;</span><span class="token comment">#从第7条开始查，查询3条数据</span>
+</code></pre></div><h3 id="_13-基础语法-条件分支✔"><a href="#_13-基础语法-条件分支✔" class="header-anchor">#</a> 13.基础语法-条件分支✔</h3> <p>条件分支 <code>case when</code> 是 SQL 中用于根据条件进行分支处理的语法。它类似于其他编程语言中的 if else 条件判断语句，允许我们根据不同的条件选择不同的结果返回。</p> <p><code>case when</code> 支持同时指定多个分支，示例语法如下：</p> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">CASE</span> <span class="token keyword">WHEN</span> <span class="token punctuation">(</span>条件<span class="token number">1</span><span class="token punctuation">)</span> <span class="token keyword">THEN</span> 结果<span class="token number">1</span>
+	   <span class="token keyword">WHEN</span> <span class="token punctuation">(</span>条件<span class="token number">2</span><span class="token punctuation">)</span> <span class="token keyword">THEN</span> 结果<span class="token number">2</span>
+	   <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+	   <span class="token keyword">ELSE</span> 其他结果 <span class="token keyword">END</span>
+</code></pre></div><p>eg：假设有一个学生表 <code>student</code>，包含以下字段：<code>name</code>（姓名）、<code>age</code>（年龄）。请你编写一个 SQL 查询，将学生按照年龄划分为三个年龄等级（age_level）：60 岁以上为 &quot;老同学&quot;，20 岁以上（不包括 60 岁以上）为 &quot;年轻&quot;，20 岁及以下、以及没有年龄信息为 &quot;小同学&quot;。</p> <p>返回结果应包含学生的姓名（name）和年龄等级（age_level），并按姓名升序排序。</p> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">select</span>
+  name<span class="token punctuation">,</span>
+  <span class="token keyword">case</span>
+    <span class="token keyword">when</span> <span class="token punctuation">(</span>age <span class="token operator">&gt;</span> <span class="token number">60</span><span class="token punctuation">)</span> <span class="token keyword">then</span> <span class="token string">'老同学'</span>
+    <span class="token keyword">when</span> <span class="token punctuation">(</span>age <span class="token operator">&gt;</span> <span class="token number">20</span><span class="token punctuation">)</span> <span class="token keyword">then</span> <span class="token string">'年轻'</span>
+    <span class="token keyword">else</span> <span class="token string">'小同学'</span>
+  <span class="token keyword">end</span> <span class="token string">&quot;age_level&quot;</span>
+<span class="token keyword">from</span>
+  student
+<span class="token keyword">order</span> <span class="token keyword">by</span>
+  name <span class="token keyword">asc</span><span class="token punctuation">;</span>
+</code></pre></div><h3 id="_14-函数-时间函数✔"><a href="#_14-函数-时间函数✔" class="header-anchor">#</a> 14. 函数-时间函数✔</h3> <p>MySQL 提供了许多用于处理时间和日期的内置函数。以下是一些常用的 MySQL 时间日期函数：</p> <ol><li><p><code>NOW()</code>：返回当前日期和时间。</p> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">SELECT</span> <span class="token function">NOW</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div></li> <li><p><code>CURDATE()</code>：返回当前日期。</p> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">SELECT</span> CURDATE<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">select</span> <span class="token keyword">current_date</span><span class="token punctuation">;</span>
+</code></pre></div></li> <li><p><code>CURTIME()</code>：返回当前时间。</p> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">SELECT</span> CURTIME<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">select</span> <span class="token keyword">current_time</span><span class="token punctuation">;</span>
+</code></pre></div></li> <li><p><code>DATE()</code>：从日期时间值中提取日期部分。</p> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">SELECT</span> <span class="token keyword">DATE</span><span class="token punctuation">(</span><span class="token string">'2023-08-27 15:30:45'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div></li> <li><p><code>TIME()</code>：从日期时间值中提取时间部分。</p> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">SELECT</span> <span class="token keyword">TIME</span><span class="token punctuation">(</span><span class="token string">'2023-08-27 15:30:45'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div></li> <li><p><code>YEAR()</code>：从日期或日期时间值中提取年份。</p> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">SELECT</span> <span class="token keyword">YEAR</span><span class="token punctuation">(</span><span class="token string">'2023-08-27'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div></li> <li><p><code>MONTH()</code>：从日期或日期时间值中提取月份。</p> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">SELECT</span> <span class="token keyword">MONTH</span><span class="token punctuation">(</span><span class="token string">'2023-08-27'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div></li> <li><p><code>DAY()</code>：从日期或日期时间值中提取日。</p> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">SELECT</span> <span class="token keyword">DAY</span><span class="token punctuation">(</span><span class="token string">'2023-08-27'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div></li> <li><p><code>HOUR()</code>：从时间或日期时间值中提取小时。</p> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">SELECT</span> <span class="token keyword">HOUR</span><span class="token punctuation">(</span><span class="token string">'15:30:45'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div></li> <li><p><code>MINUTE()</code>：从时间或日期时间值中提取分钟。</p> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">SELECT</span> <span class="token keyword">MINUTE</span><span class="token punctuation">(</span><span class="token string">'15:30:45'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div></li> <li><p><code>SECOND()</code>：从时间或日期时间值中提取秒。</p> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">SELECT</span> <span class="token keyword">SECOND</span><span class="token punctuation">(</span><span class="token string">'15:30:45'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div></li></ol> <p>这只是一些常见的 MySQL 时间日期函数示例，还有许多其他函数可用于处理时间和日期。你可以根据具体需求选择合适的函数来进行操作。</p> <ul><li><p>当前时间今年第几周</p> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">SELECT</span> WEEKOFYEAR<span class="token punctuation">(</span>CURDATE<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> 
+</code></pre></div></li></ul> <h3 id="_15-函数-字符串处理✔✔"><a href="#_15-函数-字符串处理✔✔" class="header-anchor">#</a> 15. 函数-字符串处理✔✔</h3> <p>在 SQL 中，字符串处理是一类用于处理文本数据的函数。它们允许我们对字符串进行各种操作，如转换大小写【<code>UPPER(字段属性)、LOWER(字段属性)</code>】、计算字符串长度<code>LENGTH(属性字段)</code>以及搜索和替换子字符串等。字符串处理函数可以帮助我们在数据库中对字符串进行加工和转换，从而满足不同的需求。</p> <p>eg：假设有一个学生表 <code>student</code>，包含以下字段：<code>id</code>（学号）、<code>name</code>（姓名）。请你编写一个 SQL 查询，筛选出姓名为 '热dog' 的学生，展示其学号（id）、姓名（name）及其大写姓名（upper_name）。</p> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">select</span>
+  id<span class="token punctuation">,</span>
+  name<span class="token punctuation">,</span>
+  upper<span class="token punctuation">(</span>name<span class="token punctuation">)</span> upper_name
+<span class="token keyword">from</span>
+  student
+<span class="token keyword">where</span>
+  name <span class="token operator">=</span> <span class="token string">'热dog'</span><span class="token punctuation">;</span>
+</code></pre></div><p>当您使用SQL查询时，您可以使用不同的函数来搜索和替换字符串。以下是对这些函数的一些详细解释：</p> <ol><li><p>LIKE运算符：</p> <ul><li>LIKE运算符用于在查询中进行模糊匹配。它可以与通配符一起使用，例如%和_。</li> <li>%表示匹配任意字符的任意长度序列，例如'abc%'将匹配以&quot;abc&quot;开头的任意长度的字符串。</li> <li>_表示匹配任意单个字符，例如'a__c'将匹配以&quot;a&quot;开头，以&quot;c&quot;结尾的任意两个字符的字符串。</li> <li>例如，以下查询将返回包含特定模式的所有行：</li></ul> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> table_name <span class="token keyword">WHERE</span> column_name <span class="token operator">LIKE</span> <span class="token string">'%pattern%'</span><span class="token punctuation">;</span>
+</code></pre></div><p>这将匹配包含&quot;pattern&quot;子字符串的任何位置的行。</p></li> <li><p><strong>CONTAINS函数</strong>：</p> <ul><li>CONTAINS函数用于在一个字符串列中搜索另一个字符串。它返回一个逻辑值，如果搜索字符串在列中存在，则返回TRUE，否则返回FALSE。</li> <li>例如，以下查询将返回包含特定字符串的所有行：</li></ul> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> table_name <span class="token keyword">WHERE</span> <span class="token keyword">CONTAINS</span><span class="token punctuation">(</span>column_name<span class="token punctuation">,</span> <span class="token string">'search_string'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p>这将搜索&quot;column_name&quot;列中是否存在&quot;search_string&quot;，如果存在，返回TRUE，否则返回FALSE。</p></li> <li><p><strong>REPLACE函数</strong>：</p> <ul><li>REPLACE函数用于在一个字符串中替换指定的子字符串为另一个字符串。</li> <li>例如，以下查询将把特定字符串替换为新的字符串：</li></ul> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">UPDATE</span> table_name <span class="token keyword">SET</span> column_name <span class="token operator">=</span> <span class="token keyword">REPLACE</span><span class="token punctuation">(</span>column_name<span class="token punctuation">,</span> <span class="token string">'old_string'</span><span class="token punctuation">,</span> <span class="token string">'new_string'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p>这将把&quot;column_name&quot;列中的&quot;old_string&quot;替换为&quot;new_string&quot;。</p></li></ol> <p>这些函数提供了在SQL中搜索和替换字符串的不同方式，可以根据您的需求选择适合的函数来执行相应的操作。请注意，具体的语法和函数名称可能会因使用的数据库系统而有所不同。</p> <h3 id="_16-函数-聚合函数"><a href="#_16-函数-聚合函数" class="header-anchor">#</a> 16. 函数-聚合函数</h3> <p>常见的聚合函数包括：</p> <ul><li>COUNT：计算指定列的行数或非空值的数量。</li> <li>SUM：计算指定列的数值之和。</li> <li>AVG：计算指定列的数值平均值。</li> <li>MAX：找出指定列的最大值。</li> <li>MIN：找出指定列的最小值。</li></ul> <h3 id="_17-分组聚合-单字段分组"><a href="#_17-分组聚合-单字段分组" class="header-anchor">#</a> 17. 分组聚合-单字段分组</h3> <p>在 SQL 中，通常使用 <code>GROUP BY</code> 关键字对数据进行分组。</p> <p>eg：假设有一个学生表 student，包含以下字段：id（学号）、name（姓名）、class_id（班级编号）、score（成绩）。请你编写一个 SQL 查询，统计学生表中的班级编号（class_id）和每个班级的平均成绩（avg_score）。</p> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">select</span>
+  class_id<span class="token punctuation">,</span>
+  <span class="token function">avg</span><span class="token punctuation">(</span>score<span class="token punctuation">)</span> avg_score
+<span class="token keyword">from</span>
+  student
+<span class="token keyword">group</span> <span class="token keyword">by</span>
+  class_id<span class="token punctuation">;</span>
+</code></pre></div><h3 id="_18-分组聚合-多字段分组✔"><a href="#_18-分组聚合-多字段分组✔" class="header-anchor">#</a> 18.分组聚合-多字段分组✔</h3> <p>多字段分组和单字段分组的实现方式几乎一致，使用 <code>GROUP BY</code> 语法即可。</p> <p>eg：假设有一个学生表 <code>student</code>，包含以下字段：<code>id</code>（学号）、<code>name</code>（姓名）、<code>class_id</code>（班级编号）、<code>exam_num</code>（考试次数）、<code>score</code>（成绩）。请你编写一个 SQL 查询，统计学生表中每个班级每次考试的总学生人数（total_num）。</p> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">select</span>
+  class_id<span class="token punctuation">,</span>
+  exam_num<span class="token punctuation">,</span>
+  <span class="token function">count</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">)</span> total_num
+<span class="token keyword">from</span>
+  student
+<span class="token keyword">group</span> <span class="token keyword">by</span>
+  class_id<span class="token punctuation">,</span>
+  exam_num<span class="token punctuation">;</span>
+</code></pre></div><blockquote><p><strong>注意</strong></p> <p>在数据库查询中，COUNT(id)和COUNT(*)有显著的区别。</p> <p>COUNT(id)用于计算特定列（在这种情况下是id）的非空值的数量。这意味着，它将计算具有非空id值的行数，但不会计算NULL值。</p> <p>另一方面，COUNT(*)是对所有列的统计，将计算所有行的数量，无论它们是否包含NULL值。换句话说，如果表中的某一行有一个NULL值，那么该行也会被计算在内。</p> <p>总结来说，COUNT(id)和COUNT(<em>)的主要区别在于COUNT(id)不会将NULL值计入统计，而COUNT(</em>)会将NULL值计入统计。</p></blockquote> <h3 id="_19-分组聚合-having-子句"><a href="#_19-分组聚合-having-子句" class="header-anchor">#</a> 19.分组聚合 - having 子句</h3> <p>HAVING 子句与条件查询 WHERE 子句的区别在于，WHERE 子句用于在 <strong>分组之前</strong> 进行过滤，而 HAVING 子句用于在 <strong>分组之后</strong> 进行过滤。（使用聚合函数需要having子句）</p> <p>eg：假设有一个学生表 <code>student</code>，包含以下字段：<code>id</code>（学号）、<code>name</code>（姓名）、<code>class_id</code>（班级编号）、<code>score</code>（成绩）。请你编写一个 SQL 查询，统计学生表中班级的总成绩超过 150 分的班级编号（class_id）和总成绩（total_score）。</p> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">select</span>
+  class_id<span class="token punctuation">,</span>
+  <span class="token function">sum</span><span class="token punctuation">(</span>score<span class="token punctuation">)</span> total_score
+<span class="token keyword">from</span>
+  student
+<span class="token keyword">group</span> <span class="token keyword">by</span>
+  class_id
+<span class="token keyword">having</span>
+  <span class="token function">sum</span><span class="token punctuation">(</span>score<span class="token punctuation">)</span> <span class="token operator">&gt;</span> <span class="token number">150</span><span class="token punctuation">;</span>
+</code></pre></div><h3 id="_20-查询进阶-关联查询-cross-join✔✔"><a href="#_20-查询进阶-关联查询-cross-join✔✔" class="header-anchor">#</a> 20.查询进阶 - 关联查询 - cross join✔✔</h3> <p>其中，<code>CROSS JOIN</code> 是一种简单的关联查询，不需要任何条件来匹配行，它直接将左表的 <strong>每一行</strong> 与右表的 <strong>每一行</strong> 进行组合，返回的结果是两个表的笛卡尔积。（结果集行数是A表行数 x B表行数）</p> <p>eg：假设有一个学生表 <code>student</code> ，包含以下字段：id（学号）、name（姓名）、age（年龄）、class_id（班级编号）；还有一个班级表 <code>class</code> ，包含以下字段：id（班级编号）、name（班级名称）。</p> <p>请你编写一个 SQL 查询，将学生表和班级表的所有行组合在一起，并返回学生姓名（student_name）、学生年龄（student_age）、班级编号（class_id）以及班级名称（class_name）。</p> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">select</span>
+  s<span class="token punctuation">.</span>name student_name<span class="token punctuation">,</span>
+  s<span class="token punctuation">.</span>age student_age<span class="token punctuation">,</span>
+  s<span class="token punctuation">.</span>class_id class_id<span class="token punctuation">,</span>
+  c<span class="token punctuation">.</span>name class_name
+<span class="token keyword">from</span>
+  student s
+  <span class="token keyword">cross</span> <span class="token keyword">join</span> class c<span class="token punctuation">;</span>
+</code></pre></div><h3 id="_21-查询进阶-关联查询-inner-join"><a href="#_21-查询进阶-关联查询-inner-join" class="header-anchor">#</a> 21.查询进阶-关联查询-inner join</h3> <p>注意，INNER JOIN 只返回两个表中满足关联条件的交集部分，即在两个表中都存在的匹配行。（JOIN 默认 指 INNER JOIN）</p> <p>eg：假设有一个学生表 <code>student</code>，包含以下字段：<code>id</code>（学号）、<code>name</code>（姓名）、<code>age</code>（年龄）、<code>class_id</code>（班级编号）。还有一个班级表 <code>class</code>，包含以下字段：<code>id</code>（班级编号）、<code>name</code>（班级名称）、<code>level</code>（班级级别）。</p> <p>请你编写一个 SQL 查询，根据学生表和班级表之间的班级编号进行匹配，返回学生姓名（<code>student_name</code>）、学生年龄（<code>student_age</code>）、班级编号（<code>class_id</code>）、班级名称（<code>class_name</code>）、班级级别（<code>class_level</code>）。</p> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">select</span>
+  s<span class="token punctuation">.</span>name student_name<span class="token punctuation">,</span>
+  s<span class="token punctuation">.</span>age student_age<span class="token punctuation">,</span>
+  s<span class="token punctuation">.</span>class_id class_id<span class="token punctuation">,</span>
+  c<span class="token punctuation">.</span>name class_name<span class="token punctuation">,</span>
+  c<span class="token punctuation">.</span><span class="token keyword">level</span> class_level
+<span class="token keyword">from</span>
+  student s
+  <span class="token keyword">inner</span> <span class="token keyword">join</span> class c <span class="token keyword">on</span> s<span class="token punctuation">.</span>class_id <span class="token operator">=</span> c<span class="token punctuation">.</span>id<span class="token punctuation">;</span>
+</code></pre></div><h3 id="_22-查询进阶-关联查询-outer-join✔"><a href="#_22-查询进阶-关联查询-outer-join✔" class="header-anchor">#</a> 22.查询进阶 - 关联查询 - outer join✔</h3> <p>在 SQL 中，OUTER JOIN 是一种关联查询方式，它根据指定的关联条件，将两个表中满足条件的行组合在一起，并 <strong>包含没有匹配的行</strong> 。</p> <p>在 OUTER JOIN 中，<strong>包括 LEFT OUTER JOIN 和 RIGHT OUTER JOIN 两种类型，它们分别表示查询左表和右表的所有行（即使没有被匹配），再加上满足条件的交集部分</strong>。</p> <p>eg：假设有一个学生表 <code>student</code>，包含以下字段：<code>id</code>（学号）、<code>name</code>（姓名）、<code>age</code>（年龄）、<code>class_id</code>（班级编号）。还有一个班级表 <code>class</code>，包含以下字段：<code>id</code>（班级编号）、<code>name</code>（班级名称）、<code>level</code>（班级级别）。</p> <p>请你编写一个 SQL 查询，根据学生表和班级表之间的班级编号进行匹配，返回学生姓名（<code>student_name</code>）、学生年龄（<code>student_age</code>）、班级编号（<code>class_id</code>）、班级名称（<code>class_name</code>）、班级级别（<code>class_level</code>），要求必须返回所有学生的信息（即使对应的班级编号不存在）。</p> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">select</span>
+  s<span class="token punctuation">.</span>name student_name<span class="token punctuation">,</span>
+  s<span class="token punctuation">.</span>age student_age<span class="token punctuation">,</span>
+  s<span class="token punctuation">.</span>class_id class_id<span class="token punctuation">,</span>
+  c<span class="token punctuation">.</span>name class_name<span class="token punctuation">,</span>
+  c<span class="token punctuation">.</span><span class="token keyword">level</span> class_level
+<span class="token keyword">from</span>
+  student s
+  <span class="token keyword">left</span> <span class="token keyword">join</span> class c <span class="token keyword">on</span> s<span class="token punctuation">.</span>class_id <span class="token operator">=</span> c<span class="token punctuation">.</span>id<span class="token punctuation">;</span>
+</code></pre></div><h3 id="_23-查询进阶-子查询✔"><a href="#_23-查询进阶-子查询✔" class="header-anchor">#</a> 23.查询进阶 - 子查询✔</h3> <p>子查询是指在一个查询语句内部 <strong>嵌套</strong> 另一个完整的查询语句，内层查询被称为子查询。子查询可以用于获取更复杂的查询结果或者用于过滤数据。</p> <p>eg：假设有一个学生表 <code>student</code>，包含以下字段：<code>id</code>（学号）、<code>name</code>（姓名）、<code>age</code>（年龄）、<code>score</code>（分数）、<code>class_id</code>（班级编号）。还有一个班级表 <code>class</code>，包含以下字段：<code>id</code>（班级编号）、<code>name</code>（班级名称）。</p> <p>请你编写一个 SQL 查询，使用子查询的方式来获取存在对应班级的学生的所有数据，返回学生姓名（<code>name</code>）、分数（<code>score</code>）、班级编号（<code>class_id</code>）字段。</p> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">select</span>
+  name<span class="token punctuation">,</span>
+  score<span class="token punctuation">,</span>
+  class_id
+<span class="token keyword">from</span>
+  student
+<span class="token keyword">where</span>
+  class_id <span class="token operator">in</span> <span class="token punctuation">(</span>
+    <span class="token keyword">select</span>
+      id
+    <span class="token keyword">from</span>
+      class
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><h3 id="_24-查询进阶-子查询-exists-✔✔"><a href="#_24-查询进阶-子查询-exists-✔✔" class="header-anchor">#</a> 24.查询进阶 - 子查询 - exists ✔✔</h3> <p>其中，子查询中的一种特殊类型是 &quot;exists&quot; 子查询，用于检查主查询的结果集是否存在满足条件的记录，它返回布尔值（True 或 False），而不返回实际的数据。</p> <p>eg：假设有一个学生表 <code>student</code>，包含以下字段：<code>id</code>（学号）、<code>name</code>（姓名）、<code>age</code>（年龄）、<code>score</code>（分数）、<code>class_id</code>（班级编号）。还有一个班级表 <code>class</code>，包含以下字段：<code>id</code>（班级编号）、<code>name</code>（班级名称）。</p> <p>请你编写一个 SQL 查询，使用 exists 子查询的方式来获取 <strong>不存在对应班级的</strong> 学生的所有数据，返回学生姓名（<code>name</code>）、年龄（<code>age</code>）、班级编号（<code>class_id</code>）字段。</p> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">select</span>
+  name<span class="token punctuation">,</span>
+  age<span class="token punctuation">,</span>
+  class_id
+<span class="token keyword">from</span>
+  student
+<span class="token keyword">where</span>
+  <span class="token operator">not</span> <span class="token keyword">exists</span> <span class="token punctuation">(</span>
+    <span class="token keyword">select</span>
+      class_id <span class="token comment">#无所谓</span>
+    <span class="token keyword">from</span>
+      class
+    <span class="token keyword">where</span>
+      class<span class="token punctuation">.</span>id <span class="token operator">=</span> student<span class="token punctuation">.</span>class_id <span class="token comment">#关键</span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><h3 id="_25-查询进阶-组合查询✔"><a href="#_25-查询进阶-组合查询✔" class="header-anchor">#</a> 25.查询进阶 - 组合查询✔</h3> <p>包括两种常见的组合查询操作：UNION 和 UNION ALL。</p> <ol><li>UNION 操作：它用于将两个或多个查询的结果集合并， <strong>并去除重复的行</strong> 。即如果两个查询的结果有相同的行，则只保留一行。</li> <li>UNION ALL 操作：它也用于将两个或多个查询的结果集合并， <strong>但不去除重复的行</strong> 。即如果两个查询的结果有相同的行，则全部保留。</li></ol> <p>eg：假设有一个学生表 <code>student</code>，包含以下字段：<code>id</code>（学号）、<code>name</code>（姓名）、<code>age</code>（年龄）、<code>score</code>（分数）、<code>class_id</code>（班级编号）。还有一个新学生表 <code>student_new</code>，包含的字段和学生表完全一致。</p> <p>请编写一条 SQL 语句，获取所有学生表和新学生表的学生姓名（<code>name</code>）、年龄（<code>age</code>）、分数（<code>score</code>）、班级编号（<code>class_id</code>）字段，要求保留重复的学生记录。</p> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">select</span>
+  name<span class="token punctuation">,</span>
+  age<span class="token punctuation">,</span>
+  score<span class="token punctuation">,</span>
+  class_id
+<span class="token keyword">from</span>
+  student
+<span class="token keyword">union</span> <span class="token keyword">all</span>
+<span class="token keyword">select</span>
+  name<span class="token punctuation">,</span>
+  age<span class="token punctuation">,</span>
+  score<span class="token punctuation">,</span>
+  class_id
+<span class="token keyword">from</span>
+  student_new<span class="token punctuation">;</span>
+</code></pre></div><h3 id="_26-查询进阶-开窗函数-sum-over✔✔"><a href="#_26-查询进阶-开窗函数-sum-over✔✔" class="header-anchor">#</a> 26.查询进阶 - 开窗函数 - sum over✔✔</h3> <p>在 SQL 中，开窗函数是一种强大的查询工具，它允许我们在查询中进行对分组数据进行计算、 <strong>同时保留原始行的详细信息</strong> 。</p> <p>开窗函数可以与聚合函数（如 SUM、AVG、COUNT 等）结合使用，但与普通聚合函数不同，开窗函数不会导致结果集的行数减少。</p> <p>该函数用法为：</p> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token function">SUM</span><span class="token punctuation">(</span>计算字段名<span class="token punctuation">)</span> <span class="token keyword">OVER</span> <span class="token punctuation">(</span><span class="token keyword">PARTITION</span> <span class="token keyword">BY</span> 分组字段名<span class="token punctuation">)</span>
+</code></pre></div><p>eg：假设有一个学生表 <code>student</code>，包含以下字段：<code>id</code>（学号）、<code>name</code>（姓名）、<code>age</code>（年龄）、<code>score</code>（分数）、<code>class_id</code>（班级编号）。</p> <p>请你编写一个 SQL 查询，返回<strong>每个学生的详细信息</strong>（字段顺序和原始表的字段顺序一致），并计算每个班级的学生平均分（class_avg_score）。</p> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">select</span>
+  id<span class="token punctuation">,</span>
+  name<span class="token punctuation">,</span>
+  age<span class="token punctuation">,</span>
+  score<span class="token punctuation">,</span>
+  class_id<span class="token punctuation">,</span>
+  <span class="token function">avg</span><span class="token punctuation">(</span>score<span class="token punctuation">)</span> <span class="token keyword">over</span> <span class="token punctuation">(</span>
+    <span class="token keyword">partition</span> <span class="token keyword">by</span>
+      class_id
+  <span class="token punctuation">)</span> class_avg_score
+<span class="token keyword">from</span>
+  student<span class="token punctuation">;</span>
+ 
+<span class="token comment">#每个班</span>
+<span class="token comment">#select </span>
+<span class="token comment">#id,name,age,score,class_id,avg(score) class_avg(score)</span>
+<span class="token comment">#from student</span>
+<span class="token comment">#group by class_id;</span>
+</code></pre></div><h3 id="_27-查询进阶-开窗函数-sum-over-order-by✔✔"><a href="#_27-查询进阶-开窗函数-sum-over-order-by✔✔" class="header-anchor">#</a> 27.查询进阶 - 开窗函数 - sum over order by✔✔</h3> <p>sum over order by，可以实现同组内数据的 <strong>累加求和</strong> 。示例用法如下：</p> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token function">SUM</span><span class="token punctuation">(</span>计算字段名<span class="token punctuation">)</span> <span class="token keyword">OVER</span> <span class="token punctuation">(</span><span class="token keyword">PARTITION</span> <span class="token keyword">BY</span> 分组字段名 <span class="token keyword">ORDER</span> <span class="token keyword">BY</span> 排序字段 排序规则<span class="token punctuation">)</span>
+</code></pre></div><p>举一个应用场景：老师在每个班级里依次点名，每点到一个学生，老师都会记录当前已点到的学生们的分数总和。</p> <p>eg：假设有一个学生表 <code>student</code>，包含以下字段：<code>id</code>（学号）、<code>name</code>（姓名）、<code>age</code>（年龄）、<code>score</code>（分数）、<code>class_id</code>（班级编号）。</p> <p>请你编写一个 SQL 查询，返回每个学生的详细信息（字段顺序和原始表的字段顺序一致），并且按照分数升序的方式<strong>累加计算</strong>每个班级的学生总分（class_sum_score）。</p> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">select</span>
+  id<span class="token punctuation">,</span>
+  name<span class="token punctuation">,</span>
+  age<span class="token punctuation">,</span>
+  score<span class="token punctuation">,</span>
+  class_id<span class="token punctuation">,</span>
+  <span class="token function">sum</span><span class="token punctuation">(</span>score<span class="token punctuation">)</span> <span class="token keyword">over</span> <span class="token punctuation">(</span> <span class="token comment">#注意字段</span>
+    <span class="token keyword">partition</span> <span class="token keyword">by</span>
+      class_id
+    <span class="token keyword">order</span> <span class="token keyword">by</span>
+      score <span class="token keyword">asc</span>  <span class="token comment">#注意字段</span>
+  <span class="token punctuation">)</span> class_sum_score
+<span class="token keyword">from</span>
+  student<span class="token punctuation">;</span>
+</code></pre></div><h3 id="_28-查询进阶-开窗函数-rank✔✔"><a href="#_28-查询进阶-开窗函数-rank✔✔" class="header-anchor">#</a> 28.查询进阶 - 开窗函数 - rank✔✔</h3> <p><code>RANK()</code>函数会为相同数值的行分配相同的排名，并跳过下一个排名。<code>ROW_NUMBER()</code>函数则会为每一行分配唯一的行号。</p> <p>Rank 开窗函数的常见用法是在查询结果中查找前几名（Top N）或排名最高的行。</p> <p>Rank 开窗函数的语法如下：</p> <div class="language-sql extra-class"><pre class="language-sql"><code>RANK<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">OVER</span> <span class="token punctuation">(</span>
+  <span class="token keyword">PARTITION</span> <span class="token keyword">BY</span> 列名<span class="token number">1</span><span class="token punctuation">,</span> 列名<span class="token number">2</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token comment">-- 可选，用于指定分组列</span>
+  <span class="token keyword">ORDER</span> <span class="token keyword">BY</span> 列名<span class="token number">3</span> <span class="token punctuation">[</span><span class="token keyword">ASC</span><span class="token operator">|</span><span class="token keyword">DESC</span><span class="token punctuation">]</span><span class="token punctuation">,</span> 列名<span class="token number">4</span> <span class="token punctuation">[</span><span class="token keyword">ASC</span><span class="token operator">|</span><span class="token keyword">DESC</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token comment">-- 用于指定排序列及排序方式</span>
+<span class="token punctuation">)</span> <span class="token keyword">AS</span> rank_column
+</code></pre></div><p>其中，<code>PARTITION BY</code> 子句可选，用于指定分组列，将结果集按照指定列进行分组；<code>ORDER BY</code> 子句用于指定排序列及排序方式，决定了计算 Rank 时的排序规则。<code>AS rank_column</code> 用于指定生成的 Rank 排名列的别名。</p> <p>eg：假设有一个学生表 <code>student</code>，包含以下字段：<code>id</code>（学号）、<code>name</code>（姓名）、<code>age</code>（年龄）、<code>score</code>（分数）、<code>class_id</code>（班级编号）。</p> <p>请你编写一个 SQL 查询，返回每个学生的详细信息（字段顺序和原始表的字段顺序一致），并且按照分数降序的方式计算每个班级内的学生的分数排名（ranking）。</p> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">select</span>
+  id<span class="token punctuation">,</span>
+  name<span class="token punctuation">,</span>
+  age<span class="token punctuation">,</span>
+  score<span class="token punctuation">,</span>
+  class_id<span class="token punctuation">,</span>
+  rank<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">over</span> <span class="token punctuation">(</span>
+    <span class="token keyword">partition</span> <span class="token keyword">by</span>
+      class_id
+    <span class="token keyword">order</span> <span class="token keyword">by</span>
+      score <span class="token keyword">desc</span>
+  <span class="token punctuation">)</span> ranking
+<span class="token keyword">from</span>
+  student<span class="token punctuation">;</span>
+</code></pre></div><h3 id="_29-查询进阶-开窗函数-row-number✔✔"><a href="#_29-查询进阶-开窗函数-row-number✔✔" class="header-anchor">#</a> 29.查询进阶 - 开窗函数-row_number✔✔</h3> <p><code>RANK()</code>函数会为相同数值的行分配相同的排名，并跳过下一个排名。<code>ROW_NUMBER()</code>函数则会为每一行分配唯一的行号。</p> <p>Row_Number 开窗函数是 SQL 中的一种用于为查询结果集中的每一行 <strong>分配唯一连续排名</strong> 的开窗函数。</p> <p>Row_Number 开窗函数的语法如下（几乎和 Rank 函数一模一样）：</p> <div class="language-sql extra-class"><pre class="language-sql"><code>ROW_NUMBER<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">OVER</span> <span class="token punctuation">(</span>
+  <span class="token keyword">PARTITION</span> <span class="token keyword">BY</span> column1<span class="token punctuation">,</span> column2<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token comment">-- 可选，用于指定分组列</span>
+  <span class="token keyword">ORDER</span> <span class="token keyword">BY</span> column3 <span class="token punctuation">[</span><span class="token keyword">ASC</span><span class="token operator">|</span><span class="token keyword">DESC</span><span class="token punctuation">]</span><span class="token punctuation">,</span> column4 <span class="token punctuation">[</span><span class="token keyword">ASC</span><span class="token operator">|</span><span class="token keyword">DESC</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token comment">-- 用于指定排序列及排序方式</span>
+<span class="token punctuation">)</span> <span class="token keyword">AS</span> row_number_column
+</code></pre></div><p>其中，<code>PARTITION BY</code>子句可选，用于指定分组列，将结果集按照指定列进行分组。<code>ORDER BY</code> 子句用于指定排序列及排序方式，决定了计算 Row_Number 时的排序规则。<code>AS row_number_column</code> 用于指定生成的行号列的别名。</p> <blockquote><p>对于具有相同值的行，<code>RANK()</code> 函数将为它们分配相同的排名，并跳过下一个排名。例如，在以下数据集中：</p> <div class="language- extra-class"><pre class="language-text"><code>+------+------+-------+
+| Name | Exam | Score |
++------+------+-------+
+| Amy  |   1  |   95  |
+| Bob  |   1  |   90  |
+| John |   2  |   85  |
+| Kate |   2  |   85  |
++------+------+-------+
+</code></pre></div><p>使用 <code>RANK()</code> 函数：</p> <div class="language- extra-class"><pre class="language-text"><code>sqlCopy CodeSELECT Name, Exam, Score, RANK() OVER (PARTITION BY Exam ORDER BY Score DESC) AS Rank
+FROM scores;
+</code></pre></div><p>结果：</p> <div class="language- extra-class"><pre class="language-text"><code>+------+------+-------+------+
+| Name | Exam | Score | Rank |
++------+------+-------+------+
+| Amy  |   1  |   95  |  1   |
+| Bob  |   1  |   90  |  2   |
+| John |   2  |   85  |  1   |
+| Kate |   2  |   85  |  1   |
++------+------+-------+------+
+</code></pre></div><p>在这里，John 和 Kate 的成绩相同，它们被分配了相同的排名 1，并且下一个排名是 2。</p> <p>对于 <code>ROW_NUMBER()</code> 函数，它将为每一行分配唯一的行号，即使存在相同值的行。所以结果是：</p> <div class="language- extra-class"><pre class="language-text"><code>+------+------+-------+-----------+
+| Name | Exam | Score | RowNumber |
++------+------+-------+-----------+
+| Amy  |   1  |   95  |     1     |
+| Bob  |   1  |   90  |     2     |
+| John |   2  |   85  |     3     |
+| Kate |   2  |   85  |     4     |
++------+------+-------+-----------+
+</code></pre></div><p>因此，在具有相同值的行的情况下，<code>RANK()</code> 函数和 <code>ROW_NUMBER()</code> 函数将会有不同的结果。感谢您的指正，我非常抱歉给您带来了混淆。</p></blockquote> <h3 id="_30-查询进阶-开窗函数-lag-lead✔"><a href="#_30-查询进阶-开窗函数-lag-lead✔" class="header-anchor">#</a> 30.查询进阶 - 开窗函数 - lag / lead✔</h3> <p>开窗函数 Lag 和 Lead 的作用是获取在当前行之前或之后的行的值，这两个函数通常在需要比较相邻行数据或进行时间序列分析时非常有用。</p> <p>1）Lag 函数</p> <p>Lag 函数用于获取 <strong>当前行之前</strong> 的某一列的值。它可以帮助我们查看上一行的数据。</p> <p>Lag 函数的语法如下：</p> <div class="language-sql extra-class"><pre class="language-sql"><code>LAG<span class="token punctuation">(</span>column_name<span class="token punctuation">,</span> <span class="token keyword">offset</span><span class="token punctuation">,</span> default_value<span class="token punctuation">)</span> <span class="token keyword">OVER</span> <span class="token punctuation">(</span><span class="token keyword">PARTITION</span> <span class="token keyword">BY</span> partition_column <span class="token keyword">ORDER</span> <span class="token keyword">BY</span> sort_column<span class="token punctuation">)</span>
+</code></pre></div><p>参数解释：</p> <ul><li><code>column_name</code>：要获取值的列名。</li> <li><code>offset</code>：表示要向上偏移的行数。例如，offset为1表示获取上一行的值，offset为2表示获取上两行的值，以此类推。</li> <li><code>default_value</code>：可选参数，用于指定当没有前一行时的默认值。</li> <li><code>PARTITION BY</code>和<code>ORDER BY</code>子句可选，用于分组和排序数据。</li></ul> <p>2）Lead 函数</p> <p>Lead 函数用于获取 <strong>当前行之后</strong> 的某一列的值。它可以帮助我们查看下一行的数据。</p> <p>Lead 函数的语法如下：</p> <div class="language-sql extra-class"><pre class="language-sql"><code>LEAD<span class="token punctuation">(</span>column_name<span class="token punctuation">,</span> <span class="token keyword">offset</span><span class="token punctuation">,</span> default_value<span class="token punctuation">)</span> <span class="token keyword">OVER</span> <span class="token punctuation">(</span><span class="token keyword">PARTITION</span> <span class="token keyword">BY</span> partition_column <span class="token keyword">ORDER</span> <span class="token keyword">BY</span> sort_column<span class="token punctuation">)</span>
+</code></pre></div><p>参数解释：</p> <ul><li><code>column_name</code>：要获取值的列名。</li> <li><code>offset</code>：表示要向下偏移的行数。例如，offset为1表示获取下一行的值，offset为2表示获取下两行的值，以此类推。</li> <li><code>default_value</code>：可选参数，用于指定当没有后一行时的默认值。</li> <li><code>PARTITION BY</code>和<code>ORDER BY</code>子句可选，用于分组和排序数据。</li></ul> <p>eg：假设有一个学生表 <code>student</code>，包含以下字段：<code>id</code>（学号）、<code>name</code>（姓名）、<code>age</code>（年龄）、<code>score</code>（分数）、<code>class_id</code>（班级编号）。</p> <p>请你编写一个 SQL 查询，返回每个学生的详细信息（字段顺序和原始表的字段顺序一致），并且按照分数降序的方式获取每个班级内的学生的前一名学生姓名（prev_name）、后一名学生姓名（next_name）。</p> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">select</span>
+  id<span class="token punctuation">,</span>
+  name<span class="token punctuation">,</span>
+  age<span class="token punctuation">,</span>
+  score<span class="token punctuation">,</span>
+  class_id<span class="token punctuation">,</span>
+  lag<span class="token punctuation">(</span>name<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token boolean">null</span><span class="token punctuation">)</span> <span class="token keyword">over</span> <span class="token punctuation">(</span>
+    <span class="token keyword">partition</span> <span class="token keyword">by</span>
+      class_id
+    <span class="token keyword">order</span> <span class="token keyword">by</span>
+      score <span class="token keyword">desc</span>
+  <span class="token punctuation">)</span> prev_name<span class="token punctuation">,</span>
+  lead<span class="token punctuation">(</span>name<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token boolean">null</span><span class="token punctuation">)</span> <span class="token keyword">over</span> <span class="token punctuation">(</span>
+    <span class="token keyword">partition</span> <span class="token keyword">by</span>
+      class_id
+    <span class="token keyword">order</span> <span class="token keyword">by</span>
+      score <span class="token keyword">desc</span>
+  <span class="token punctuation">)</span> next_name
+<span class="token keyword">from</span>
+  student<span class="token punctuation">;</span>
+</code></pre></div><h3 id="_31-补充题目"><a href="#_31-补充题目" class="header-anchor">#</a> 31.补充题目</h3> <p>1、假设有一家冒险者公会，他们有一张名为 <code>rewards</code> 的表格，用于记录每个冒险者在各个任务中获得的金币奖励情况。</p> <p>表格字段如下：</p> <ul><li><code>adventurer_id</code>：冒险者ID，唯一标识每个冒险者。</li> <li><code>adventurer_name</code>：冒险者姓名。</li> <li><code>task_id</code>：任务ID，唯一标识每个任务。</li> <li><code>task_name</code>：任务名称。</li> <li><code>reward_coins</code>：冒险者在该任务中获得的金币奖励数量。</li></ul> <p>请你编写一条 SQL 查询语句，依次输出每个冒险者的 id（<code>adventurer_id</code>）、冒险者姓名（<code>adventurer_name</code>）、获得的总金币奖励（<code>total_reward_coins</code>），并按照总金币奖励从高到低排序，其中只列出总金币奖励排名前 3 的冒险者。</p> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">select</span>
+  adventurer_id<span class="token punctuation">,</span>
+  adventurer_name<span class="token punctuation">,</span>
+  <span class="token function">sum</span><span class="token punctuation">(</span>reward_coins<span class="token punctuation">)</span> total_reward_coins
+<span class="token keyword">from</span>
+  rewards
+<span class="token keyword">group</span> <span class="token keyword">by</span>
+  adventurer_id<span class="token punctuation">,</span>
+  adventurer_name
+<span class="token keyword">order</span> <span class="token keyword">by</span>
+  total_reward_coins <span class="token keyword">desc</span>
+<span class="token keyword">limit</span>
+  <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">;</span>
+</code></pre></div><p>2、假设有一家魔法学院，里面有许多学员在不同科目上进行学习和考试。请你设计一张名为<code>magic_scores</code>的表格，用于记录每位学员在不同科目中的考试成绩情况。表格字段如下：</p> <ul><li><code>student_id</code>：学员ID，唯一标识每位学员。</li> <li><code>student_name</code>：学员姓名。</li> <li><code>subject_id</code>：科目ID，唯一标识每个科目。</li> <li><code>subject_name</code>：科目名称。</li> <li><code>score</code>：学员在该科目的考试成绩。</li></ul> <p>请你编写一条 SQL 查询语句，依次输出每位学员的学院 ID（<code>student_id</code>）、学员姓名（<code>student_name</code>）、科目 ID（<code>subject_id</code>）、科目名称（<code>subject_name</code>）、学员在该科目的考试成绩（<code>score</code>）、该学员在每个科目中的成绩排名（<code>score_rank</code>），并将结果按照成绩从高到低进行排序。</p> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">select</span>
+  student_id<span class="token punctuation">,</span>
+  student_name<span class="token punctuation">,</span>
+  subject_id<span class="token punctuation">,</span>
+  subject_name<span class="token punctuation">,</span>
+  score<span class="token punctuation">,</span>
+  rank<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">over</span> <span class="token punctuation">(</span>
+    <span class="token keyword">partition</span> <span class="token keyword">by</span>
+      subject_id
+    <span class="token keyword">order</span> <span class="token keyword">by</span>
+      score <span class="token keyword">desc</span>
+  <span class="token punctuation">)</span> score_rank
+<span class="token keyword">from</span>
+  magic_scores<span class="token punctuation">;</span>
+</code></pre></div><p>3、在神秘的海岛上，有一只传说中的大浪淘鸡，它身躯高大威武，羽毛闪烁着神秘的光芒。岛上的居民都传说大浪淘鸡是海洋之神的化身，它能够操纵海浪，带来平静或狂暴的海洋。为了验证这个传说是否属实，岛上的居民决定对大浪淘鸡进行观测和记录。</p> <p>有一张 <code>chicken_observation</code> 的表格，用于记录居民观测大浪淘鸡的信息。表格字段如下：</p> <ul><li><code>observation_id</code>：观测记录ID，唯一标识每条观测记录</li> <li><code>observer_name</code>：观测者姓名</li> <li><code>observation_date</code>：观测日期</li> <li><code>observation_location</code>：观测地点</li> <li><code>wave_intensity</code>：观测到的海浪强度，用整数表示，数值越大，海浪越狂暴</li></ul> <p>请你编写一条 SQL 查询语句，找出观测地点包含 &quot;大浪淘鸡&quot; 且海浪强度超过 5 的观测记录，并依次输出每位观测者的姓名（<code>observer_name</code>）、观测日期（<code>observation_date</code>）以及观测到的海浪强度（<code>wave_intensity</code>）。</p> <div class="language-sql extra-class"><pre class="language-sql"><code><span class="token keyword">select</span>
+  observer_name<span class="token punctuation">,</span>
+  observation_date<span class="token punctuation">,</span>
+  wave_intensity
+<span class="token keyword">from</span>
+  chicken_observation
+<span class="token keyword">where</span>
+  observation_location <span class="token operator">like</span> <span class="token string">'%大浪淘鸡%'</span>
+  <span class="token operator">and</span> wave_intensity <span class="token operator">&gt;</span> <span class="token number">5</span><span class="token punctuation">;</span>
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/learn-ceiling/handbook/Learn/Redis/0-Redis-Basic.html" class="prev">
+        Redis-Basic
+      </a></span> <span class="next"><a href="/learn-ceiling/handbook/Learn/SQL/MySQL-Exe.html">
+        MySQL-Exercise
+      </a>
+      →
+    </span></p></div> </main></div> <div class="footer" data-v-34d4abe6><div id="footer-info" data-v-34d4abe6><div class="footer-left" data-v-34d4abe6>
+      © 2023-2024
+      <span data-v-34d4abe6><a href="https://github.com/25122lxy/" target="_blank">lxy25122</a></span></div> <div class="footer-right" data-v-34d4abe6>Theme:<a href="https://github.com/JoeyBling/vuepress-theme-yilia-plus" target="_blank">vuepress-theme-yilia-plus</a> by Litten</div></div> <!----></div></main><div class="global-ui"><div id="live2d-widget" class="live2d-widget-container" style="position:fixed;right:65px;bottom:0px;width:135px;height:300px;z-index:99999;opacity:0.8;pointer-events:none;"><canvas id="live2d_canvas" width="135" height="300" class="live2d_canvas" style="position:absolute;left:0px;top:0px;width:135px;height:300px;"></canvas></div><canvas id="vuepress-canvas-cursor"></canvas></div></div>
+    <script src="/learn-ceiling/assets/js/app.235538a9.js" defer></script><script src="/learn-ceiling/assets/js/2.c7d2b1f7.js" defer></script><script src="/learn-ceiling/assets/js/60.74872728.js" defer></script>
+  </body>
+</html>

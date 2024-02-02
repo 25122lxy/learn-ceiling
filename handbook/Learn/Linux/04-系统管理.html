@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>系统管理 | Code Diary</title>
+    <meta name="generator" content="VuePress 1.9.9">
+    <link rel="icon" href="/learn-ceiling/hand.jpg">
+    <meta name="description" content="技术笔记、编程心得分享">
+    <meta name="referrer" content="no-referrer">
+    
+    <link rel="preload" href="/learn-ceiling/assets/css/0.styles.df47c79f.css" as="style"><link rel="preload" href="/learn-ceiling/assets/js/app.235538a9.js" as="script"><link rel="preload" href="/learn-ceiling/assets/js/2.c7d2b1f7.js" as="script"><link rel="preload" href="/learn-ceiling/assets/js/30.7adccd2c.js" as="script"><link rel="prefetch" href="/learn-ceiling/assets/js/10.c4c4f495.js"><link rel="prefetch" href="/learn-ceiling/assets/js/11.06c1692d.js"><link rel="prefetch" href="/learn-ceiling/assets/js/12.e70990f1.js"><link rel="prefetch" href="/learn-ceiling/assets/js/13.5ea6f405.js"><link rel="prefetch" href="/learn-ceiling/assets/js/14.5ce76ccb.js"><link rel="prefetch" href="/learn-ceiling/assets/js/15.b5c61832.js"><link rel="prefetch" href="/learn-ceiling/assets/js/16.6e4e0759.js"><link rel="prefetch" href="/learn-ceiling/assets/js/17.b6f52e7f.js"><link rel="prefetch" href="/learn-ceiling/assets/js/18.155f2caf.js"><link rel="prefetch" href="/learn-ceiling/assets/js/19.ea21c3cf.js"><link rel="prefetch" href="/learn-ceiling/assets/js/20.33c43e06.js"><link rel="prefetch" href="/learn-ceiling/assets/js/21.f4e6e20a.js"><link rel="prefetch" href="/learn-ceiling/assets/js/22.485d0a07.js"><link rel="prefetch" href="/learn-ceiling/assets/js/23.fb805a45.js"><link rel="prefetch" href="/learn-ceiling/assets/js/24.6a258cf5.js"><link rel="prefetch" href="/learn-ceiling/assets/js/25.c4c4023d.js"><link rel="prefetch" href="/learn-ceiling/assets/js/26.d92cf884.js"><link rel="prefetch" href="/learn-ceiling/assets/js/27.5d88d619.js"><link rel="prefetch" href="/learn-ceiling/assets/js/28.a0b76e62.js"><link rel="prefetch" href="/learn-ceiling/assets/js/29.3f0426da.js"><link rel="prefetch" href="/learn-ceiling/assets/js/3.d1fbc4fe.js"><link rel="prefetch" href="/learn-ceiling/assets/js/31.7d0b9a7f.js"><link rel="prefetch" href="/learn-ceiling/assets/js/32.6970bcc0.js"><link rel="prefetch" href="/learn-ceiling/assets/js/33.eeb35d50.js"><link rel="prefetch" href="/learn-ceiling/assets/js/34.ea24ea8b.js"><link rel="prefetch" href="/learn-ceiling/assets/js/35.c40a585a.js"><link rel="prefetch" href="/learn-ceiling/assets/js/36.79790a12.js"><link rel="prefetch" href="/learn-ceiling/assets/js/37.a847b8a1.js"><link rel="prefetch" href="/learn-ceiling/assets/js/38.9a6ab34d.js"><link rel="prefetch" href="/learn-ceiling/assets/js/39.bf0bc1a7.js"><link rel="prefetch" href="/learn-ceiling/assets/js/4.b6acf418.js"><link rel="prefetch" href="/learn-ceiling/assets/js/40.2e93acfd.js"><link rel="prefetch" href="/learn-ceiling/assets/js/41.bcc213e5.js"><link rel="prefetch" href="/learn-ceiling/assets/js/42.558394fc.js"><link rel="prefetch" href="/learn-ceiling/assets/js/43.cd846378.js"><link rel="prefetch" href="/learn-ceiling/assets/js/44.afcb9063.js"><link rel="prefetch" href="/learn-ceiling/assets/js/45.526cdab6.js"><link rel="prefetch" href="/learn-ceiling/assets/js/46.3bbeeda3.js"><link rel="prefetch" href="/learn-ceiling/assets/js/47.dba7847e.js"><link rel="prefetch" href="/learn-ceiling/assets/js/48.29379048.js"><link rel="prefetch" href="/learn-ceiling/assets/js/49.f526a58a.js"><link rel="prefetch" href="/learn-ceiling/assets/js/5.3747e8f8.js"><link rel="prefetch" href="/learn-ceiling/assets/js/50.2be0a3da.js"><link rel="prefetch" href="/learn-ceiling/assets/js/51.46ccf051.js"><link rel="prefetch" href="/learn-ceiling/assets/js/52.9bcd0722.js"><link rel="prefetch" href="/learn-ceiling/assets/js/53.06fef668.js"><link rel="prefetch" href="/learn-ceiling/assets/js/54.534da4f1.js"><link rel="prefetch" href="/learn-ceiling/assets/js/55.22f59a2a.js"><link rel="prefetch" href="/learn-ceiling/assets/js/56.5b1e2aa6.js"><link rel="prefetch" href="/learn-ceiling/assets/js/57.daacfc08.js"><link rel="prefetch" href="/learn-ceiling/assets/js/58.cb240494.js"><link rel="prefetch" href="/learn-ceiling/assets/js/59.f0cab42c.js"><link rel="prefetch" href="/learn-ceiling/assets/js/6.3688e4ed.js"><link rel="prefetch" href="/learn-ceiling/assets/js/60.74872728.js"><link rel="prefetch" href="/learn-ceiling/assets/js/61.a7a19f44.js"><link rel="prefetch" href="/learn-ceiling/assets/js/62.bda341fd.js"><link rel="prefetch" href="/learn-ceiling/assets/js/63.39847a02.js"><link rel="prefetch" href="/learn-ceiling/assets/js/64.8ac906c5.js"><link rel="prefetch" href="/learn-ceiling/assets/js/7.dddd7af2.js"><link rel="prefetch" href="/learn-ceiling/assets/js/8.4b31d8be.js"><link rel="prefetch" href="/learn-ceiling/assets/js/9.9a27c3e2.js">
+    <link rel="stylesheet" href="/learn-ceiling/assets/css/0.styles.df47c79f.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><main><main slot="sidebar-top"><a href="https://github.com/25122lxy/" aria-label="View source on GitHub" target="_blank" class="github-corner"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path> <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" class="octo-arm" style="transform-origin: 130px 106px;"></path> <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a></main> <div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/learn-ceiling/" class="home-link router-link-active"><!----> <span class="site-name">Code Diary</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/learn-ceiling/" class="nav-link">
+  Index
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Learn" class="dropdown-title"><span class="title">Learn</span> <span class="arrow down"></span></button> <button type="button" aria-label="Learn" class="mobile-dropdown-title"><span class="title">Learn</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/Microservice/01-初识微服务.html" class="nav-link">
+  Microservice
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/RabbitMQ/1.RabbitMQ-简介及安装.html" class="nav-link">
+  RabbitMQ
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/Redis/0-Redis-Basic.html" class="nav-link">
+  Redis
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/SQL/SQL案例.html" class="nav-link">
+  MySQL
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/前端快速入门/01-HTML-CSS.html" class="nav-link">
+  前端快速入门
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/Linux/01-Linux入门.html" class="nav-link">
+  Linux
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Project" class="dropdown-title"><span class="title">Project</span> <span class="arrow down"></span></button> <button type="button" aria-label="Project" class="mobile-dropdown-title"><span class="title">Project</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/RabbitMQ/1.RabbitMQ-简介及安装.html" class="nav-link">
+  社区精品汇
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Interview" class="dropdown-title"><span class="title">Interview</span> <span class="arrow down"></span></button> <button type="button" aria-label="Interview" class="mobile-dropdown-title"><span class="title">Interview</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/00-查漏补缺.html" class="nav-link">
+  查漏补缺
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/01-Java基础.html" class="nav-link">
+  Java基础
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/02-Redis.html" class="nav-link">
+  Redis
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/03-MySQL.html" class="nav-link">
+  MySQL
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/04-Java框架.html" class="nav-link">
+  Java框架
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/05-微服务.html" class="nav-link">
+  微服务
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/06-消息中间件.html" class="nav-link">
+  消息中间件
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/07-Java集合.html" class="nav-link">
+  Java集合
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/08-Java并发.html" class="nav-link">
+  Java并发
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/09-JVM.html" class="nav-link">
+  JVM
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/10-Linux.html" class="nav-link">
+  Linux
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/11-Hadoop.html" class="nav-link">
+  Hadoop
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/12-Hive.html" class="nav-link">
+  Hive
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/13-Spark.html" class="nav-link">
+  Spark
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/16-数据采集工具.html" class="nav-link">
+  数据采集工具
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="lxy25122-blog" class="dropdown-title"><span class="title">lxy25122-blog</span> <span class="arrow down"></span></button> <button type="button" aria-label="lxy25122-blog" class="mobile-dropdown-title"><span class="title">lxy25122-blog</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://github.com/lxy25122" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://gitee.com/tjlxy" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Gitee
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/learn-ceiling/" class="nav-link">
+  Index
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Learn" class="dropdown-title"><span class="title">Learn</span> <span class="arrow down"></span></button> <button type="button" aria-label="Learn" class="mobile-dropdown-title"><span class="title">Learn</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/Microservice/01-初识微服务.html" class="nav-link">
+  Microservice
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/RabbitMQ/1.RabbitMQ-简介及安装.html" class="nav-link">
+  RabbitMQ
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/Redis/0-Redis-Basic.html" class="nav-link">
+  Redis
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/SQL/SQL案例.html" class="nav-link">
+  MySQL
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/前端快速入门/01-HTML-CSS.html" class="nav-link">
+  前端快速入门
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/Linux/01-Linux入门.html" class="nav-link">
+  Linux
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Project" class="dropdown-title"><span class="title">Project</span> <span class="arrow down"></span></button> <button type="button" aria-label="Project" class="mobile-dropdown-title"><span class="title">Project</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/RabbitMQ/1.RabbitMQ-简介及安装.html" class="nav-link">
+  社区精品汇
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Interview" class="dropdown-title"><span class="title">Interview</span> <span class="arrow down"></span></button> <button type="button" aria-label="Interview" class="mobile-dropdown-title"><span class="title">Interview</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/00-查漏补缺.html" class="nav-link">
+  查漏补缺
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/01-Java基础.html" class="nav-link">
+  Java基础
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/02-Redis.html" class="nav-link">
+  Redis
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/03-MySQL.html" class="nav-link">
+  MySQL
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/04-Java框架.html" class="nav-link">
+  Java框架
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/05-微服务.html" class="nav-link">
+  微服务
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/06-消息中间件.html" class="nav-link">
+  消息中间件
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/07-Java集合.html" class="nav-link">
+  Java集合
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/08-Java并发.html" class="nav-link">
+  Java并发
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/09-JVM.html" class="nav-link">
+  JVM
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/10-Linux.html" class="nav-link">
+  Linux
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/11-Hadoop.html" class="nav-link">
+  Hadoop
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/12-Hive.html" class="nav-link">
+  Hive
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/13-Spark.html" class="nav-link">
+  Spark
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/16-数据采集工具.html" class="nav-link">
+  数据采集工具
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="lxy25122-blog" class="dropdown-title"><span class="title">lxy25122-blog</span> <span class="arrow down"></span></button> <button type="button" aria-label="lxy25122-blog" class="mobile-dropdown-title"><span class="title">lxy25122-blog</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://github.com/lxy25122" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://gitee.com/tjlxy" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Gitee
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/learn-ceiling/" aria-current="page" class="sidebar-link">学前必读</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>Learn</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading"><span>Microservice</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading"><span>RabbitMQ</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading"><span>Redis</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading"><span>SQL</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading"><span>前端快速入门</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading open"><span>Linux</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/learn-ceiling/handbook/Learn/Linux/01-Linux入门.html" class="sidebar-link">01-Linux入门</a></li><li><a href="/learn-ceiling/handbook/Learn/Linux/02-VI、VIM 编辑器-√.html" class="sidebar-link">02-VI、VIM 编辑器-√</a></li><li><a href="/learn-ceiling/handbook/Learn/Linux/03-网络配置-√.html" class="sidebar-link">03-网络配置-√</a></li><li><a href="/learn-ceiling/handbook/Learn/Linux/04-系统管理.html" class="active sidebar-link">04-系统管理</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/Linux/04-系统管理.html#_1-linux中的进程和服务" class="sidebar-link">1. Linux中的进程和服务</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/Linux/04-系统管理.html#_2-service服务管理-centos-6" class="sidebar-link">2. Service服务管理（CentOS 6）</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/Linux/04-系统管理.html#_3-chkconfig-设置后台服务的自启配置-centos-6" class="sidebar-link">3. chkconfig 设置后台服务的自启配置（CentOS 6）</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/Linux/04-系统管理.html#_4-systemctl-centos-7✔️" class="sidebar-link">4. systemctl（CentOS 7✔️）</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/Linux/04-系统管理.html#_5-systemctl-设置后台服务的自启配置" class="sidebar-link">5. systemctl 设置后台服务的自启配置</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/Linux/04-系统管理.html#_6-系统运行级别" class="sidebar-link">6. 系统运行级别</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/Linux/04-系统管理.html#_7-关闭防火墙" class="sidebar-link">7. 关闭防火墙</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/Linux/04-系统管理.html#_8-关机重启命令" class="sidebar-link">8. 关机重启命令</a></li></ul></li><li><a href="/learn-ceiling/handbook/Learn/Linux/05-常用基本命令-√.html" class="sidebar-link">05-常用基本命令-√</a></li><li><a href="/learn-ceiling/handbook/Learn/Linux/06-软件包管理.html" class="sidebar-link">06-软件包管理</a></li><li><a href="/learn-ceiling/handbook/Learn/Linux/07-克隆虚拟机.html" class="sidebar-link">07-克隆虚拟机</a></li><li><a href="/learn-ceiling/handbook/Learn/Linux/08-Shell.html" class="sidebar-link">08-Shell</a></li></ul></section></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Project</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Interview</span> <span class="arrow right"></span></p> <!----></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="系统管理"><a href="#系统管理" class="header-anchor">#</a> 系统管理</h1> <h2 id="_1-linux中的进程和服务"><a href="#_1-linux中的进程和服务" class="header-anchor">#</a> 1. Linux中的进程和服务</h2> <p>计算机中，一个正在执行的程序或命令，被叫做“进程”（process）。</p> <p>启动之后一只存在、常驻内存的进程，一般被称作“服务”（service）。</p> <h2 id="_2-service服务管理-centos-6"><a href="#_2-service服务管理-centos-6" class="header-anchor">#</a> 2. Service服务管理（CentOS 6）</h2> <p>基本语法：</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">service</span> 服务名 start <span class="token operator">|</span> stop <span class="token operator">|</span> restart <span class="token operator">|</span> status
+</code></pre></div><h2 id="_3-chkconfig-设置后台服务的自启配置-centos-6"><a href="#_3-chkconfig-设置后台服务的自启配置-centos-6" class="header-anchor">#</a> 3. chkconfig 设置后台服务的自启配置（CentOS 6）</h2> <p>基本语法：</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">chkconfig</span> （功能描述：查看所有服务器自启配置）
+
+<span class="token function">chkconfig</span> 服务名 off （功能描述：关掉指定服务的自动启动）
+
+<span class="token function">chkconfig</span> 服务名 on （功能描述：开启指定服务的自动启动）
+
+<span class="token function">chkconfig</span> 服务名 <span class="token parameter variable">--list</span> （功能描述：查看服务开机启动状态）
+</code></pre></div><h2 id="_4-systemctl-centos-7✔️"><a href="#_4-systemctl-centos-7✔️" class="header-anchor">#</a> 4. systemctl（CentOS 7✔️）</h2> <p>基本语法：</p> <div class="language-shell extra-class"><pre class="language-shell"><code>systemctl start <span class="token operator">|</span> stop <span class="token operator">|</span> restart <span class="token operator">|</span> status 服务名
+</code></pre></div><p>查看服务的方法：/usr/lib/systemd/system</p> <h2 id="_5-systemctl-设置后台服务的自启配置"><a href="#_5-systemctl-设置后台服务的自启配置" class="header-anchor">#</a> 5. systemctl 设置后台服务的自启配置</h2> <p>基本语法</p> <div class="language-shell extra-class"><pre class="language-shell"><code>systemctl list-unit-files （功能描述：查看所有服务开机启动状态）
+systemctl disable service_name （功能描述：关掉指定服务的自动启动）
+systemctl <span class="token builtin class-name">enable</span> service_name （功能描述：开启指定服务的自动启动）
+systemctl is-enabled service_name 查看指定服务开机启动状态
+</code></pre></div><h2 id="_6-系统运行级别"><a href="#_6-系统运行级别" class="header-anchor">#</a> 6. 系统运行级别</h2> <p><img src="https://gitee.com/tjlxy/img/raw/master/image-20231211154731494.png" alt="image-20231211154731494"></p> <p>multi-user.target 等价于原运行级别 3（多用户有网，无图形界面）</p> <p>graphical.target 等价于原运行级别 5（多用户有网，有图形界面）</p> <p>查看当前运行级别：<code>systemctl get-default</code></p> <p>修改当前运行级别：<code>systemctl set-default TARGET.target （这里 TARGET 取 multi-user 或者graphical）</code></p> <h2 id="_7-关闭防火墙"><a href="#_7-关闭防火墙" class="header-anchor">#</a> 7. 关闭防火墙</h2> <p>这里采用CentOS7写法</p> <p>查看防火墙状态<code>systemctl status firewalld</code></p> <p>临时关闭防火墙<code>systemctl stop firewalld</code></p> <p>查看防火墙开机启动状态<code>systemctl is_enable firewalld</code></p> <p>设置开机时关闭防火墙<code>systemctl disable firewalld</code></p> <h2 id="_8-关机重启命令"><a href="#_8-关机重启命令" class="header-anchor">#</a> 8. 关机重启命令</h2> <p>基本语法</p> <ol><li><p>sync （功能描述：将数据由内存同步到硬盘中）</p></li> <li><p>halt （功能描述：停机，关闭系统，但不断电）</p></li> <li><p>poweroff （功能描述：关机，断电）</p></li> <li><p>reboot （功能描述：就是重启，等同于 shutdown -r now）</p></li> <li><p>shutdown [选项] 时间</p> <p><strong>选项</strong>：-H：相当于 --halt（或-h），停机 -r：-r=reboot重启</p> <p><strong>参数</strong>：now：立刻关机；时间：等待多久后关机（时间单位是分钟）</p></li></ol> <p>​</p></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/learn-ceiling/handbook/Learn/Linux/03-网络配置-√.html" class="prev">
+        03-网络配置-√
+      </a></span> <span class="next"><a href="/learn-ceiling/handbook/Learn/Linux/05-常用基本命令-√.html">
+        05-常用基本命令-√
+      </a>
+      →
+    </span></p></div> </main></div> <div class="footer" data-v-34d4abe6><div id="footer-info" data-v-34d4abe6><div class="footer-left" data-v-34d4abe6>
+      © 2023-2024
+      <span data-v-34d4abe6><a href="https://github.com/25122lxy/" target="_blank">lxy25122</a></span></div> <div class="footer-right" data-v-34d4abe6>Theme:<a href="https://github.com/JoeyBling/vuepress-theme-yilia-plus" target="_blank">vuepress-theme-yilia-plus</a> by Litten</div></div> <!----></div></main><div class="global-ui"><div id="live2d-widget" class="live2d-widget-container" style="position:fixed;right:65px;bottom:0px;width:135px;height:300px;z-index:99999;opacity:0.8;pointer-events:none;"><canvas id="live2d_canvas" width="135" height="300" class="live2d_canvas" style="position:absolute;left:0px;top:0px;width:135px;height:300px;"></canvas></div><canvas id="vuepress-canvas-cursor"></canvas></div></div>
+    <script src="/learn-ceiling/assets/js/app.235538a9.js" defer></script><script src="/learn-ceiling/assets/js/2.c7d2b1f7.js" defer></script><script src="/learn-ceiling/assets/js/30.7adccd2c.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>C++小案例 | Code Diary</title>
+    <meta name="generator" content="VuePress 1.9.9">
+    <link rel="icon" href="/learn-ceiling/hand.jpg">
+    <meta name="description" content="技术笔记、编程心得分享">
+    <meta name="referrer" content="no-referrer">
+    
+    <link rel="preload" href="/learn-ceiling/assets/css/0.styles.df47c79f.css" as="style"><link rel="preload" href="/learn-ceiling/assets/js/app.235538a9.js" as="script"><link rel="preload" href="/learn-ceiling/assets/js/2.c7d2b1f7.js" as="script"><link rel="preload" href="/learn-ceiling/assets/js/24.6a258cf5.js" as="script"><link rel="prefetch" href="/learn-ceiling/assets/js/10.c4c4f495.js"><link rel="prefetch" href="/learn-ceiling/assets/js/11.06c1692d.js"><link rel="prefetch" href="/learn-ceiling/assets/js/12.e70990f1.js"><link rel="prefetch" href="/learn-ceiling/assets/js/13.5ea6f405.js"><link rel="prefetch" href="/learn-ceiling/assets/js/14.5ce76ccb.js"><link rel="prefetch" href="/learn-ceiling/assets/js/15.b5c61832.js"><link rel="prefetch" href="/learn-ceiling/assets/js/16.6e4e0759.js"><link rel="prefetch" href="/learn-ceiling/assets/js/17.b6f52e7f.js"><link rel="prefetch" href="/learn-ceiling/assets/js/18.155f2caf.js"><link rel="prefetch" href="/learn-ceiling/assets/js/19.ea21c3cf.js"><link rel="prefetch" href="/learn-ceiling/assets/js/20.33c43e06.js"><link rel="prefetch" href="/learn-ceiling/assets/js/21.f4e6e20a.js"><link rel="prefetch" href="/learn-ceiling/assets/js/22.485d0a07.js"><link rel="prefetch" href="/learn-ceiling/assets/js/23.fb805a45.js"><link rel="prefetch" href="/learn-ceiling/assets/js/25.c4c4023d.js"><link rel="prefetch" href="/learn-ceiling/assets/js/26.d92cf884.js"><link rel="prefetch" href="/learn-ceiling/assets/js/27.5d88d619.js"><link rel="prefetch" href="/learn-ceiling/assets/js/28.a0b76e62.js"><link rel="prefetch" href="/learn-ceiling/assets/js/29.3f0426da.js"><link rel="prefetch" href="/learn-ceiling/assets/js/3.d1fbc4fe.js"><link rel="prefetch" href="/learn-ceiling/assets/js/30.7adccd2c.js"><link rel="prefetch" href="/learn-ceiling/assets/js/31.7d0b9a7f.js"><link rel="prefetch" href="/learn-ceiling/assets/js/32.6970bcc0.js"><link rel="prefetch" href="/learn-ceiling/assets/js/33.eeb35d50.js"><link rel="prefetch" href="/learn-ceiling/assets/js/34.ea24ea8b.js"><link rel="prefetch" href="/learn-ceiling/assets/js/35.c40a585a.js"><link rel="prefetch" href="/learn-ceiling/assets/js/36.79790a12.js"><link rel="prefetch" href="/learn-ceiling/assets/js/37.a847b8a1.js"><link rel="prefetch" href="/learn-ceiling/assets/js/38.9a6ab34d.js"><link rel="prefetch" href="/learn-ceiling/assets/js/39.bf0bc1a7.js"><link rel="prefetch" href="/learn-ceiling/assets/js/4.b6acf418.js"><link rel="prefetch" href="/learn-ceiling/assets/js/40.2e93acfd.js"><link rel="prefetch" href="/learn-ceiling/assets/js/41.bcc213e5.js"><link rel="prefetch" href="/learn-ceiling/assets/js/42.558394fc.js"><link rel="prefetch" href="/learn-ceiling/assets/js/43.cd846378.js"><link rel="prefetch" href="/learn-ceiling/assets/js/44.afcb9063.js"><link rel="prefetch" href="/learn-ceiling/assets/js/45.526cdab6.js"><link rel="prefetch" href="/learn-ceiling/assets/js/46.3bbeeda3.js"><link rel="prefetch" href="/learn-ceiling/assets/js/47.dba7847e.js"><link rel="prefetch" href="/learn-ceiling/assets/js/48.29379048.js"><link rel="prefetch" href="/learn-ceiling/assets/js/49.f526a58a.js"><link rel="prefetch" href="/learn-ceiling/assets/js/5.3747e8f8.js"><link rel="prefetch" href="/learn-ceiling/assets/js/50.2be0a3da.js"><link rel="prefetch" href="/learn-ceiling/assets/js/51.46ccf051.js"><link rel="prefetch" href="/learn-ceiling/assets/js/52.9bcd0722.js"><link rel="prefetch" href="/learn-ceiling/assets/js/53.06fef668.js"><link rel="prefetch" href="/learn-ceiling/assets/js/54.534da4f1.js"><link rel="prefetch" href="/learn-ceiling/assets/js/55.22f59a2a.js"><link rel="prefetch" href="/learn-ceiling/assets/js/56.5b1e2aa6.js"><link rel="prefetch" href="/learn-ceiling/assets/js/57.daacfc08.js"><link rel="prefetch" href="/learn-ceiling/assets/js/58.cb240494.js"><link rel="prefetch" href="/learn-ceiling/assets/js/59.f0cab42c.js"><link rel="prefetch" href="/learn-ceiling/assets/js/6.3688e4ed.js"><link rel="prefetch" href="/learn-ceiling/assets/js/60.74872728.js"><link rel="prefetch" href="/learn-ceiling/assets/js/61.a7a19f44.js"><link rel="prefetch" href="/learn-ceiling/assets/js/62.bda341fd.js"><link rel="prefetch" href="/learn-ceiling/assets/js/63.39847a02.js"><link rel="prefetch" href="/learn-ceiling/assets/js/64.8ac906c5.js"><link rel="prefetch" href="/learn-ceiling/assets/js/7.dddd7af2.js"><link rel="prefetch" href="/learn-ceiling/assets/js/8.4b31d8be.js"><link rel="prefetch" href="/learn-ceiling/assets/js/9.9a27c3e2.js">
+    <link rel="stylesheet" href="/learn-ceiling/assets/css/0.styles.df47c79f.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><main><main slot="sidebar-top"><a href="https://github.com/25122lxy/" aria-label="View source on GitHub" target="_blank" class="github-corner"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path> <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" class="octo-arm" style="transform-origin: 130px 106px;"></path> <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a></main> <div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/learn-ceiling/" class="home-link router-link-active"><!----> <span class="site-name">Code Diary</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/learn-ceiling/" class="nav-link">
+  Index
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Learn" class="dropdown-title"><span class="title">Learn</span> <span class="arrow down"></span></button> <button type="button" aria-label="Learn" class="mobile-dropdown-title"><span class="title">Learn</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/Microservice/01-初识微服务.html" class="nav-link">
+  Microservice
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/RabbitMQ/1.RabbitMQ-简介及安装.html" class="nav-link">
+  RabbitMQ
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/Redis/0-Redis-Basic.html" class="nav-link">
+  Redis
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/SQL/SQL案例.html" class="nav-link">
+  MySQL
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/前端快速入门/01-HTML-CSS.html" class="nav-link">
+  前端快速入门
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/Linux/01-Linux入门.html" class="nav-link">
+  Linux
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Project" class="dropdown-title"><span class="title">Project</span> <span class="arrow down"></span></button> <button type="button" aria-label="Project" class="mobile-dropdown-title"><span class="title">Project</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/RabbitMQ/1.RabbitMQ-简介及安装.html" class="nav-link">
+  社区精品汇
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Interview" class="dropdown-title"><span class="title">Interview</span> <span class="arrow down"></span></button> <button type="button" aria-label="Interview" class="mobile-dropdown-title"><span class="title">Interview</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/00-查漏补缺.html" class="nav-link">
+  查漏补缺
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/01-Java基础.html" class="nav-link">
+  Java基础
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/02-Redis.html" class="nav-link">
+  Redis
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/03-MySQL.html" class="nav-link">
+  MySQL
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/04-Java框架.html" class="nav-link">
+  Java框架
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/05-微服务.html" class="nav-link">
+  微服务
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/06-消息中间件.html" class="nav-link">
+  消息中间件
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/07-Java集合.html" class="nav-link">
+  Java集合
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/08-Java并发.html" class="nav-link">
+  Java并发
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/09-JVM.html" class="nav-link">
+  JVM
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/10-Linux.html" class="nav-link">
+  Linux
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/11-Hadoop.html" class="nav-link">
+  Hadoop
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/12-Hive.html" class="nav-link">
+  Hive
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/13-Spark.html" class="nav-link">
+  Spark
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/16-数据采集工具.html" class="nav-link">
+  数据采集工具
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="lxy25122-blog" class="dropdown-title"><span class="title">lxy25122-blog</span> <span class="arrow down"></span></button> <button type="button" aria-label="lxy25122-blog" class="mobile-dropdown-title"><span class="title">lxy25122-blog</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://github.com/lxy25122" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://gitee.com/tjlxy" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Gitee
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/learn-ceiling/" class="nav-link">
+  Index
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Learn" class="dropdown-title"><span class="title">Learn</span> <span class="arrow down"></span></button> <button type="button" aria-label="Learn" class="mobile-dropdown-title"><span class="title">Learn</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/Microservice/01-初识微服务.html" class="nav-link">
+  Microservice
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/RabbitMQ/1.RabbitMQ-简介及安装.html" class="nav-link">
+  RabbitMQ
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/Redis/0-Redis-Basic.html" class="nav-link">
+  Redis
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/SQL/SQL案例.html" class="nav-link">
+  MySQL
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/前端快速入门/01-HTML-CSS.html" class="nav-link">
+  前端快速入门
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/Linux/01-Linux入门.html" class="nav-link">
+  Linux
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Project" class="dropdown-title"><span class="title">Project</span> <span class="arrow down"></span></button> <button type="button" aria-label="Project" class="mobile-dropdown-title"><span class="title">Project</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/RabbitMQ/1.RabbitMQ-简介及安装.html" class="nav-link">
+  社区精品汇
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Interview" class="dropdown-title"><span class="title">Interview</span> <span class="arrow down"></span></button> <button type="button" aria-label="Interview" class="mobile-dropdown-title"><span class="title">Interview</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/00-查漏补缺.html" class="nav-link">
+  查漏补缺
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/01-Java基础.html" class="nav-link">
+  Java基础
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/02-Redis.html" class="nav-link">
+  Redis
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/03-MySQL.html" class="nav-link">
+  MySQL
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/04-Java框架.html" class="nav-link">
+  Java框架
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/05-微服务.html" class="nav-link">
+  微服务
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/06-消息中间件.html" class="nav-link">
+  消息中间件
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/07-Java集合.html" class="nav-link">
+  Java集合
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/08-Java并发.html" class="nav-link">
+  Java并发
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/09-JVM.html" class="nav-link">
+  JVM
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/10-Linux.html" class="nav-link">
+  Linux
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/11-Hadoop.html" class="nav-link">
+  Hadoop
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/12-Hive.html" class="nav-link">
+  Hive
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/13-Spark.html" class="nav-link">
+  Spark
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/16-数据采集工具.html" class="nav-link">
+  数据采集工具
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="lxy25122-blog" class="dropdown-title"><span class="title">lxy25122-blog</span> <span class="arrow down"></span></button> <button type="button" aria-label="lxy25122-blog" class="mobile-dropdown-title"><span class="title">lxy25122-blog</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://github.com/lxy25122" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://gitee.com/tjlxy" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Gitee
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/learn-ceiling/" aria-current="page" class="sidebar-link">学前必读</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Learn</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Project</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Interview</span> <span class="arrow right"></span></p> <!----></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="c-小案例"><a href="#c-小案例" class="header-anchor">#</a> C++小案例</h1> <h2 id="小案例"><a href="#小案例" class="header-anchor">#</a> 小案例</h2> <h3 id="逻辑运算符的应用"><a href="#逻辑运算符的应用" class="header-anchor">#</a> 逻辑运算符的应用</h3> <div class="language-c++ extra-class"><pre class="language-text"><code> //案例：从一组数里找出只出现一次的那个数
+int i1 = 5, i2 = 12, i3 = 12, i4 = 9, i5 = 5;
+cout &lt;&lt; &quot;只出现一次的那个数为：&quot; &lt;&lt; (i1 ^ i2 ^ i3 ^ i4 ^ i5) &lt;&lt; endl;
+</code></pre></div><h3 id="if、三元运算符的应用"><a href="#if、三元运算符的应用" class="header-anchor">#</a> if、三元运算符的应用</h3> <div class="language-c++ extra-class"><pre class="language-text"><code>#include&lt;iostream&gt;
+using namespace std;
+
+int main() {
+    // 输入用户年龄，判断后显示欢迎信息
+    cout &lt;&lt; &quot;请输入您的芳龄：&quot; &lt;&lt; endl;
+    int age;
+    cin &gt;&gt; age;
+    // 单分支和双分支
+    if (age &gt;= 18) {
+        cout &lt;&lt; &quot;欢迎您，成年人！&quot; &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; &quot;本程序不欢迎未成年人！&quot; &lt;&lt; endl;
+    }
+
+    // 使用条件运算符进行实现
+    cout &lt;&lt; (age &gt;= 18 ? &quot;欢迎您，成年人！&quot; : &quot;本程序不欢迎未成年人！&quot;) &lt;&lt; endl;
+}
+</code></pre></div><h3 id="九九乘法表"><a href="#九九乘法表" class="header-anchor">#</a> 九九乘法表</h3> <div class="language-c++ extra-class"><pre class="language-text"><code>// 使用双重for循环输出九九乘法表
+// i表示行号，j表示列行
+for (int i = 1; i &lt;= 9; i++) {
+    for (int j = 1; j &lt;= i; j++) {
+        cout &lt;&lt; j &lt;&lt; &quot;×&quot; &lt;&lt; i &lt;&lt; &quot;=&quot; &lt;&lt; i * j &lt;&lt; &quot; &quot;;
+    }
+    cout &lt;&lt; endl;
+}
+</code></pre></div><h3 id="判断质数"><a href="#判断质数" class="header-anchor">#</a> 判断质数</h3> <p>质数也叫素数，是指一个大于1的自然数，因数只有1和它自身。</p> <div class="language-c++ extra-class"><pre class="language-text"><code>#include&lt;iostream&gt;
+using namespace std;
+
+//  定义一个判断质数的函数，用return返回判断结果
+bool isPrime(int num) {
+    int i = 2;
+    while (i &lt; num) {
+        if (num % i == 0) {
+            return false;
+        }
+        i++;
+        return true;
+    }
+}
+
+void prime() {
+    cout &lt;&lt; &quot;请输入一个自然数（不超过20亿）&quot; &lt;&lt; endl;
+    int num;
+    cin &gt;&gt; num; 
+    //指定一个标志数
+    //根据标志位判断结果
+    if (isPrime(num)) {
+        cout &lt;&lt; num &lt;&lt; &quot;是质数！&quot; &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; num &lt;&lt; &quot;不是质数！&quot; &lt;&lt; endl;
+    }
+
+}			
+</code></pre></div><h3 id="猜数字"><a href="#猜数字" class="header-anchor">#</a> 猜数字</h3> <div class="language-c++ extra-class"><pre class="language-text"><code>#include&lt;iostream&gt;
+using namespace std;
+
+void guess_num() {
+
+    cout &lt;&lt; &quot;===========猜数字游戏===========&quot; &lt;&lt; endl;
+    cout &lt;&lt; &quot;规则：输入0~100的整数，有5次机会\n&quot; &lt;&lt; endl;
+    //猜的次数
+    int n = 0;
+    // 以当前时间为随机数种子，生成一个0~100的伪随机数
+    srand(time(0));
+    int target = rand() % 100;
+
+
+    cout &lt;&lt; &quot;请输入0~100的整数：&quot; &lt;&lt; endl;
+    int number;
+    while (n &lt; 5) {
+
+        cin &gt;&gt; number;
+        if (number == target) {
+            cout &lt;&lt; &quot;恭喜你，猜对了！幸运数字是：&quot; &lt;&lt; target &lt;&lt; endl;
+        }
+        else if (number &lt; target) {
+            cout &lt;&lt; &quot;数字太小了！再猜一遍！&quot; &lt;&lt; endl;
+        }
+        else if (number &gt; target) {
+            cout &lt;&lt; &quot;数字太大了！再猜一遍！&quot; &lt;&lt; endl;
+        }
+        n++;
+    }
+
+    if (n == 5) {
+        cout &lt;&lt; &quot;已经猜过5遍，没有猜中！幸运数字是：&quot; &lt;&lt; target &lt;&lt; &quot;，欢迎下次再来！&quot; &lt;&lt; endl;
+    }
+    //cin.get();
+
+
+}
+</code></pre></div><h3 id="爱心曲线"><a href="#爱心曲线" class="header-anchor">#</a> 爱心曲线</h3> <div class="language-c++ extra-class"><pre class="language-text"><code>#include&lt;iostream&gt;
+using namespace std;
+
+void heart_fun() {
+
+    // 爱心曲线方程 (x^2+y^2-a)^3 - x^2 y^3 = 0
+    int a = 1;
+    // 定义绘图边界
+    double bound = 1.3 * sqrt(a);
+
+    // x、y坐标变化步长
+    double step = 0.05;
+
+    for (double y = bound; y &gt;= -bound; y -= step * 2) {
+        for (double x = -bound; x &lt;= bound; x += step) {
+            double result = pow((pow(x, 2) + pow(y, 2) - a), 3) - pow(x, 2) * pow(y, 3);
+            if (result &lt;= 0)
+                cout &lt;&lt; &quot;*&quot;;
+            else
+                cout &lt;&lt; &quot; &quot;;
+        }
+        cout &lt;&lt; endl;
+    }
+
+
+}
+</code></pre></div><h3 id="选择排序"><a href="#选择排序" class="header-anchor">#</a> 选择排序</h3> <p>从0索引位置元素开始，依次和后面元素进行比较，小的放前面</p> <p>第一轮比较完后，最小值已经确定，第二轮再从索引1位置（第二个元素）开始依次和后面的元素进行比较，以此类推。。。</p> <p><code>arr[i] &lt; arr[j]</code></p> <div class="language-c++ extra-class"><pre class="language-text"><code>#include&lt;iostream&gt;
+using namespace std;
+
+void arrsort() {
+    int arr[] = { 9, 2, 4, 3, 12, 6, 1, 5, 7 };
+
+    // 获取数组长度
+    int size = sizeof(arr) / sizeof(arr[0]);
+
+    //  选择排序
+    for (int i = 0; i &lt; size - 1; i++)
+    {
+        for (int j = i + 1; j &lt; size ; j++)
+        {
+            if (arr[j] &lt; arr[i])
+            {
+                //  如果arr[j]更小，就和arr[i]交换位置
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+    }
+    //  输出
+    for (int num : arr) {
+        cout &lt;&lt; num &lt;&lt; &quot;\t&quot;;
+    }
+
+}
+</code></pre></div><h3 id="冒泡排序"><a href="#冒泡排序" class="header-anchor">#</a> 冒泡排序</h3> <p>从0索引位置元素开始，相邻两个元素依次比较，大的放后面</p> <p>第一轮比较完后，最大值已经确定，第二轮再从0索引位置元素开始，两个两个进行比较，以此类推。。。</p> <p><code>arr[j] &gt; arr[j + 1]</code></p> <div class="language-c++ extra-class"><pre class="language-text"><code>void maopaosort() {
+	int arr[] = { 9, 2, 4, 3, 12, 6, 1, 5, 7 };
+
+	// 获取数组长度
+	int size = sizeof(arr) / sizeof(arr[0]);
+
+	//  冒泡排序
+	for (int i = 0; i &lt; size - 1; i++)
+	{
+		for (int j = 0; j &lt; size - 1 -i; j++)
+		{
+			if (arr[j] &gt; arr[j + 1])
+			{
+				//  如果arr[j]更小，就和arr[i]交换位置
+				int temp = arr[j];
+				arr[j] = arr[j + 1];
+				arr[j + 1] = temp;
+			}
+		}
+	}
+	//  输出
+	for (int num : arr) {
+		cout &lt;&lt; num &lt;&lt; &quot;\t&quot;;
+	}
+}
+</code></pre></div><h3 id="读取文件"><a href="#读取文件" class="header-anchor">#</a> 读取文件</h3> <p>标准库中提供了iostream，可以使用内置的cin对象，调用重载的输入操作符&gt;&gt;来读取键盘输入</p> <div class="language-c++ extra-class"><pre class="language-text"><code>//1、逐词读取
+string str;
+//读取键盘输入，遇到空白符停止
+cin &gt;&gt; str;
+cout &lt;&lt; str;
+//如果我们想读取更多的输入信息，就需要使用更多的string对象来获取
+string str1, str2;
+cin &gt;&gt; str1 &gt;&gt; str2;
+cout &lt;&lt; str1 &lt;&lt; str2 &lt;&lt; endl;
+
+//2、逐行读取
+string str3;
+getline(cin, str3);
+cout &lt;&lt; &quot;str3 = &quot; &lt;&lt; str3 &lt;&lt; endl;
+
+//3、逐字符读取
+char ch;
+ch = cin.get();         // 将捕获到的字符赋值给ch
+cin.get(ch);            // 直接将ch作为参数传给get
+
+// get读取一整行
+char str4[20];
+cin.get(str4, 20);
+cout &lt;&lt; &quot;str4 = &quot; &lt;&lt; str4 &lt;&lt; endl;
+// get读取一个字符
+cin.get();    // 先读取之前留下的回车符
+cin.get();    // 再等待下一次输入
+
+</code></pre></div><p>C++的IO库中提供了专门用于文件输入的ifstream类和用于文件输出的ofstream类，要使用它们需要引入头文件fstream。ifstream用于读取文件内容，跟istream的用法类似；也可以通过输入操作符&gt;&gt;来读“单词”（空格分隔），通过getline函数来读取一行，通过get函数来读取一个字符</p> <div class="language-c++ extra-class"><pre class="language-text"><code>ifstream input(&quot;input.txt&quot;);
+
+// 逐词读取
+string word;
+while (input &gt;&gt; word) 
+    cout &lt;&lt; word &lt;&lt; endl;
+
+// 逐行读取
+string line;
+while (getline(input, line))
+    cout &lt;&lt; line &lt;&lt; endl;
+
+// 逐字符读取
+char ch;
+while (input.get(ch))
+    cout &lt;&lt; ch &lt;&lt; endl;
+//写入文件也可以通过使用输出运算符 &lt;&lt; 来实现
+ofstream output(&quot;output.txt&quot;);
+output &lt;&lt; word &lt;&lt; endl;
+
+</code></pre></div><h3 id="翻转数组"><a href="#翻转数组" class="header-anchor">#</a> 翻转数组</h3> <div class="language-c++ extra-class"><pre class="language-text"><code>#include&lt;iostream&gt;
+using namespace std;
+
+
+void reserve() {
+	const int n = 8;
+	int arr[n] = { 1,2,3,4,5,6,7,8 };
+
+	// 方式一：直接创建一个新数组，遍历元素反向填入
+	int newArr[n];
+	for (int i = 0; i &lt; n; i++) {
+		newArr[n - i - 1] = arr[i];
+	}
+	// 遍历新数组
+	for (int num : newArr) {
+		cout &lt;&lt; num &lt;&lt; &quot;\t&quot;;
+	}
+	cout &lt;&lt; endl;
+
+	// 方式二：双指针分别指向数组头尾，元素对调
+	//定义头指针head，尾指针tail，分别指向第一个元素(arr[0])和最后一个元素(arr[(sizeof arr) - 1])
+	int head = 0, tail = n - 1; 
+	while (head &lt; tail) {
+		// 调换位置
+		int temp = arr[head];
+		arr[head] = arr[tail];
+		arr[tail] = temp;
+
+		// 指针向中间移动
+		++head;
+		--tail;
+	}
+
+	// 遍历原数组
+	for (int num : arr) {
+		cout &lt;&lt; num &lt;&lt; &quot;\t&quot;;
+	}
+
+}
+</code></pre></div><h3 id="检验幻方"><a href="#检验幻方" class="header-anchor">#</a> 检验幻方</h3> <p>“幻方”是数学上一个有趣的问题，它让一组不同的数字构成一个方阵，并且每行、每列、每个对角线的所有数之和相等。比如最简单的三阶幻方，就是把1~9的数字填到九宫格里，要求横看、竖看、斜着看和都是15。</p> <p>口诀：二四为肩，六八为足，左三右七，戴九履一，五居中央。</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">4</span>	<span class="token number">9</span>	<span class="token number">2</span>
+<span class="token number">3</span>	<span class="token number">5</span>	<span class="token number">7</span>
+<span class="token number">8</span>	<span class="token number">1</span>	<span class="token number">6</span>
+</code></pre></div><p>我们可以给定一个n×n的矩阵，也就是二维数组，然后判断它是否是一个幻方</p> <div class="language-c++ extra-class"><pre class="language-text"><code>#include&lt;iostream&gt;
+using namespace std;
+
+void magic() {
+
+	const int n = 3;
+	int arr[n][n] = {
+		{4, 9, 2},
+		{3, 5, 7},
+		{8, 1, 6}
+	};
+	// 目标和
+	int target = (1 + n * n) * n / 2;
+	bool isMagic = true;
+
+	// 检验每一行
+	for (int i = 0; i &lt; n; i++)
+	{
+		int sum = 0;
+		for (int j = 0; j &lt; n; j++)
+		{
+			sum += arr[i][j];
+		}
+		// 如果和不是target，说明不是幻方
+		if (sum != target)
+		{
+			isMagic = false;
+			break;
+		}
+	}
+	// 检验每一列
+	for (int j = 0; j &lt; n; j++)
+	{
+		int sum = 0;
+		for (int i = 0; i &lt; n; i++)
+		{
+			sum += arr[i][j];
+		}
+		if (sum != target)
+		{
+			isMagic = false;
+			break;
+		}
+	}
+	// 检验两个对角线
+	int sumDiag1 = 0;
+	int sumDiag2 = 0;
+	for (int i = 0; i &lt; n; i++)
+	{
+		sumDiag1 += arr[i][i];//左对角线
+		sumDiag2 += arr[i][n - i - 1];//对角线
+	}
+	if (sumDiag1 != target || sumDiag2 != target)
+	{
+		isMagic = false;
+	}
+	// 判断结果
+	cout &lt;&lt; &quot;给定的矩阵arr&quot; &lt;&lt; (isMagic ? &quot;是&quot; : &quot;不是&quot;) &lt;&lt; n &lt;&lt; &quot;阶幻方！&quot; &lt;&lt; endl;
+
+}
+</code></pre></div><h3 id="大整数相加"><a href="#大整数相加" class="header-anchor">#</a> 大整数相加</h3> <p>实际应用中，有时会遇到非常大的整数，可能会超过long、甚至long long的范围。这时就需要用不限长度的字符串保存数据，然后进行计算。</p> <p>最简单的需求就是“大整数相加”，即给定两个字符串形式的非负大整数 num1 和num2 ，计算它们的和。</p> <p>我们可以把字符串按每个字符一一拆开，相当于遍历整数上的每一个数位，然后通过“乘10叠加”的方式，就可以整合起来了。这相当于算术中的“竖式加法”。</p> <div class="language-c++ extra-class"><pre class="language-text"><code>#include&lt;iostream&gt;
+using namespace std;
+
+void bigintAdd() {
+	string num1 = &quot;32535943020935527435432875&quot;;
+	string num2 = &quot;9323298429842985843509&quot;;
+
+	// 用一个空字符串保存结果
+	string result;
+
+	// 获取两数个位的索引
+	int p1 = num1.size() - 1;
+	int p2 = num2.size() - 1;
+
+	// 设置一个进位标志
+	int carry = 0;
+
+	while (p1 &gt;= 0 || p2 &gt;= 0 || carry &gt; 0)	{
+		int x = (p1 &gt;= 0) ? (num1[p1] - '0') : 0;//num1的每一位的值
+		int y = (p2 &gt;= 0) ? (num2[p2] - '0') : 0;//num2的每一位的值
+
+		int sum = x + y + carry;//将两个数的同一位置的数值进行相加
+		result += (sum % 10 + '0');    // 和的个位写入结果
+		carry = sum / 10;              // 和的十位保存在进位上
+
+		// 继续遍历下一位
+		--p1;
+		--p2;
+	}
+
+	// 结果需要做翻转
+	int i = 0, j = result.size() - 1;
+	while (i &lt; j) {
+		char temp = result[j];
+		result[j] = result[i];
+		result[i] = temp;
+
+		++i;
+		--j;
+	}
+
+	cout &lt;&lt; num1 &lt;&lt; &quot; + &quot; &lt;&lt; num2 &lt;&lt; endl &lt;&lt; endl;
+	cout &lt;&lt; &quot; = &quot; &lt;&lt; result;
+
+}
+</code></pre></div><h3 id="旋转图像"><a href="#旋转图像" class="header-anchor">#</a> 旋转图像</h3> <p>我们可以给定一个二维数组，用来表示一个图像，然后将它顺时针旋转90°。</p> <p>根据数学上矩阵的特性，可以把矩阵A先做转置得到AT，然后再翻转每一行就可以了。</p> <div class="language-c++ extra-class"><pre class="language-text"><code>#include&lt;iostream&gt;
+using namespace std;
+
+//旋转图像 顺时针旋转90°
+void roate_image() {
+
+    const int n = 4;
+    int image[n][n] = {
+        { 5, 1, 9, 11},
+        { 2, 4, 8, 10},
+        { 13, 3, 6, 7},
+        { 15, 14, 12, 16}
+    };
+    // 矩阵转置
+    for (int i = 0; i &lt; n; i++)	{
+        for (int j = 0; j &lt;= i; j++){
+            // 以对角线为对称轴，两边互换
+            int tmp = image[i][j];
+            image[i][j] = image[j][i];
+            image[j][i] = tmp;
+        }
+    }
+
+    //每一行翻转
+    for (int i = 0; i &lt; n; i++) {
+        for (int j = 0; j &lt; n/2; j++) {
+            // 以对角线为对称轴，两边互换
+            int tmp = image[i][j];
+            image[i][j] = image[i][n - 1 - j];
+            image[i][n - 1 - j] = tmp;
+        }
+    }
+
+    //打印输出
+    for (int i = 0; i &lt; n; i++) {
+        for (int j = 0; j &lt; n; j++)	{
+            cout &lt;&lt; image[i][j] &lt;&lt; &quot;\t&quot;;
+        }
+        cout &lt;&lt; endl;
+    }
+
+}
+</code></pre></div><h3 id="翻转链表"><a href="#翻转链表" class="header-anchor">#</a> 翻转链表</h3> <p>链表（Linked List）是一种常见的基础数据结构，它是一种线性表，但是并不会像数组那样按顺序存储数据，而是在每一个节点里存指向下一个节点的指针</p> <div class="language- extra-class"><pre class="language-text"><code>head	头结点			  中间节点	。。。	 尾节点
+[]--&gt;	[data|next]--&gt;	[data|next]--&gt;	[data|null] 空指针：表示链表结尾
+</code></pre></div><p>对于数组，可以通过下标访问每个元素；如果想要翻转一个数组，只要不停地把头尾元素互换就可以了。</p> <p>而链表并没有“下标”，所以想要访问元素只能依次遍历；如果要翻转一个链表，关键就在于“next”指针需要反向</p> <p>可以先定义一个结构体类型ListNode，用来表示链表中的每个节点</p> <div class="language-c++ extra-class"><pre class="language-text"><code>#pragma once
+struct ListNode
+{
+	int value;//当前值
+	ListNode* next;//执行下一个节点的指针（下一个节点的地址）
+};
+</code></pre></div><p>将结构体TreeNode的定义放在里面，这样之后如果需要使用它，就可以直接引入，实现链表翻转的过程</p> <div class="language-C++ extra-class"><pre class="language-text"><code>#include&lt;iostream&gt;
+#include &quot;list_node.h&quot;//引入头文件
+using namespace std;
+
+//翻转链表
+void reverse() {
+
+    // 定义一个链表 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL
+    ListNode node5 = { 5, nullptr };
+    ListNode node4 = { 4, &amp;node5 };
+    ListNode node3 = { 3, &amp;node4 };
+    ListNode node2 = { 2, &amp;node3 };
+    ListNode node1 = { 1, &amp;node2 };
+    ListNode* list = &amp;node1;//指向头结点的 指针（头结点的地址）
+
+    //打印链表
+    ListNode* np = list;//指向第一个节点，
+    while (np) {
+        cout &lt;&lt; (*np).value &lt;&lt; &quot;-&gt;&quot;; //取下一个节点的值
+        np = (*np).next;//取下一个节点的指针
+    }
+    cout &lt;&lt; &quot;null&quot; &lt;&lt; endl;
+
+    //定义两个指针，一个指向当前遍历的节点，另一个指向之前的节点(上一个)
+    ListNode* curr = list;
+    ListNode* prev = nullptr;
+
+    //翻转链表
+    while (curr) {
+        //先临时保存指向下一个节点的指针
+        ListNode* temp = (*curr).next;
+        //把当前指针指向上一个节点
+        (*curr).next = prev;//第一次 是把头结点的指针指向空值
+        //两个指针都向前移动
+        prev = curr;//把当前的指针给到之前的指针
+        curr = temp;//把下一个指针给到当前的指针
+    }
+    //翻转后的链表 的头结点
+    ListNode* newList = prev;
+    //打印链表
+    np = newList;//指向第一个节点，
+    while (np) {
+        cout &lt;&lt; (*np).value &lt;&lt; &quot;-&gt;&quot;; //取下一个节点的值
+        np = (*np).next;//取下一个节点的指针
+    }
+    cout &lt;&lt; &quot;null&quot; &lt;&lt; endl;
+
+}
+</code></pre></div><h3 id="二分查找"><a href="#二分查找" class="header-anchor">#</a> 二分查找</h3> <p>核心：每次排除一半的查找范围</p> <p>1、数据必须是有序的（前提）</p> <p>2、查找过程：</p> <ul><li>min和max表示当前要查找的范围</li> <li>mid在min和max中间的</li> <li>如果要查找的元素在mid的左边，在缩小范围的时候，min不变，max等于mid减1</li> <li>如果要查找的元素在mid的右边，在缩小范围的时候，max不变，min等于mid加1</li></ul> <p>以下是递归方式：</p> <div class="language-c++ extra-class"><pre class="language-text"><code>#include&lt;iostream&gt;
+using namespace std;
+
+
+/* 
+ * 定义一个二分查找函数，递归调用
+ * 参数：查找数组、起始位置索引值、结束位置索引值、目标值
+ * 返回目标值所在的索引值（位置）
+ */
+int binarySearch(const int(&amp;arr)[10], int start, int end, int target) {
+	
+	// 基准情况：目标值超出范围，或者start &gt; end，说明没有找到;
+	if (target &lt; arr[start] || target &gt; arr[end] || start &gt; end)
+		return -1;
+
+	// 取二分的中间坐标
+	int mid = (start + end) / 2;
+	// 比较中间值和目标值的大小
+	if (arr[mid] == target)
+		return mid;        // 找到了
+	else if (arr[mid] &gt; target)
+
+		return binarySearch(arr, start, mid - 1, target);    // 比目标值大，在更小的部分找
+	else
+		return binarySearch(arr, mid + 1, end, target);      // 比目标值小，在更大的部分找
+
+}
+
+//结果打印
+void result() {
+	int arr[10] = { 1,2,3,4,5,6,9,12,25,38 };
+
+	int key = 25;
+	int size = sizeof(arr) / sizeof(arr[0]);
+	int result = binarySearch(arr, 0, size - 1, key);
+
+	result == -1
+		? cout &lt;&lt; &quot;在数组中没有找到&quot; &lt;&lt; key &lt;&lt; &quot;!&quot; &lt;&lt; endl
+		: cout &lt;&lt; &quot;在数组中找到&quot; &lt;&lt; key &lt;&lt; &quot;，索引下标为：&quot; &lt;&lt; result &lt;&lt; endl;
+}
+</code></pre></div><h3 id="快速排序"><a href="#快速排序" class="header-anchor">#</a> 快速排序</h3> <p>第一轮：把0索引的数字作为基准数，确定基准数在数组中正确的位置。比基准数小的全部在左边，比基准数大的全部在右边</p> <p>后续递归操作，完成排序</p> <div class="language-c++ extra-class"><pre class="language-text"><code>#include&lt;iostream&gt;
+using namespace std;
+
+//声明函数
+int partition(int(&amp;)[10], int, int);
+void quickSort(int(&amp;)[10], int, int);
+
+void swap(int(&amp;)[10], int, int);
+void printArray(const int(&amp;)[10]);
+
+
+void quickSort(int(&amp;a)[10], int start, int end) {
+
+	// 基准情况
+	if (start &gt;= end)
+		return;
+
+	int mid = partition(a, start, end);
+
+	// 递归调用，分别对两部分继续排序
+	quickSort(a, start, mid - 1);
+	quickSort(a, mid + 1, end);
+}
+
+// 按照支点分区的函数
+int partition(int(&amp;a)[10], int start, int end) {
+	// 选取支点
+	int pivot = a[start];
+
+	// 指定指向数组头尾元素的“指针”
+	int left = start, right = end;
+
+	// 如果左右指针没有相遇，就继续移动
+	while (left &lt; right) {
+		// 左指针不停右移，直到找到一个比支点大的值；右指针不停左移，直到找到一个小的值
+		while (a[left] &lt;= pivot &amp;&amp; left &lt; right)
+			++left;
+		while (a[right] &gt;= pivot &amp;&amp; left &lt; right)
+			--right;
+
+		// 左右互换
+		swap(a, left, right);
+	}
+
+	// 判断指针相遇位置的值，跟支点值的大小关系
+	if (a[left] &lt;= pivot) {
+		// 比支点值小，就直接换到数组的头位置
+		swap(a, start, left);
+		return left;
+	} else if (a[left] &gt; pivot)	{
+		// 比支点值大，就将前一个位置的元素直接换到数组的头位置
+		swap(a, start, left - 1);
+		return left - 1;
+	}
+}
+
+// 交换数组中的两个元素
+void swap(int(&amp;a)[10], int i, int j)
+{
+	int temp = a[i];
+	a[i] = a[j];
+	a[j] = temp;
+}
+
+// 打印输出数组
+void printArray(const int(&amp;a)[10]) {
+	for (int num : a)
+		cout &lt;&lt; num &lt;&lt; &quot;\t&quot;;
+
+	cout &lt;&lt; endl;
+}
+
+void quickSortResult() {
+	int arr[10] = { 23, 45, 18, 6, 11, 19, 22, 18, 12, 9 };
+
+	printArray(arr);
+
+	int size = sizeof(arr) / sizeof(arr[0]);
+	quickSort(arr, 0, size - 1);
+
+	printArray(arr);
+
+}
+</code></pre></div><h3 id="遍历二叉树"><a href="#遍历二叉树" class="header-anchor">#</a> 遍历二叉树</h3> <p>跟数组不同，树是一种非线性的数据结构，是由n（n &gt;=0）个节点组成的有限集合。如果n==0，树为空树。如果n&gt;0，树有一个特定的节点，叫做根节点（root）。</p> <p>对于树这种数据结构，使用最频繁的是二叉树。每个节点最多只有2个子节点的树，叫做二叉树。二叉树中，每个节点的子节点作为根的两个子树，一般叫做节点的左子树和右子树。</p> <p>自定义一个头文件tree_node.h，将结构体TreeNode的定义放在里面：</p> <div class="language-c++ extra-class"><pre class="language-text"><code>#pragma once
+#include&lt;string&gt;
+using namespace std;
+
+struct TreeNode
+{
+	string name;
+	TreeNode* left;
+	TreeNode* right;
+};
+
+void printTreePreOrder(TreeNode* root);
+void printTreeInOrder(TreeNode* root);
+void printTreePostOrder(TreeNode* root);
+
+</code></pre></div><p>对于树的遍历，主要有这样三种方式：</p> <ul><li>先序遍历：先访问根节点，再访问左子树，最后访问右子树；（根、左、右）</li> <li>中序遍历：先访问左子树，再访问根节点，最后访问右子树；（左、根、右）</li> <li>后序遍历：先访问左子树，再访问右子树，最后访问根节点。（左、右、根）</li></ul> <p>这种遍历方式就隐含了“递归”的思路：左右子树本身又是一棵树，同样需要按照对应的规则来遍历。</p> <p>实现二叉树的遍历方法</p> <div class="language-c++ extra-class"><pre class="language-text"><code>#include&lt;iostream&gt;
+#include &quot;tree_node.h&quot;
+
+// 先序遍历打印二叉树
+void printTreePreOrder(TreeNode* root)
+{
+	// 基准情况，如果是空树，直接返回
+	if (root == nullptr)    return;
+
+	//cout &lt;&lt; (*root).name &lt;&lt; &quot;\t&quot;;
+	cout &lt;&lt; root-&gt;name &lt;&lt; &quot;\t&quot;;
+
+	// 递归打印左右子树
+	printTreePreOrder(root-&gt;left);
+	printTreePreOrder(root-&gt;right);
+}
+
+// 中序遍历打印二叉树
+void printTreeInOrder(TreeNode* root)
+{
+	// 基准情况，如果是空树，直接返回
+	if (root == nullptr)    return;
+
+	printTreeInOrder(root-&gt;left);
+	cout &lt;&lt; root-&gt;name &lt;&lt; &quot;\t&quot;;
+	printTreeInOrder(root-&gt;right);
+}
+
+// 后序遍历打印二叉树
+void printTreePostOrder(TreeNode* root)
+{
+	// 基准情况，如果是空树，直接返回
+	if (root == nullptr)    return;
+
+	printTreePostOrder(root-&gt;left);
+	printTreePostOrder(root-&gt;right);
+	cout &lt;&lt; root-&gt;name &lt;&lt; &quot;\t&quot;;
+}
+
+</code></pre></div><p>举例定义二叉树调用方法进行遍历</p> <p><img src="https://gitee.com/tjlxy/img/raw/master/image-20231227183710981.png" alt="image-20231227183710981"></p> <div class="language-c++ extra-class"><pre class="language-text"><code>#include&lt;iostream&gt;
+#include &quot;tree_node.h&quot;
+
+int main()
+{
+	// 定义一棵二叉树
+	TreeNode nodeG = {&quot;G&quot;, nullptr, nullptr};
+	TreeNode nodeF = { &quot;F&quot;, nullptr, nullptr };
+	TreeNode nodeE = { &quot;E&quot;, &amp;nodeG, nullptr };
+	TreeNode nodeD = { &quot;D&quot;, nullptr, nullptr };
+	TreeNode nodeC = { &quot;C&quot;, nullptr, &amp;nodeF};
+	TreeNode nodeB = { &quot;B&quot;, &amp;nodeD, &amp;nodeE };
+	TreeNode nodeA = { &quot;A&quot;, &amp;nodeB, &amp;nodeC };
+
+	TreeNode* tree = &amp;nodeA;
+
+	printTreePreOrder(tree);
+
+	cout &lt;&lt; endl &lt;&lt; endl;
+
+	printTreeInOrder(tree);
+
+	cout &lt;&lt; endl &lt;&lt; endl;
+
+	printTreePostOrder(tree);
+
+	cin.get();
+}
+
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div> <div class="footer" data-v-34d4abe6><div id="footer-info" data-v-34d4abe6><div class="footer-left" data-v-34d4abe6>
+      © 2023-2024
+      <span data-v-34d4abe6><a href="https://github.com/25122lxy/" target="_blank">lxy25122</a></span></div> <div class="footer-right" data-v-34d4abe6>Theme:<a href="https://github.com/JoeyBling/vuepress-theme-yilia-plus" target="_blank">vuepress-theme-yilia-plus</a> by Litten</div></div> <!----></div></main><div class="global-ui"><div id="live2d-widget" class="live2d-widget-container" style="position:fixed;right:65px;bottom:0px;width:135px;height:300px;z-index:99999;opacity:0.8;pointer-events:none;"><canvas id="live2d_canvas" width="135" height="300" class="live2d_canvas" style="position:absolute;left:0px;top:0px;width:135px;height:300px;"></canvas></div><canvas id="vuepress-canvas-cursor"></canvas></div></div>
+    <script src="/learn-ceiling/assets/js/app.235538a9.js" defer></script><script src="/learn-ceiling/assets/js/2.c7d2b1f7.js" defer></script><script src="/learn-ceiling/assets/js/24.6a258cf5.js" defer></script>
+  </body>
+</html>

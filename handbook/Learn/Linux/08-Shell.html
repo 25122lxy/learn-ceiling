@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Shell | Code Diary</title>
+    <meta name="generator" content="VuePress 1.9.9">
+    <link rel="icon" href="/learn-ceiling/hand.jpg">
+    <meta name="description" content="技术笔记、编程心得分享">
+    <meta name="referrer" content="no-referrer">
+    
+    <link rel="preload" href="/learn-ceiling/assets/css/0.styles.df47c79f.css" as="style"><link rel="preload" href="/learn-ceiling/assets/js/app.235538a9.js" as="script"><link rel="preload" href="/learn-ceiling/assets/js/2.c7d2b1f7.js" as="script"><link rel="preload" href="/learn-ceiling/assets/js/34.ea24ea8b.js" as="script"><link rel="prefetch" href="/learn-ceiling/assets/js/10.c4c4f495.js"><link rel="prefetch" href="/learn-ceiling/assets/js/11.06c1692d.js"><link rel="prefetch" href="/learn-ceiling/assets/js/12.e70990f1.js"><link rel="prefetch" href="/learn-ceiling/assets/js/13.5ea6f405.js"><link rel="prefetch" href="/learn-ceiling/assets/js/14.5ce76ccb.js"><link rel="prefetch" href="/learn-ceiling/assets/js/15.b5c61832.js"><link rel="prefetch" href="/learn-ceiling/assets/js/16.6e4e0759.js"><link rel="prefetch" href="/learn-ceiling/assets/js/17.b6f52e7f.js"><link rel="prefetch" href="/learn-ceiling/assets/js/18.155f2caf.js"><link rel="prefetch" href="/learn-ceiling/assets/js/19.ea21c3cf.js"><link rel="prefetch" href="/learn-ceiling/assets/js/20.33c43e06.js"><link rel="prefetch" href="/learn-ceiling/assets/js/21.f4e6e20a.js"><link rel="prefetch" href="/learn-ceiling/assets/js/22.485d0a07.js"><link rel="prefetch" href="/learn-ceiling/assets/js/23.fb805a45.js"><link rel="prefetch" href="/learn-ceiling/assets/js/24.6a258cf5.js"><link rel="prefetch" href="/learn-ceiling/assets/js/25.c4c4023d.js"><link rel="prefetch" href="/learn-ceiling/assets/js/26.d92cf884.js"><link rel="prefetch" href="/learn-ceiling/assets/js/27.5d88d619.js"><link rel="prefetch" href="/learn-ceiling/assets/js/28.a0b76e62.js"><link rel="prefetch" href="/learn-ceiling/assets/js/29.3f0426da.js"><link rel="prefetch" href="/learn-ceiling/assets/js/3.d1fbc4fe.js"><link rel="prefetch" href="/learn-ceiling/assets/js/30.7adccd2c.js"><link rel="prefetch" href="/learn-ceiling/assets/js/31.7d0b9a7f.js"><link rel="prefetch" href="/learn-ceiling/assets/js/32.6970bcc0.js"><link rel="prefetch" href="/learn-ceiling/assets/js/33.eeb35d50.js"><link rel="prefetch" href="/learn-ceiling/assets/js/35.c40a585a.js"><link rel="prefetch" href="/learn-ceiling/assets/js/36.79790a12.js"><link rel="prefetch" href="/learn-ceiling/assets/js/37.a847b8a1.js"><link rel="prefetch" href="/learn-ceiling/assets/js/38.9a6ab34d.js"><link rel="prefetch" href="/learn-ceiling/assets/js/39.bf0bc1a7.js"><link rel="prefetch" href="/learn-ceiling/assets/js/4.b6acf418.js"><link rel="prefetch" href="/learn-ceiling/assets/js/40.2e93acfd.js"><link rel="prefetch" href="/learn-ceiling/assets/js/41.bcc213e5.js"><link rel="prefetch" href="/learn-ceiling/assets/js/42.558394fc.js"><link rel="prefetch" href="/learn-ceiling/assets/js/43.cd846378.js"><link rel="prefetch" href="/learn-ceiling/assets/js/44.afcb9063.js"><link rel="prefetch" href="/learn-ceiling/assets/js/45.526cdab6.js"><link rel="prefetch" href="/learn-ceiling/assets/js/46.3bbeeda3.js"><link rel="prefetch" href="/learn-ceiling/assets/js/47.dba7847e.js"><link rel="prefetch" href="/learn-ceiling/assets/js/48.29379048.js"><link rel="prefetch" href="/learn-ceiling/assets/js/49.f526a58a.js"><link rel="prefetch" href="/learn-ceiling/assets/js/5.3747e8f8.js"><link rel="prefetch" href="/learn-ceiling/assets/js/50.2be0a3da.js"><link rel="prefetch" href="/learn-ceiling/assets/js/51.46ccf051.js"><link rel="prefetch" href="/learn-ceiling/assets/js/52.9bcd0722.js"><link rel="prefetch" href="/learn-ceiling/assets/js/53.06fef668.js"><link rel="prefetch" href="/learn-ceiling/assets/js/54.534da4f1.js"><link rel="prefetch" href="/learn-ceiling/assets/js/55.22f59a2a.js"><link rel="prefetch" href="/learn-ceiling/assets/js/56.5b1e2aa6.js"><link rel="prefetch" href="/learn-ceiling/assets/js/57.daacfc08.js"><link rel="prefetch" href="/learn-ceiling/assets/js/58.cb240494.js"><link rel="prefetch" href="/learn-ceiling/assets/js/59.f0cab42c.js"><link rel="prefetch" href="/learn-ceiling/assets/js/6.3688e4ed.js"><link rel="prefetch" href="/learn-ceiling/assets/js/60.74872728.js"><link rel="prefetch" href="/learn-ceiling/assets/js/61.a7a19f44.js"><link rel="prefetch" href="/learn-ceiling/assets/js/62.bda341fd.js"><link rel="prefetch" href="/learn-ceiling/assets/js/63.39847a02.js"><link rel="prefetch" href="/learn-ceiling/assets/js/64.8ac906c5.js"><link rel="prefetch" href="/learn-ceiling/assets/js/7.dddd7af2.js"><link rel="prefetch" href="/learn-ceiling/assets/js/8.4b31d8be.js"><link rel="prefetch" href="/learn-ceiling/assets/js/9.9a27c3e2.js">
+    <link rel="stylesheet" href="/learn-ceiling/assets/css/0.styles.df47c79f.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><main><main slot="sidebar-top"><a href="https://github.com/25122lxy/" aria-label="View source on GitHub" target="_blank" class="github-corner"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path> <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" class="octo-arm" style="transform-origin: 130px 106px;"></path> <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a></main> <div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/learn-ceiling/" class="home-link router-link-active"><!----> <span class="site-name">Code Diary</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/learn-ceiling/" class="nav-link">
+  Index
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Learn" class="dropdown-title"><span class="title">Learn</span> <span class="arrow down"></span></button> <button type="button" aria-label="Learn" class="mobile-dropdown-title"><span class="title">Learn</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/Microservice/01-初识微服务.html" class="nav-link">
+  Microservice
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/RabbitMQ/1.RabbitMQ-简介及安装.html" class="nav-link">
+  RabbitMQ
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/Redis/0-Redis-Basic.html" class="nav-link">
+  Redis
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/SQL/SQL案例.html" class="nav-link">
+  MySQL
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/前端快速入门/01-HTML-CSS.html" class="nav-link">
+  前端快速入门
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/Linux/01-Linux入门.html" class="nav-link">
+  Linux
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Project" class="dropdown-title"><span class="title">Project</span> <span class="arrow down"></span></button> <button type="button" aria-label="Project" class="mobile-dropdown-title"><span class="title">Project</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/RabbitMQ/1.RabbitMQ-简介及安装.html" class="nav-link">
+  社区精品汇
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Interview" class="dropdown-title"><span class="title">Interview</span> <span class="arrow down"></span></button> <button type="button" aria-label="Interview" class="mobile-dropdown-title"><span class="title">Interview</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/00-查漏补缺.html" class="nav-link">
+  查漏补缺
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/01-Java基础.html" class="nav-link">
+  Java基础
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/02-Redis.html" class="nav-link">
+  Redis
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/03-MySQL.html" class="nav-link">
+  MySQL
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/04-Java框架.html" class="nav-link">
+  Java框架
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/05-微服务.html" class="nav-link">
+  微服务
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/06-消息中间件.html" class="nav-link">
+  消息中间件
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/07-Java集合.html" class="nav-link">
+  Java集合
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/08-Java并发.html" class="nav-link">
+  Java并发
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/09-JVM.html" class="nav-link">
+  JVM
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/10-Linux.html" class="nav-link">
+  Linux
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/11-Hadoop.html" class="nav-link">
+  Hadoop
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/12-Hive.html" class="nav-link">
+  Hive
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/13-Spark.html" class="nav-link">
+  Spark
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/16-数据采集工具.html" class="nav-link">
+  数据采集工具
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="lxy25122-blog" class="dropdown-title"><span class="title">lxy25122-blog</span> <span class="arrow down"></span></button> <button type="button" aria-label="lxy25122-blog" class="mobile-dropdown-title"><span class="title">lxy25122-blog</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://github.com/lxy25122" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://gitee.com/tjlxy" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Gitee
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/learn-ceiling/" class="nav-link">
+  Index
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Learn" class="dropdown-title"><span class="title">Learn</span> <span class="arrow down"></span></button> <button type="button" aria-label="Learn" class="mobile-dropdown-title"><span class="title">Learn</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/Microservice/01-初识微服务.html" class="nav-link">
+  Microservice
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/RabbitMQ/1.RabbitMQ-简介及安装.html" class="nav-link">
+  RabbitMQ
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/Redis/0-Redis-Basic.html" class="nav-link">
+  Redis
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/SQL/SQL案例.html" class="nav-link">
+  MySQL
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/前端快速入门/01-HTML-CSS.html" class="nav-link">
+  前端快速入门
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/Linux/01-Linux入门.html" class="nav-link">
+  Linux
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Project" class="dropdown-title"><span class="title">Project</span> <span class="arrow down"></span></button> <button type="button" aria-label="Project" class="mobile-dropdown-title"><span class="title">Project</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Learn/RabbitMQ/1.RabbitMQ-简介及安装.html" class="nav-link">
+  社区精品汇
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Interview" class="dropdown-title"><span class="title">Interview</span> <span class="arrow down"></span></button> <button type="button" aria-label="Interview" class="mobile-dropdown-title"><span class="title">Interview</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/00-查漏补缺.html" class="nav-link">
+  查漏补缺
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/01-Java基础.html" class="nav-link">
+  Java基础
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/02-Redis.html" class="nav-link">
+  Redis
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/03-MySQL.html" class="nav-link">
+  MySQL
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/04-Java框架.html" class="nav-link">
+  Java框架
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/05-微服务.html" class="nav-link">
+  微服务
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/06-消息中间件.html" class="nav-link">
+  消息中间件
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/07-Java集合.html" class="nav-link">
+  Java集合
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/08-Java并发.html" class="nav-link">
+  Java并发
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/09-JVM.html" class="nav-link">
+  JVM
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/10-Linux.html" class="nav-link">
+  Linux
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/11-Hadoop.html" class="nav-link">
+  Hadoop
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/12-Hive.html" class="nav-link">
+  Hive
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/13-Spark.html" class="nav-link">
+  Spark
+</a></li><li class="dropdown-item"><!----> <a href="/learn-ceiling/handbook/Interview/16-数据采集工具.html" class="nav-link">
+  数据采集工具
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="lxy25122-blog" class="dropdown-title"><span class="title">lxy25122-blog</span> <span class="arrow down"></span></button> <button type="button" aria-label="lxy25122-blog" class="mobile-dropdown-title"><span class="title">lxy25122-blog</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://github.com/lxy25122" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://gitee.com/tjlxy" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Gitee
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/learn-ceiling/" aria-current="page" class="sidebar-link">学前必读</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>Learn</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading"><span>Microservice</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading"><span>RabbitMQ</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading"><span>Redis</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading"><span>SQL</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading"><span>前端快速入门</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading open"><span>Linux</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/learn-ceiling/handbook/Learn/Linux/01-Linux入门.html" class="sidebar-link">01-Linux入门</a></li><li><a href="/learn-ceiling/handbook/Learn/Linux/02-VI、VIM 编辑器-√.html" class="sidebar-link">02-VI、VIM 编辑器-√</a></li><li><a href="/learn-ceiling/handbook/Learn/Linux/03-网络配置-√.html" class="sidebar-link">03-网络配置-√</a></li><li><a href="/learn-ceiling/handbook/Learn/Linux/04-系统管理.html" class="sidebar-link">04-系统管理</a></li><li><a href="/learn-ceiling/handbook/Learn/Linux/05-常用基本命令-√.html" class="sidebar-link">05-常用基本命令-√</a></li><li><a href="/learn-ceiling/handbook/Learn/Linux/06-软件包管理.html" class="sidebar-link">06-软件包管理</a></li><li><a href="/learn-ceiling/handbook/Learn/Linux/07-克隆虚拟机.html" class="sidebar-link">07-克隆虚拟机</a></li><li><a href="/learn-ceiling/handbook/Learn/Linux/08-Shell.html" aria-current="page" class="active sidebar-link">08-Shell</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/Linux/08-Shell.html#_1-shell入门" class="sidebar-link">1. Shell入门</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/Linux/08-Shell.html#_1-1-概述" class="sidebar-link">1.1 概述</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/Linux/08-Shell.html#_1-2-shell脚本" class="sidebar-link">1.2 Shell脚本</a></li></ul></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/Linux/08-Shell.html#_2-变量" class="sidebar-link">2. 变量</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/Linux/08-Shell.html#_2-1-系统预定义变量" class="sidebar-link">2.1 系统预定义变量</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/Linux/08-Shell.html#_2-2-自定义变量" class="sidebar-link">2.2 自定义变量</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/Linux/08-Shell.html#_2-3-特殊变量" class="sidebar-link">2.3 特殊变量</a></li></ul></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/Linux/08-Shell.html#_3-运算符" class="sidebar-link">3. 运算符</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/Linux/08-Shell.html#_4-条件判断" class="sidebar-link">4. 条件判断</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/Linux/08-Shell.html#_5-流程控制-重点" class="sidebar-link">5. 流程控制（重点）</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/Linux/08-Shell.html#_5-1-if判断" class="sidebar-link">5.1 if判断</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/Linux/08-Shell.html#_5-2-case语句" class="sidebar-link">5.2 case语句</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/Linux/08-Shell.html#_5-3-for循环" class="sidebar-link">5.3 for循环</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/Linux/08-Shell.html#_5-4-while循环" class="sidebar-link">5.4 while循环</a></li></ul></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/Linux/08-Shell.html#_6-read读取控制台输入" class="sidebar-link">6. read读取控制台输入</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/Linux/08-Shell.html#_7-函数" class="sidebar-link">7. 函数</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/Linux/08-Shell.html#_7-1-系统函数" class="sidebar-link">7.1 系统函数</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/Linux/08-Shell.html#_7-2-自定义函数" class="sidebar-link">7.2 自定义函数</a></li></ul></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/Linux/08-Shell.html#_8-正则表达式入门" class="sidebar-link">8. 正则表达式入门</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/Linux/08-Shell.html#_8-1-常规匹配" class="sidebar-link">8.1 常规匹配</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/Linux/08-Shell.html#_8-2-特殊类型字符" class="sidebar-link">8.2 特殊类型字符</a></li></ul></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/Linux/08-Shell.html#_9-文本处理工具" class="sidebar-link">9. 文本处理工具</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/Linux/08-Shell.html#_9-1-cut" class="sidebar-link">9.1 cut</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/Linux/08-Shell.html#_9-2-awk" class="sidebar-link">9.2 awk</a></li></ul></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/Linux/08-Shell.html#_10-综合应用案例" class="sidebar-link">10. 综合应用案例</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/Linux/08-Shell.html#_10-1-归档文件" class="sidebar-link">10.1 归档文件</a></li><li class="sidebar-sub-header"><a href="/learn-ceiling/handbook/Learn/Linux/08-Shell.html#_10-2-发送消息" class="sidebar-link">10.2 发送消息</a></li></ul></li></ul></li></ul></section></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Project</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Interview</span> <span class="arrow right"></span></p> <!----></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="shell"><a href="#shell" class="header-anchor">#</a> Shell</h1> <h2 id="_1-shell入门"><a href="#_1-shell入门" class="header-anchor">#</a> 1. Shell入门</h2> <h3 id="_1-1-概述"><a href="#_1-1-概述" class="header-anchor">#</a> 1.1 概述</h3> <p>Shell是一个<strong>命令行解释器</strong>，它接受应用程序/用户命令，然后调用操作系统内核</p> <p>Shell还是一个功能相当强大的编程语言</p> <p>1）Linux 提供的 Shell 解析器有</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token punctuation">[</span>lxy25122@centos7 ~<span class="token punctuation">]</span>$ <span class="token function">cat</span> /etc/shells
+/bin/sh
+/bin/bash
+/usr/bin/sh
+/usr/bin/bash
+</code></pre></div><p>2）bash 和 sh 的关系</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token punctuation">[</span>lxy25122@centos7 ~<span class="token punctuation">]</span>$ ll /bin/ <span class="token operator">|</span> <span class="token function">grep</span> <span class="token function">bash</span>
+-rwxr-xr-x. <span class="token number">1</span> root root     <span class="token number">964536</span> <span class="token number">4</span>月   <span class="token number">1</span> <span class="token number">2020</span> <span class="token function">bash</span>
+lrwxrwxrwx. <span class="token number">1</span> root root          <span class="token number">4</span> <span class="token number">10</span>月 <span class="token number">31</span> <span class="token number">2022</span> <span class="token function">sh</span> -<span class="token operator">&gt;</span> <span class="token function">bash</span>
+<span class="token punctuation">..</span>.
+</code></pre></div><p>3）Centos 默认的解析器是 bash</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token punctuation">[</span>lxy25122@centos7 ~<span class="token punctuation">]</span>$ <span class="token builtin class-name">echo</span> <span class="token environment constant">$SHELL</span>
+/bin/bash
+</code></pre></div><h3 id="_1-2-shell脚本"><a href="#_1-2-shell脚本" class="header-anchor">#</a> 1.2 Shell脚本</h3> <p>脚本格式：脚本以<code>#!/bin/bash</code> 开头（指定解析器）</p> <p>eg：创建一个 Shell 脚本，输出 helloworld</p> <ul><li><p><code>vim helloworld.sh</code></p></li> <li><p>在 helloworld.sh 中输入如下内容</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token shebang important">#!/bin/bash </span>
+<span class="token builtin class-name">echo</span> <span class="token string">&quot;helloworld&quot;</span>
+</code></pre></div></li> <li><p>执行方式</p> <ul><li><p>1、采用 bash 或 sh+脚本的相对路径或绝对路径（不用赋予脚本+x 权限）</p></li> <li><p>2、采用输入脚本的绝对路径或相对路径执行脚本（<strong>必须具有可执行权限+x</strong>）</p> <p>注意：第一种执行方法，本质是 bash 解析器帮你执行脚本，所以脚本本身不需要执行权限。第二种执行方法，本质是脚本需要自己执行，所以需要执行权限。</p></li> <li><p>3、在脚本的路径前加上“.”或者 source</p></li></ul> <p><strong>注意</strong>：前两种方式都是在当前 shell 中打开一个子 shell 来执行脚本内容，当脚本内容结束，则子 shell 关闭，回到父 shell 中。</p> <p>第三种，也就是使用在脚本路径前加“.”或者 source 的方式，可以使脚本内容在当前shell 里执行，而无需打开子 shell！这也是为什么我们每次要修改完/etc/profile 文件以后，需要 source 一下的原因。</p> <p>开子 shell 与不开子 shell 的区别就在于，环境变量的继承关系，如在子shell 中设置的当前变量，父 shell 是不可见的。</p></li></ul> <h2 id="_2-变量"><a href="#_2-变量" class="header-anchor">#</a> 2. 变量</h2> <h3 id="_2-1-系统预定义变量"><a href="#_2-1-系统预定义变量" class="header-anchor">#</a> 2.1 系统预定义变量</h3> <p>1）常用系统变量</p> <p>$HOME、$PWD、$SHELL、$USER 等</p> <p>eg：</p> <ul><li><p>查看系统变量的值</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token punctuation">[</span>lxy25122@centos7 ~<span class="token punctuation">]</span>$ <span class="token builtin class-name">echo</span> <span class="token environment constant">$SHELL</span>
+/bin/bash
+<span class="token punctuation">[</span>lxy25122@centos7 ~<span class="token punctuation">]</span>$ <span class="token builtin class-name">echo</span> <span class="token environment constant">$HOME</span>
+/home/lxy25122
+<span class="token punctuation">[</span>lxy25122@centos7 ~<span class="token punctuation">]</span>$ <span class="token builtin class-name">echo</span> <span class="token environment constant">$PWD</span>
+/home/lxy25122
+<span class="token punctuation">[</span>lxy25122@centos7 ~<span class="token punctuation">]</span>$ <span class="token builtin class-name">echo</span> <span class="token environment constant">$USER</span>
+lxy25122
+</code></pre></div></li> <li><p>显示当前 Shell 中所有变量：set</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token punctuation">[</span>lxy25122@centos7 ~<span class="token punctuation">]</span>$ <span class="token builtin class-name">set</span> <span class="token operator">|</span> <span class="token function">head</span> <span class="token parameter variable">-10</span>
+<span class="token assign-left variable"><span class="token environment constant">BASH</span></span><span class="token operator">=</span>/bin/bash
+<span class="token assign-left variable"><span class="token environment constant">BASHOPTS</span></span><span class="token operator">=</span>checkwinsize:cmdhist:expand_aliases:extquote:force_fignore:histappend:hostcomplete:interactive_comments:login_shell:progcomp:promptvars:sourcepath
+<span class="token assign-left variable"><span class="token environment constant">BASH_ALIASES</span></span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token assign-left variable"><span class="token environment constant">BASH_ARGC</span></span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token assign-left variable"><span class="token environment constant">BASH_ARGV</span></span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token assign-left variable"><span class="token environment constant">BASH_CMDS</span></span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token assign-left variable"><span class="token environment constant">BASH_LINENO</span></span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token assign-left variable"><span class="token environment constant">BASH_SOURCE</span></span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token assign-left variable"><span class="token environment constant">BASH_VERSINFO</span></span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token string">&quot;4&quot;</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token string">&quot;2&quot;</span> <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token string">&quot;46&quot;</span> <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token string">&quot;2&quot;</span> <span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token string">&quot;release&quot;</span> <span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token string">&quot;x86_64-redhat-linux-gnu&quot;</span><span class="token punctuation">)</span>
+<span class="token assign-left variable"><span class="token environment constant">BASH_VERSION</span></span><span class="token operator">=</span><span class="token string">'4.2.46(2)-release'</span>
+</code></pre></div></li></ul> <h3 id="_2-2-自定义变量"><a href="#_2-2-自定义变量" class="header-anchor">#</a> 2.2 自定义变量</h3> <p>基本语法：</p> <p>（1）定义变量：变量名=变量值，<strong>注意，=号前后不能有空格</strong></p> <p>（2）撤销变量：unset 变量名</p> <p>（3）声明静态变量：readonly 变量，注意：不能 unset</p> <p>变量定义规则：</p> <p>（1）变量名称可以由字母、数字和下划线组成，但是不能以数字开头，<strong>环境变量名建议大写</strong>。</p> <p>（2）等号两侧不能有空格</p> <p>（3）在 bash 中，变量默认类型都是字符串类型，无法直接进行数值运算。</p> <p>（4）变量的值如果有空格，需要使用双引号或单引号括起来。</p> <p>eg：</p> <p>（1）定义变量 A<code>A=5</code></p> <p>（2）给变量 A 重新赋值<code>A=8</code></p> <p>（3）撤销变量 A<code>unset A</code></p> <p>（4）声明静态的变量 B=2，不能 unset<code>readonly B=2</code></p> <p>（5）在 bash 中，变量默认类型都是字符串类型，无法直接进行数值运算</p> <p>（6）变量的值如果有空格，需要使用双引号或单引号括起来<code>D=&quot;I love xiaoli&quot;</code></p> <p>（7）可把变量提升为全局环境变量，可供其他 Shell 程序使用<code>export 变量名</code></p> <h3 id="_2-3-特殊变量"><a href="#_2-3-特殊变量" class="header-anchor">#</a> 2.3 特殊变量</h3> <h4 id="_2-3-1-n"><a href="#_2-3-1-n" class="header-anchor">#</a> 2.3.1 $n</h4> <p>基本语法：</p> <p>$n （功能描述：n 为数字，$0 代表该脚本名称，$1-$9 代表第一到第九个参数，十以上的参数，十以上的参数需要用大括号包含，如${10}）</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token punctuation">[</span>lxy25122@centos7 scripts<span class="token punctuation">]</span>$ <span class="token function">cat</span> test.sh
+<span class="token comment">#!/bin/bash</span>
+<span class="token builtin class-name">echo</span> <span class="token string">&quot;<span class="token variable">$0</span>&quot;</span>
+<span class="token builtin class-name">echo</span> <span class="token string">&quot;<span class="token variable">$1</span>&quot;</span>
+<span class="token punctuation">[</span>lxy25122@centos7 scripts<span class="token punctuation">]</span>$ <span class="token function">sh</span> test.sh <span class="token number">1</span> <span class="token number">2</span>
+test.sh
+<span class="token number">1</span>
+</code></pre></div><h4 id="_2-3-2"><a href="#_2-3-2" class="header-anchor">#</a> 2.3.2 $#</h4> <p>基本语法：$# （功能描述：获取所有输入<strong>参数个数</strong>，常用于循环,判断参数的个数是否正确以及加强脚本的健壮性）。</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token punctuation">[</span>lxy25122@centos7 shells<span class="token punctuation">]</span>$ <span class="token function">vim</span> parameter.sh
+<span class="token comment">#!/bin/bash</span>
+<span class="token builtin class-name">echo</span> <span class="token string">'==========$n=========='</span>
+<span class="token builtin class-name">echo</span> <span class="token variable">$0</span>
+<span class="token builtin class-name">echo</span> <span class="token variable">$1</span>
+<span class="token builtin class-name">echo</span> <span class="token variable">$2</span>
+<span class="token builtin class-name">echo</span> <span class="token string">'==========$#=========='</span>
+<span class="token builtin class-name">echo</span> <span class="token variable">$#</span>
+<span class="token punctuation">[</span>lxy25122@centos7 shells<span class="token punctuation">]</span>$ <span class="token function">chmod</span> <span class="token number">777</span> parameter.sh
+<span class="token punctuation">[</span>lxy25122@centos7 shells<span class="token punctuation">]</span>$ ./parameter.sh cls xz
+<span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token variable">$n</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span>
+./parameter.sh
+cls
+<span class="token punctuation">[</span>lxy25122@centos7 shells<span class="token punctuation">]</span>$ <span class="token function">vim</span> parameter.sh
+<span class="token comment">#!/bin/bash</span>
+<span class="token builtin class-name">echo</span> <span class="token string">'==========$n=========='</span>
+<span class="token builtin class-name">echo</span> <span class="token variable">$0</span>
+<span class="token builtin class-name">echo</span> <span class="token variable">$1</span>
+<span class="token builtin class-name">echo</span> <span class="token variable">$2</span>
+<span class="token builtin class-name">echo</span> <span class="token string">'==========$#=========='</span>
+<span class="token builtin class-name">echo</span> <span class="token variable">$#</span>
+<span class="token punctuation">[</span>lxy25122@centos7 shells<span class="token punctuation">]</span>$ <span class="token function">chmod</span> <span class="token number">777</span> parameter.sh
+<span class="token punctuation">[</span>lxy25122@centos7 shells<span class="token punctuation">]</span>$ ./parameter.sh cls xz
+<span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token variable">$n</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span>
+./parameter.sh
+cls
+xz
+<span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token variable">$#</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span>
+<span class="token number">2</span>
+</code></pre></div><h4 id="_2-3-3-、"><a href="#_2-3-3-、" class="header-anchor">#</a> 2.3.3 $*、$@</h4> <p>基本语法：</p> <ul><li>$* （功能描述：这个变量代表命令行中所有的参数，$*把所有的参数看成一个整体）</li> <li>$@ （功能描述：这个变量也代表命令行中所有的参数，不过$@把每个参数区分对待）</li></ul> <p>eg：</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token punctuation">[</span>lxy25122@centos7 shells<span class="token punctuation">]</span>$ <span class="token function">vim</span> parameter.sh
+<span class="token comment">#!/bin/bash</span>
+<span class="token builtin class-name">echo</span> <span class="token string">'==========$n=========='</span>
+<span class="token builtin class-name">echo</span> <span class="token variable">$0</span>
+<span class="token builtin class-name">echo</span> <span class="token variable">$1</span>
+<span class="token builtin class-name">echo</span> <span class="token variable">$2</span>
+<span class="token builtin class-name">echo</span> <span class="token string">'==========$#=========='</span>
+<span class="token builtin class-name">echo</span> <span class="token variable">$#</span>
+<span class="token builtin class-name">echo</span> <span class="token string">'==========$*=========='</span>
+<span class="token builtin class-name">echo</span> <span class="token variable">$*</span>
+<span class="token builtin class-name">echo</span> <span class="token string">'==========$@=========='</span>
+<span class="token builtin class-name">echo</span> <span class="token variable">$@</span>
+<span class="token punctuation">[</span>lxy25122@centos7 shells<span class="token punctuation">]</span>$ ./parameter.sh a b c d e f g
+<span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token variable">$n</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span>
+./parameter.sh
+a
+b
+<span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token variable">$#</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span>
+<span class="token number">7</span>
+<span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token variable">$*</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span>
+a b c d e f g
+<span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token variable">$@</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span>
+a b c d e f g
+</code></pre></div><h4 id="_2-3-4"><a href="#_2-3-4" class="header-anchor">#</a> 2.3.4 $?</h4> <p>基本语法：</p> <p>$？ （功能描述：最后一次执行的命令的返回状态。如果这个变量的值为0，证明上一个命令正确执行；如果这个变量的值为非 0（具体是哪个数，由命令自己来决定），则证明上一个命令执行不正确了。）</p> <p>eg：判断 helloworld.sh 脚本是否正确执行</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token punctuation">[</span>lxy25122@centos7 shells<span class="token punctuation">]</span>$ ./helloworld.sh
+hello world
+<span class="token punctuation">[</span>lxy25122@centos7 shells<span class="token punctuation">]</span>$ <span class="token builtin class-name">echo</span> <span class="token variable">$?</span>
+<span class="token number">0</span>
+</code></pre></div><h2 id="_3-运算符"><a href="#_3-运算符" class="header-anchor">#</a> 3. 运算符</h2> <p>基本语法：<code>“$((运算式))” 或 “$[运算式]”</code></p> <p>eg：计算（2+3）* 4 的值</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token number">25122</span>@LAPTOP-04B2GRAF MINGW64 /e/Work/data
+$ <span class="token builtin class-name">echo</span> $<span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token number">2</span>+3<span class="token punctuation">)</span>*4<span class="token punctuation">]</span>
+<span class="token number">20</span>
+
+<span class="token number">25122</span>@LAPTOP-04B2GRAF MINGW64 /e/Work/data
+$ <span class="token builtin class-name">echo</span> <span class="token variable"><span class="token variable">$((</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token operator">*</span><span class="token number">4</span><span class="token variable">))</span></span>
+<span class="token number">20</span>
+</code></pre></div><h2 id="_4-条件判断"><a href="#_4-条件判断" class="header-anchor">#</a> 4. 条件判断</h2> <p>基本语法：</p> <p>（1）test condition</p> <p>（2）[ condition ]（<strong>注意 condition 前后要有空格</strong>）</p> <p>注意：条件非空即为 true，[ lxy ]返回 true，[ ] 返回 false。</p> <p>常用判断条件：</p> <p>（1）两个整数之间比较</p> <ul><li><code>-eq</code> 等于（equal） <code>-ne</code> 不等于（not equal）</li> <li><code>-lt</code> 小于（less than） <code>-le</code> 小于等于（less equal）</li> <li><code>-gt</code> 大于（greater than） <code>-ge</code> 大于等于（greater equal）</li></ul> <p>注：如果是字符串之间的比较 ，用等号“=”判断相等；用“!=”判断不等。</p> <p>（2）按照文件权限进行判断</p> <ul><li><code>-r</code> 有读的权限（read）</li> <li><code>-w</code> 有写的权限（write）</li> <li><code>-x</code> 有执行的权限（execute）</li></ul> <p>（3）按照文件类型进行判断</p> <ul><li><code>-e</code> 文件存在（existence）</li> <li><code>-f</code> 文件存在并且是一个常规的文件（file）</li> <li><code>-d</code> 文件存在并且是一个目录（directory）</li></ul> <p>eg：</p> <p>（1）23是否大于等于22</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token number">25122</span>@LAPTOP-04B2GRAF MINGW64 /e/Work/data
+$ <span class="token punctuation">[</span> <span class="token number">23</span> <span class="token parameter variable">-ge</span> <span class="token number">22</span> <span class="token punctuation">]</span>
+
+<span class="token number">25122</span>@LAPTOP-04B2GRAF MINGW64 /e/Work/data
+$ <span class="token builtin class-name">echo</span> <span class="token variable">$?</span>
+<span class="token number">0</span>
+</code></pre></div><p>（2）a.txt是否具有写的权限</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token number">25122</span>@LAPTOP-04B2GRAF MINGW64 /e/Work/data
+$ <span class="token function">ls</span> <span class="token parameter variable">-l</span>
+total <span class="token number">3</span>
+-rw-r--r-- <span class="token number">1</span> <span class="token number">25122</span> <span class="token number">197609</span>  <span class="token number">35</span> Dec <span class="token number">23</span> <span class="token number">11</span>:28 a.txt
+-rwxr-xr-x <span class="token number">1</span> <span class="token number">25122</span> <span class="token number">197609</span> <span class="token number">180</span> Dec <span class="token number">23</span> <span class="token number">12</span>:16 paramater.sh*
+-rw-r--r-- <span class="token number">1</span> <span class="token number">25122</span> <span class="token number">197609</span>  <span class="token number">19</span> Dec <span class="token number">23</span> <span class="token number">11</span>:29 sh_te.sh
+
+<span class="token number">25122</span>@LAPTOP-04B2GRAF MINGW64 /e/Work/data
+$ <span class="token punctuation">[</span> <span class="token parameter variable">-w</span> a.txt <span class="token punctuation">]</span>
+
+<span class="token number">25122</span>@LAPTOP-04B2GRAF MINGW64 /e/Work/data
+$ <span class="token builtin class-name">echo</span> <span class="token variable">$?</span>
+<span class="token number">0</span>
+</code></pre></div><p>（3）/e/Work/data/a.txt 目录中的文件是否存在</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token number">25122</span>@LAPTOP-04B2GRAF MINGW64 /e/Work/data
+$ <span class="token punctuation">[</span> <span class="token parameter variable">-e</span> /e/Work/data/a.txt <span class="token punctuation">]</span>
+
+<span class="token number">25122</span>@LAPTOP-04B2GRAF MINGW64 /e/Work/data
+$ <span class="token builtin class-name">echo</span> <span class="token variable">$?</span>
+<span class="token number">0</span>
+
+<span class="token number">25122</span>@LAPTOP-04B2GRAF MINGW64 /e/Work/data
+$ <span class="token function">ls</span>
+a.txt  paramater.sh*  sh_te.sh  无标题-2023-12-25-2142.excalidraw
+</code></pre></div><p>（4）多条件判断（&amp;&amp; 表示前一条命令执行成功时，才执行后一条命令，|| 表示上一条命令执行失败后，才执行下一条命令）</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token number">25122</span>@LAPTOP-04B2GRAF MINGW64 /e/Work/data
+$ <span class="token punctuation">[</span> lxy25122 <span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> <span class="token builtin class-name">echo</span> OK <span class="token operator">||</span> <span class="token builtin class-name">echo</span> notOK
+OK
+
+<span class="token number">25122</span>@LAPTOP-04B2GRAF MINGW64 /e/Work/data
+$ <span class="token punctuation">[</span> <span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> <span class="token builtin class-name">echo</span> OK <span class="token operator">||</span> <span class="token builtin class-name">echo</span> notOK
+notOK
+</code></pre></div><h2 id="_5-流程控制-重点"><a href="#_5-流程控制-重点" class="header-anchor">#</a> 5. 流程控制（重点）</h2> <h3 id="_5-1-if判断"><a href="#_5-1-if判断" class="header-anchor">#</a> 5.1 if判断</h3> <p>基本语法：</p> <p>（1）单分支</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token keyword">if</span> <span class="token punctuation">[</span> 条件判断式 <span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token keyword">then</span>
+	程序
+<span class="token keyword">fi</span>
+</code></pre></div><p>或者</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token keyword">if</span> <span class="token punctuation">[</span> 条件判断式 <span class="token punctuation">]</span>
+<span class="token keyword">then</span>
+	程序
+<span class="token keyword">fi</span>
+</code></pre></div><p>（2）多分支</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token keyword">if</span> <span class="token punctuation">[</span> 条件判断式 <span class="token punctuation">]</span>
+<span class="token keyword">then</span>
+	程序
+<span class="token keyword">elif</span> <span class="token punctuation">[</span> 条件判断式 <span class="token punctuation">]</span>
+<span class="token keyword">then</span>
+	程序
+<span class="token keyword">else</span>
+	程序
+<span class="token keyword">fi</span>
+</code></pre></div><p>注意事项：</p> <p>①[ 条件判断式 ]，中括号和条件判断式之间必须有空格</p> <p>②if 后要有空格</p> <p>eg：输入一个数字，如果是 1，则输出 banzhang zhen shuai，如果是 2，则输出cls zhen mei，如果是其它，什么也不输出。</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token shebang important">#!/bin/bash</span>
+<span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token variable">$1</span> <span class="token parameter variable">-eq</span> <span class="token number">1</span> <span class="token punctuation">]</span>
+<span class="token keyword">then</span>
+        <span class="token builtin class-name">echo</span> <span class="token string">&quot;banzhang zhen shuai&quot;</span>
+<span class="token keyword">elif</span> <span class="token punctuation">[</span> <span class="token variable">$1</span> <span class="token parameter variable">-eq</span> <span class="token number">2</span> <span class="token punctuation">]</span>
+<span class="token keyword">then</span>
+        <span class="token builtin class-name">echo</span> <span class="token string">&quot;cls zhen mei&quot;</span>
+<span class="token keyword">fi</span>
+</code></pre></div><h3 id="_5-2-case语句"><a href="#_5-2-case语句" class="header-anchor">#</a> 5.2 case语句</h3> <p>基本语法：</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token keyword">case</span> $变量名 <span class="token keyword">in</span>
+<span class="token string">&quot;值1&quot;</span>）
+	如果变量的值等于值 <span class="token number">1</span>，则执行程序 <span class="token number">1</span>
+<span class="token punctuation">;</span><span class="token punctuation">;</span>
+<span class="token string">&quot;值2&quot;</span>）
+	如果变量的值等于值 <span class="token number">2</span>，则执行程序 <span class="token number">2</span>
+<span class="token punctuation">;</span><span class="token punctuation">;</span>
+	…省略其他分支…
+*）
+	如果变量的值都不是以上的值，则执行此程序
+<span class="token punctuation">;</span><span class="token punctuation">;</span>
+<span class="token keyword">esac</span>
+</code></pre></div><p>注意事项：</p> <p>（1）case 行尾必须为单词“in”，每一个模式匹配必须以右括号“）”结束。</p> <p>（2）双分号“;;”表示命令序列结束，相当于 java 中的 break。</p> <p>（3）最后的“*）”表示默认模式，相当于 java 中的 default。</p> <p>eg：输入一个数字，如果是 1，则输出 banzhang，如果是 2，则输出cls，如果是其它，输出renyao。</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token operator">!</span>/bin/bash
+<span class="token keyword">case</span> <span class="token variable">$1</span> <span class="token keyword">in</span>
+<span class="token string">&quot;1&quot;</span><span class="token punctuation">)</span>
+	<span class="token builtin class-name">echo</span> <span class="token string">&quot;banzhang&quot;</span>
+<span class="token punctuation">;</span><span class="token punctuation">;</span>
+<span class="token string">&quot;2&quot;</span><span class="token punctuation">)</span>
+	<span class="token builtin class-name">echo</span> <span class="token string">&quot;cls&quot;</span>
+<span class="token punctuation">;</span><span class="token punctuation">;</span>
+*<span class="token punctuation">)</span>
+	<span class="token builtin class-name">echo</span> <span class="token string">&quot;renyao&quot;</span>
+<span class="token punctuation">;</span><span class="token punctuation">;</span>
+<span class="token keyword">esac</span>
+</code></pre></div><h3 id="_5-3-for循环"><a href="#_5-3-for循环" class="header-anchor">#</a> 5.3 for循环</h3> <p>基本语法：</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token keyword">for</span> <span class="token variable"><span class="token punctuation">((</span> 初始值<span class="token punctuation">;</span>循环控制条件<span class="token punctuation">;</span>变量变化 <span class="token punctuation">))</span></span>
+<span class="token keyword">do</span>
+	程序
+<span class="token keyword">done</span>
+</code></pre></div><p>eg：从 1 加到 100</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token shebang important">#!/bin/bash</span>
+<span class="token assign-left variable">sum</span><span class="token operator">=</span><span class="token number">0</span>
+<span class="token keyword">for</span><span class="token variable"><span class="token punctuation">((</span>i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;=</span><span class="token number">100</span><span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">))</span></span>
+<span class="token keyword">do</span>
+	<span class="token assign-left variable">sum</span><span class="token operator">=</span>$<span class="token punctuation">[</span><span class="token variable">$sum</span>+<span class="token variable">$i</span><span class="token punctuation">]</span>
+<span class="token keyword">done</span>
+<span class="token builtin class-name">echo</span> <span class="token variable">$sum</span>
+</code></pre></div><p>基本语法2：</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token keyword">for</span> 变量 <span class="token keyword">in</span> 值 <span class="token number">1</span> 值 <span class="token number">2</span> 值 <span class="token number">3</span>…
+<span class="token keyword">do</span>
+	程序
+<span class="token keyword">done</span>
+</code></pre></div><p>eg：</p> <p>（1）打印所有输入参数</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token shebang important">#!/bin/bash</span>
+<span class="token comment">#打印数字</span>
+<span class="token keyword">for</span> <span class="token for-or-select variable">i</span> <span class="token keyword">in</span> cls mly wls
+<span class="token keyword">do</span>
+	<span class="token builtin class-name">echo</span> <span class="token string">&quot;ban zhang love <span class="token variable">$i</span>&quot;</span>
+<span class="token keyword">done</span>
+</code></pre></div><div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">25122</span>@LAPTOP-04B2GRAF MINGW64 /e/Work/data
+$ ./for_test.sh
+ban zhang love cls
+ban zhang love mly
+ban zhang love wls
+</code></pre></div><p>（2）比较$*和$@区别</p> <p>$*和$@都表示传递给函数或脚本的所有参数，不被双引号“”包含时，都以$1 $2 …$n的形式输出所有参数。</p> <p>当它们被双引号“”包含时，$*会将所有的参数作为一个整体，以“$1 $2 …$n”的形式输出所有参数；$@会将各个参数分开，以“$1” “$2”…“$n”的形式输出所有参数。</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token shebang important">#!/bin/bash</span>
+<span class="token builtin class-name">echo</span> <span class="token string">'=============$*============='</span>
+<span class="token keyword">for</span> <span class="token for-or-select variable">i</span> <span class="token keyword">in</span> <span class="token string">&quot;<span class="token variable">$*</span>&quot;</span>
+<span class="token comment">#$*中的所有参数看成是一个整体，所以这个 for 循环只会循环一次</span>
+<span class="token keyword">do</span>
+	<span class="token builtin class-name">echo</span> <span class="token string">&quot;ban zhang love <span class="token variable">$i</span>&quot;</span>
+<span class="token keyword">done</span>
+<span class="token builtin class-name">echo</span> <span class="token string">'=============$@============='</span>
+<span class="token keyword">for</span> <span class="token for-or-select variable">j</span> <span class="token keyword">in</span> <span class="token string">&quot;<span class="token variable">$@</span>&quot;</span>
+<span class="token comment">#$@中的每个参数都看成是独立的，所以“$@”中有几个参数，就会循环几次</span>
+<span class="token keyword">do</span>
+	<span class="token builtin class-name">echo</span> <span class="token string">&quot;ban zhang love <span class="token variable">$j</span>&quot;</span>
+<span class="token keyword">done</span>
+</code></pre></div><div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">25122</span>@LAPTOP-04B2GRAF MINGW64 /e/Work/data
+$ ./for_test2.sh xiaoli xiaotu xiaobai
+<span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">=</span><span class="token variable">$*</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">=</span>
+ban zhang love xiaoli xiaotu xiaobai
+<span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">=</span><span class="token variable">$@</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">=</span>
+ban zhang love xiaoli
+ban zhang love xiaotu
+ban zhang love xiaobai
+</code></pre></div><h3 id="_5-4-while循环"><a href="#_5-4-while循环" class="header-anchor">#</a> 5.4 while循环</h3> <p>基本语法：</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token keyword">while</span> <span class="token punctuation">[</span> 条件判断式 <span class="token punctuation">]</span>
+<span class="token keyword">do</span>
+	程序
+<span class="token keyword">done</span>
+</code></pre></div><p>eg：</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token shebang important">#!/bin/bash</span>
+<span class="token assign-left variable">sum</span><span class="token operator">=</span><span class="token number">0</span>
+<span class="token assign-left variable">i</span><span class="token operator">=</span><span class="token number">1</span>
+<span class="token keyword">while</span> <span class="token punctuation">[</span> <span class="token variable">$i</span> <span class="token parameter variable">-le</span> <span class="token number">100</span> <span class="token punctuation">]</span>
+<span class="token keyword">do</span>
+	<span class="token assign-left variable">sum</span><span class="token operator">=</span>$<span class="token punctuation">[</span><span class="token variable">$sum</span>+<span class="token variable">$i</span><span class="token punctuation">]</span>
+	<span class="token assign-left variable">i</span><span class="token operator">=</span>$<span class="token punctuation">[</span><span class="token variable">$i</span>+1<span class="token punctuation">]</span>
+<span class="token keyword">done</span>
+<span class="token builtin class-name">echo</span> <span class="token variable">$sum</span>
+</code></pre></div><h2 id="_6-read读取控制台输入"><a href="#_6-read读取控制台输入" class="header-anchor">#</a> 6. read读取控制台输入</h2> <p>基本语法：</p> <p>read (选项) (参数)</p> <p>①选项：</p> <ul><li>-p：指定读取值时的提示符；</li> <li>-t：指定读取值时等待的时间（秒）如果-t 不加表示一直等待</li></ul> <p>②参数</p> <ul><li>变量：指定读取值的变量名</li></ul> <p>eg：提示 7 秒内，读取控制台输入的名称</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token shebang important">#!/bin/bash</span>
+<span class="token builtin class-name">read</span> <span class="token parameter variable">-t</span> <span class="token number">7</span> <span class="token parameter variable">-p</span> <span class="token string">&quot;Enter your name in 7 seconds :&quot;</span> NN
+<span class="token builtin class-name">echo</span> <span class="token variable">$NN</span>
+</code></pre></div><div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">25122</span>@LAPTOP-04B2GRAF MINGW64 /e/Work/data
+$ ./read.sh
+Enter your name <span class="token keyword">in</span> <span class="token number">7</span> seconds :xiaoli
+xiaoli
+</code></pre></div><h2 id="_7-函数"><a href="#_7-函数" class="header-anchor">#</a> 7. 函数</h2> <h3 id="_7-1-系统函数"><a href="#_7-1-系统函数" class="header-anchor">#</a> 7.1 系统函数</h3> <h4 id="_7-1-1-basename"><a href="#_7-1-1-basename" class="header-anchor">#</a> 7.1.1 basename</h4> <p>基本语法：</p> <ul><li><p><code>basename [string / pathname] [suffix]</code></p></li> <li><p>功能描述：basename 命令会删掉所有的前缀包括最后一个（‘/’）字符，然后将字符串显示出来。</p> <p>basename 可以理解为取路径里的文件名称</p></li></ul> <p>选项：</p> <ul><li>suffix 为后缀，如果 suffix 被指定了，basename 会将 pathname 或string 中的suffix 去掉</li></ul> <p>eg：截取该<code>/e/Work/data/a.txt</code> 路径的文件名称</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token number">25122</span>@LAPTOP-04B2GRAF MINGW64 /e/Work/data
+$ <span class="token function">basename</span> /e/Work/data/a.txt
+a.txt
+
+<span class="token number">25122</span>@LAPTOP-04B2GRAF MINGW64 /e/Work/data
+$ <span class="token function">basename</span> /e/Work/data/a.txt .txt
+a
+</code></pre></div><h4 id="_7-1-2-dirname"><a href="#_7-1-2-dirname" class="header-anchor">#</a> 7.1.2 dirname</h4> <p>基本语法：</p> <ul><li><p><code>dirname 文件绝对路径</code></p></li> <li><p>功能描述：从给定的包含绝对路径的文件名中去除文件名（非目录的部分），然后返回剩下的路径（目录的部分）</p> <p>dirname 可以理解为取文件路径的绝对路径名称</p></li></ul> <p>注：<strong>绝对路径</strong></p> <p>eg：获取 read.sh 文件的路径</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token number">25122</span>@LAPTOP-04B2GRAF MINGW64 /e/Work/data
+$ <span class="token function">dirname</span> ./read.sh
+<span class="token builtin class-name">.</span>
+
+<span class="token number">25122</span>@LAPTOP-04B2GRAF MINGW64 /e/Work/data
+$ <span class="token function">dirname</span> /e/Work/data/read.sh
+/e/Work/data
+</code></pre></div><h3 id="_7-2-自定义函数"><a href="#_7-2-自定义函数" class="header-anchor">#</a> 7.2 自定义函数</h3> <p>基本语法：</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token punctuation">[</span> <span class="token keyword">function</span> <span class="token punctuation">]</span> funname<span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+<span class="token punctuation">{</span>
+    Action<span class="token punctuation">;</span>
+    <span class="token punctuation">[</span>return int<span class="token punctuation">;</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>注意：</p> <p>（1）必须在调用函数地方之前，先声明函数，shell 脚本是逐行运行。不会像其它语言一样先编译。</p> <p>（2）函数返回值，只能通过$?系统变量获得，可以显示加：return 返回，如果不加，将以最后一条命令运行结果，作为返回值。return 后跟数值 n(0-255)</p> <p>eg：计算两个输入参数的和</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token shebang important">#!/bin/bash</span>
+<span class="token keyword">function</span> <span class="token function-name function">sum</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+        <span class="token assign-left variable">s</span><span class="token operator">=</span><span class="token number">0</span>
+        <span class="token assign-left variable">s</span><span class="token operator">=</span>$<span class="token punctuation">[</span><span class="token variable">$1</span>+<span class="token variable">$2</span><span class="token punctuation">]</span>
+        <span class="token builtin class-name">echo</span> <span class="token string">&quot;<span class="token variable">$s</span>&quot;</span>
+<span class="token punctuation">}</span>
+<span class="token builtin class-name">read</span> <span class="token parameter variable">-p</span> <span class="token string">&quot;Please input the number1: &quot;</span> n1<span class="token punctuation">;</span>
+<span class="token builtin class-name">read</span> <span class="token parameter variable">-p</span> <span class="token string">&quot;Please input the number2: &quot;</span> n2<span class="token punctuation">;</span>
+<span class="token function">sum</span> <span class="token variable">$n1</span> <span class="token variable">$n2</span><span class="token punctuation">;</span>
+</code></pre></div><div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">25122</span>@LAPTOP-04B2GRAF MINGW64 /e/Work/data
+$ ./add_sum.sh
+Please input the number1: <span class="token number">18</span>
+Please input the number2: <span class="token number">32</span>
+<span class="token number">50</span>
+</code></pre></div><h2 id="_8-正则表达式入门"><a href="#_8-正则表达式入门" class="header-anchor">#</a> 8. 正则表达式入门</h2> <p>正则表达式使用单个字符串来描述、匹配一系列符合某个语法规则的字符串。在很多文本编辑器里，正则表达式通常被用来检索、替换那些符合某个模式的文本。在Linux 中，grep，sed，awk 等文本处理工具都支持通过正则表达式进行模式匹配。</p> <h3 id="_8-1-常规匹配"><a href="#_8-1-常规匹配" class="header-anchor">#</a> 8.1 常规匹配</h3> <p>一串不包含特殊字符的正则表达式匹配它自己，</p> <p>例如：匹配所有包含read的行</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">25122</span>@LAPTOP-04B2GRAF MINGW64 /e/Work/data
+$ <span class="token function">cat</span> /e/Work/data/add_sum.sh <span class="token operator">|</span> <span class="token function">grep</span> <span class="token builtin class-name">read</span>
+<span class="token builtin class-name">read</span> <span class="token parameter variable">-p</span> <span class="token string">&quot;Please input the number1: &quot;</span> n1<span class="token punctuation">;</span>
+<span class="token builtin class-name">read</span> <span class="token parameter variable">-p</span> <span class="token string">&quot;Please input the number2: &quot;</span> n2<span class="token punctuation">;</span>
+</code></pre></div><h3 id="_8-2-特殊类型字符"><a href="#_8-2-特殊类型字符" class="header-anchor">#</a> 8.2 特殊类型字符</h3> <p><strong>1）特殊字符</strong>：<code>^</code></p> <p>^ 匹配一行的开头，</p> <p>例如：<code>cat /etc/passwd | grep ^a</code>会匹配出所有以a开头的行</p> <p><strong>2）特殊字符</strong>：<code>$</code></p> <p>$ 匹配一行的结束，</p> <p>例如：<code>cat /etc/passwd | grep t$</code>会匹配出所有以 t 结尾的行</p> <p><strong>3）特殊字符</strong>：<code>.</code></p> <p>. 匹配一个任意的字符，</p> <p>例如：<code>cat /etc/passwd | grep r..t</code>会匹配包含 rabt,rbbt,rxdt,root 等的所有行</p> <p><strong>4）特殊字符</strong>：<code>*</code></p> <p>* 不单独使用，他和上一个字符连用，表示匹配上一个字符 0 次或多次</p> <p>例如：<code>cat /etc/passwd | grep ro*t</code>会匹配 rt, rot, root, rooot, roooot 等所有行</p> <p><strong>5）字符区间（中括号）</strong>：<code>[ ]</code></p> <div class="language- extra-class"><pre class="language-text"><code>[ ] 表示匹配某个范围内的一个字符，例如
+[6,8]------匹配 6 或者 8
+[0-9]------匹配一个 0-9 的数字
+[0-9]*------匹配任意长度的数字字符串
+[a-z]------匹配一个 a-z 之间的字符
+[a-z]* ------匹配任意长度的字母字符串
+[a-c, e-f]-匹配 a-c 或者 e-f 之间的任意字符
+</code></pre></div><p>例如：<code>cat /etc/passwd | grep r[a,b,c]*t</code>会匹配 rt,rat, rbt, rabt, rbact,rabccbaaacbt 等等所有行</p> <p><strong>6）特殊字符</strong>：<code>\</code></p> <p>\ 表示转义，并不会单独使用。由于所有特殊字符都有其特定匹配模式，当我们想匹配某一特殊字符本身时（例如，我想找出所有包含 '$' 的行），就会碰到困难。此时我们就要将转义字符和特殊字符连用，来表示特殊字符本身，</p> <p>例如：<code>cat /etc/passwd | grep ‘a\$b’</code>就会匹配所有包含 a$b 的行。注意需要使用单引号将表达式引起来。</p> <h2 id="_9-文本处理工具"><a href="#_9-文本处理工具" class="header-anchor">#</a> 9. 文本处理工具</h2> <h3 id="_9-1-cut"><a href="#_9-1-cut" class="header-anchor">#</a> 9.1 cut</h3> <p>cut 的工作就是“剪”，具体的说就是在文件中负责剪切数据用的。cut 命令从文件的每一行剪切字节、字符和字段并将这些字节、字符和字段输出。</p> <p>基本用法：</p> <ul><li>cut [选项参数] filename</li> <li>说明：默认分隔符是制表符</li></ul> <p>选项说明：</p> <ul><li><code>-f</code>：列号，提取第几列</li> <li><code>-d</code>：分隔符，按照指定分隔符分割列，默认是制表符“\t”</li> <li><code>-c</code>：按字符进行切割 后加加 n 表示取第几列 比如-c 1</li></ul> <p>eg：</p> <p>（1）数据准备</p> <div class="language- extra-class"><pre class="language-text"><code>dong shen
+guan zhen
+wo wo
+lai lai
+le le
+</code></pre></div><p>（2）切割 cut.txt 第一列</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token number">25122</span>@LAPTOP-04B2GRAF MINGW64 /e/Work/data
+$ <span class="token function">cut</span> <span class="token parameter variable">-d</span> <span class="token string">&quot; &quot;</span> <span class="token parameter variable">-f</span> <span class="token number">1</span> cut.txt
+dong
+guan
+wo
+lai
+le
+</code></pre></div><p>（3）切割 cut.txt 第二、三列</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token number">25122</span>@LAPTOP-04B2GRAF MINGW64 /e/Work/data
+$ <span class="token function">cut</span> <span class="token parameter variable">-d</span> <span class="token string">&quot; &quot;</span> <span class="token parameter variable">-f</span> <span class="token number">2,3</span> cut.txt
+shen
+zhen
+wo
+lai
+le
+</code></pre></div><p>（4）在 cut.txt 文件中切割出 guan</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token number">25122</span>@LAPTOP-04B2GRAF MINGW64 /e/Work/data
+$ <span class="token function">cat</span> cut.txt <span class="token operator">|</span><span class="token function">grep</span> guan <span class="token operator">|</span> <span class="token function">cut</span> <span class="token parameter variable">-d</span> <span class="token string">&quot; &quot;</span> <span class="token parameter variable">-f</span> <span class="token number">1</span>
+guan
+</code></pre></div><p>（5）选取系统 PATH 变量值，第 2 个“：”开始后的所有路径</p> <p><code>echo $PATH | cut -d &quot;:&quot; -f 3-</code></p> <p>（6）切割 ifconfig 后打印的 IP 地址</p> <div class="language- extra-class"><pre class="language-text"><code>$ ifconfig ens33 | grep netmask | cut -d &quot; &quot; -f 
+</code></pre></div><h3 id="_9-2-awk"><a href="#_9-2-awk" class="header-anchor">#</a> 9.2 awk</h3> <p>一个强大的文本分析工具，把文件逐行的读入，以空格为默认分隔符将每行切片，切开的部分再进行分析处理。</p> <p>基本用法：</p> <ul><li>awk [选项参数] ‘/pattern1/{action1} /pattern2/{action2}...’ filename</li> <li>pattern：表示 awk 在数据中查找的内容，就是匹配模式</li> <li>action：在找到匹配内容时所执行的一系列命令</li></ul> <p>选项说明：</p> <ul><li><code>-F</code> 指定输入文件分隔符</li> <li><code>-v</code> 赋值一个用户定义变量</li></ul> <p>eg：</p> <p>（1）数据准备</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token punctuation">[</span>lxy25122@centos7 test<span class="token punctuation">]</span>$ <span class="token function">sudo</span> <span class="token function">cp</span> /etc/passwd ./
+
+<span class="token punctuation">[</span>lxy25122@centos7 test<span class="token punctuation">]</span>$ <span class="token function">head</span> <span class="token parameter variable">-5</span> <span class="token function">passwd</span>
+root:x:0:0:root:/root:/bin/bash
+bin:x:1:1:bin:/bin:/sbin/nologin
+daemon:x:2:2:daemon:/sbin:/sbin/nologin
+adm:x:3:4:adm:/var/adm:/sbin/nologin
+lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+<span class="token comment">#passwd 数据的含义</span>
+<span class="token comment">#用户名:密码(加密过后的):用户 id:组 id:注释:用户家目录:shell 解析器</span>
+</code></pre></div><p>（2）搜索 passwd 文件以 root 关键字开头的所有行，并输出该行的第7 列。</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token punctuation">[</span>lxy25122@centos7 test<span class="token punctuation">]</span>$ <span class="token function">awk</span> <span class="token parameter variable">-F</span> <span class="token builtin class-name">:</span> <span class="token string">'/^root/{print $7}'</span> <span class="token function">passwd</span>
+/bin/bash
+</code></pre></div><p>（3）搜索 passwd 文件以 root 关键字开头的所有行，并输出该行的第1 列和第7 列，中间以“，”号分割。</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token punctuation">[</span>lxy25122@centos7 test<span class="token punctuation">]</span>$ <span class="token function">awk</span> <span class="token parameter variable">-F</span> <span class="token builtin class-name">:</span> <span class="token string">'/^root/{print $1&quot;,&quot;$7}'</span> <span class="token function">passwd</span>
+root,/bin/bash
+</code></pre></div><p>（4）只显示/etc/passwd 的第一列和第七列，以逗号分割，且在所有行前面添加列名user，shell 在最后一行添加&quot;dahaige，/bin/zuishuai&quot;。</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token punctuation">[</span>lxy25122@centos7 test<span class="token punctuation">]</span>$ <span class="token function">awk</span> <span class="token parameter variable">-F</span> <span class="token builtin class-name">:</span> <span class="token string">'BEGIN{print &quot;user,shell&quot;}{print $1,$7}END{print &quot;dahaige,/bin/zuishuai&quot;}'</span> <span class="token function">passwd</span>
+</code></pre></div><p>注意：BEGIN 在所有数据读取行之前执行；END 在所有数据执行之后执行。</p> <p>（5）将 passwd 文件中的用户 id 增加数值 1 并输出</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token punctuation">[</span>lxy25122@centos7 test<span class="token punctuation">]</span>$ <span class="token function">awk</span> <span class="token parameter variable">-v</span> <span class="token assign-left variable">i</span><span class="token operator">=</span><span class="token number">1</span> <span class="token parameter variable">-F</span> <span class="token builtin class-name">:</span> <span class="token string">'{print $3+i}'</span> <span class="token function">passwd</span>
+<span class="token number">1</span>
+<span class="token number">2</span>
+<span class="token number">3</span>
+<span class="token number">4</span>
+。。。
+</code></pre></div><p>awk内置变量</p> <p>变量说明</p> <ul><li><code>FILENAME</code> 文件名</li> <li><code>NR</code> 已读的记录数（行号）</li> <li><code>NF</code> 浏览记录的域的个数（切割后，列的个数）</li></ul> <p>eg：</p> <p>（1）统计 passwd 文件名，每行的行号，每行的列数</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token punctuation">[</span>lxy25122@centos7 test<span class="token punctuation">]</span>$ <span class="token function">awk</span> <span class="token parameter variable">-F</span> <span class="token builtin class-name">:</span> <span class="token string">'{print &quot;文件名:&quot; FILENAME &quot;,行数：&quot;NR&quot;,列数：&quot;NF}'</span> <span class="token function">passwd</span>
+文件名:passwd,行数：1,列数：7
+文件名:passwd,行数：2,列数：7
+文件名:passwd,行数：3,列数：7
+。。。
+</code></pre></div><p>（2）查询 ifconfig 命令输出结果中的空行所在的行号</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token punctuation">[</span>lxy25122@centos7 test<span class="token punctuation">]</span>$ <span class="token function">ifconfig</span> <span class="token operator">|</span> <span class="token function">awk</span> <span class="token string">'/^$/{print NR}'</span>
+<span class="token number">9</span>
+<span class="token number">18</span>
+</code></pre></div><p>（3）切割 IP</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token punctuation">[</span>lxy25122@centos7 test<span class="token punctuation">]</span>$ <span class="token function">ifconfig</span> ens33 <span class="token operator">|</span> <span class="token function">awk</span> <span class="token string">'/netmask/{print $2}'</span>
+<span class="token number">192.168</span>.137.50
+</code></pre></div><h2 id="_10-综合应用案例"><a href="#_10-综合应用案例" class="header-anchor">#</a> 10. 综合应用案例</h2> <h3 id="_10-1-归档文件"><a href="#_10-1-归档文件" class="header-anchor">#</a> 10.1 归档文件</h3> <h3 id="_10-2-发送消息"><a href="#_10-2-发送消息" class="header-anchor">#</a> 10.2 发送消息</h3></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/learn-ceiling/handbook/Learn/Linux/07-克隆虚拟机.html" class="prev">
+        07-克隆虚拟机
+      </a></span> <span class="next"><a href="/learn-ceiling/handbook/Learn/RabbitMQ/1.RabbitMQ-简介及安装.html">
+        项目概述
+      </a>
+      →
+    </span></p></div> </main></div> <div class="footer" data-v-34d4abe6><div id="footer-info" data-v-34d4abe6><div class="footer-left" data-v-34d4abe6>
+      © 2023-2024
+      <span data-v-34d4abe6><a href="https://github.com/25122lxy/" target="_blank">lxy25122</a></span></div> <div class="footer-right" data-v-34d4abe6>Theme:<a href="https://github.com/JoeyBling/vuepress-theme-yilia-plus" target="_blank">vuepress-theme-yilia-plus</a> by Litten</div></div> <!----></div></main><div class="global-ui"><div id="live2d-widget" class="live2d-widget-container" style="position:fixed;right:65px;bottom:0px;width:135px;height:300px;z-index:99999;opacity:0.8;pointer-events:none;"><canvas id="live2d_canvas" width="135" height="300" class="live2d_canvas" style="position:absolute;left:0px;top:0px;width:135px;height:300px;"></canvas></div><canvas id="vuepress-canvas-cursor"></canvas></div></div>
+    <script src="/learn-ceiling/assets/js/app.235538a9.js" defer></script><script src="/learn-ceiling/assets/js/2.c7d2b1f7.js" defer></script><script src="/learn-ceiling/assets/js/34.ea24ea8b.js" defer></script>
+  </body>
+</html>
