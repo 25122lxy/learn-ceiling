@@ -844,3 +844,108 @@ $ ifconfig ens33 | grep netmask | cut -d " " -f
 
 ### 9.2 awk
 
+一个强大的文本分析工具，把文件逐行的读入，以空格为默认分隔符将每行切片，切开的部分再进行分析处理。
+
+基本用法：
+
+- awk [选项参数] ‘/pattern1/{action1} /pattern2/{action2}...’ filename 
+- pattern：表示 awk 在数据中查找的内容，就是匹配模式 
+- action：在找到匹配内容时所执行的一系列命令
+
+选项说明：
+
+- `-F` 指定输入文件分隔符 
+- `-v` 赋值一个用户定义变量
+
+eg：
+
+（1）数据准备
+
+```shell
+[lxy25122@centos7 test]$ sudo cp /etc/passwd ./
+
+[lxy25122@centos7 test]$ head -5 passwd
+root:x:0:0:root:/root:/bin/bash
+bin:x:1:1:bin:/bin:/sbin/nologin
+daemon:x:2:2:daemon:/sbin:/sbin/nologin
+adm:x:3:4:adm:/var/adm:/sbin/nologin
+lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+#passwd 数据的含义
+#用户名:密码(加密过后的):用户 id:组 id:注释:用户家目录:shell 解析器
+```
+
+（2）搜索 passwd 文件以 root 关键字开头的所有行，并输出该行的第7 列。
+
+```shell
+[lxy25122@centos7 test]$ awk -F : '/^root/{print $7}' passwd
+/bin/bash
+```
+
+（3）搜索 passwd 文件以 root 关键字开头的所有行，并输出该行的第1 列和第7 列，中间以“，”号分割。
+
+```shell
+[lxy25122@centos7 test]$ awk -F : '/^root/{print $1","$7}' passwd
+root,/bin/bash
+```
+
+（4）只显示/etc/passwd 的第一列和第七列，以逗号分割，且在所有行前面添加列名user，shell 在最后一行添加"dahaige，/bin/zuishuai"。
+
+```shell
+[lxy25122@centos7 test]$ awk -F : 'BEGIN{print "user,shell"}{print $1,$7}END{print "dahaige,/bin/zuishuai"}' passwd
+```
+
+注意：BEGIN 在所有数据读取行之前执行；END 在所有数据执行之后执行。
+
+（5）将 passwd 文件中的用户 id 增加数值 1 并输出
+
+```shell
+[lxy25122@centos7 test]$ awk -v i=1 -F : '{print $3+i}' passwd
+1
+2
+3
+4
+。。。
+```
+
+awk内置变量
+
+变量说明 
+
+- `FILENAME` 文件名 
+- `NR` 已读的记录数（行号） 
+- `NF` 浏览记录的域的个数（切割后，列的个数）
+
+eg：
+
+（1）统计 passwd 文件名，每行的行号，每行的列数
+
+```shell
+[lxy25122@centos7 test]$ awk -F : '{print "文件名:" FILENAME ",行数："NR",列数："NF}' passwd
+文件名:passwd,行数：1,列数：7
+文件名:passwd,行数：2,列数：7
+文件名:passwd,行数：3,列数：7
+。。。
+```
+
+（2）查询 ifconfig 命令输出结果中的空行所在的行号
+
+```shell
+[lxy25122@centos7 test]$ ifconfig | awk '/^$/{print NR}'
+9
+18
+```
+
+（3）切割 IP
+
+```shell
+[lxy25122@centos7 test]$ ifconfig ens33 | awk '/netmask/{print $2}'
+192.168.137.50
+```
+
+## 10. 综合应用案例
+
+### 10.1 归档文件
+
+
+
+### 10.2 发送消息
